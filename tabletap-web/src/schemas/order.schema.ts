@@ -10,14 +10,14 @@ const DishSnapshotSchema = z.object({
   image: z.string(),
   description: z.string(),
   status: z.enum(DishStatusValues),
-  dishId: z.number().nullable(),
+  dishId: z.string().nullable(),
   createdAt: z.date(),
   updatedAt: z.date(),
 });
 
 export const OrderSchema = z.object({
   id: z.string(),
-  guestId: z.number().nullable(),
+  guestId: z.string().nullable(),
   guest: z
     .object({
       id: z.string(),
@@ -31,7 +31,7 @@ export const OrderSchema = z.object({
   dishSnapshotId: z.string(),
   dishSnapshot: DishSnapshotSchema,
   quantity: z.number(),
-  orderHandlerId: z.number().nullable(),
+  orderHandlerId: z.string().nullable(),
   orderHandler: AccountSchema.nullable(),
   status: z.enum(OrderStatusValues),
   createdAt: z.date(),

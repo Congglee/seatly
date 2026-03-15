@@ -50,7 +50,7 @@ export function middleware(request: NextRequest) {
       privatePaths.some((path) => pathname.startsWith(path)) &&
       !accessToken
     ) {
-      const url = new URL("/restore-session", request.url);
+      const url = new URL("/refresh-token", request.url);
 
       // Put `refreshToken` and the redirect path into the URL search params
       // so the client can read them with `useSearchParams`.
@@ -93,5 +93,5 @@ export function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/", "/manage/:path*", "/guest/:path*", "/login"],
+  matcher: ["/manage/:path*", "/guest/:path*", "/login", "/"],
 };

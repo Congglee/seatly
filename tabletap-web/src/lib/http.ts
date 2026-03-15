@@ -193,10 +193,9 @@ const request = async <Response>(
     if (["api/auth/login", "api/guest/auth/login"].includes(normalizeUrl)) {
       // Persist tokens after a successful client-side login request.
       const { accessToken, refreshToken } = (payload as LoginResType).data;
-
       setAccessTokenToLocalStorage(accessToken);
       setRefreshTokenToLocalStorage(refreshToken);
-    } else if ("api/auth/session" === normalizeUrl) {
+    } else if ("api/auth/token" === normalizeUrl) {
       const { accessToken, refreshToken } = payload as {
         accessToken: string;
         refreshToken: string;

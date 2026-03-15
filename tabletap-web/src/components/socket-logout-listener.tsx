@@ -4,7 +4,7 @@ import { handleErrorApi } from "@/lib/utils/api-error";
 import { useLogoutMutation } from "@/queries/use-auth";
 import { useEffect } from "react";
 
-const UNAUTHENTICATED_PATHS = ["/login", "/register", "/restore-session"];
+const UNAUTHENTICATED_PATHS = ["/login", "/register", "/refresh-token"];
 
 export default function SocketLogoutListener() {
   const pathname = usePathname();
@@ -26,7 +26,6 @@ export default function SocketLogoutListener() {
 
       try {
         await mutateAsync();
-
         setRole(undefined);
         disconnectSocket();
         router.push("/");

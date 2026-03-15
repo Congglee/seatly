@@ -6,7 +6,7 @@ import { useEffect } from "react";
 import { useAppStore } from "@/providers/app-provider";
 
 // Pages that should not check the refresh token
-const UNAUTHENTICATED_PATHS = ["/login", "/restore-session"];
+const UNAUTHENTICATED_PATHS = ["/login", "/refresh-token"];
 
 // This component handles the case where the access token expires while using the website
 // It prevents that situation by creating a setInterval to continuously check the token and refresh it before it expires

@@ -42,7 +42,7 @@ const guestApiRequest = {
     http.post("/api/guest/auth/logout", null, { baseUrl: "" }),
 
   refreshTokenFromServer: (body: RefreshTokenBodyType) =>
-    http.post<RefreshTokenResType>("/guest/auth/session/refresh", body),
+    http.post<RefreshTokenResType>("/guest/auth/refresh-token", body),
 
   // Switched from an arrow function to a regular function so the `this` keyword can be used.
   async refreshTokenFromClient() {
@@ -56,7 +56,7 @@ const guestApiRequest = {
 
     // If there is no pending refresh token request, call the refresh token API.
     this.refreshTokenRequest = http.post<RefreshTokenResType>(
-      "/api/guest/auth/session/refresh",
+      "/api/guest/auth/refresh-token",
       null,
       { baseUrl: "" }
     );

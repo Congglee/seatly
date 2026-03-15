@@ -1,4 +1,6 @@
 import authApiRequest from "@/apis/auth.api";
+import guestApiRequest from "@/apis/guest.api";
+import { Role } from "@/constants/type";
 import { decodeToken } from "@/lib/jwt-decode";
 import {
   getAccessTokenFromLocalStorage,
@@ -36,11 +38,13 @@ export const refreshTokensIfNeeded = async (params?: {
       (decodedAccessToken.exp - decodedAccessToken.iat) / 3
   ) {
     try {
-      const res = await authApiRequest.refreshTokenFromClient();
-
+      const role = decodedRefreshToken.role;
+      const res =
+        role === Role.Guest
+          ? await guestApiRequest.refreshTokenFromClient()
+          : await authApiRequest.refreshTokenFromClient();
       setAccessTokenToLocalStorage(res.payload.data.accessToken);
       setRefreshTokenToLocalStorage(res.payload.data.refreshToken);
-
       params?.onSuccess && params.onSuccess();
     } catch {
       params?.onError && params.onError();
