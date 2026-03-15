@@ -21,18 +21,15 @@ export default function UserNav() {
   const logoutMutation = useLogoutMutation();
 
   const setRole = useAppStore((state) => state.setRole);
-  // Get the disconnectSocket function from the app store
+  const disconnectSocket = useAppStore((state) => state.disconnectSocket);
 
   const logout = async () => {
     if (logoutMutation.isPending) return;
 
     try {
       await logoutMutation.mutateAsync();
-
       setRole(undefined);
-
-      // Disconnect socket
-
+      disconnectSocket();
       router.push("/");
     } catch (error: any) {
       handleErrorApi({ error });

@@ -3,15 +3,9 @@ import AppProvider from "@/providers/app-provider";
 import QueryProvider from "@/providers/query-provider";
 import ThemeProvider from "@/providers/theme-provider";
 import "@/styles/globals.css";
+import { GeistSans } from "geist/font/sans";
 import type { Metadata } from "next";
-import { Rubik } from "next/font/google";
 import NextTopLoader from "nextjs-toploader";
-
-const rubik = Rubik({
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
-  variable: "--font-rubik",
-});
 
 export const metadata: Metadata = {
   title: "TableTap",
@@ -25,7 +19,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${rubik.variable} ${rubik.className} antialiased`}>
+      <body className={`${GeistSans.className} antialiased`}>
         <NextTopLoader
           color="hsl(var(--muted-foreground))"
           showSpinner={false}

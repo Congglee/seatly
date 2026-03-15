@@ -1,6 +1,5 @@
 "use client";
 
-import Loader from "@/components/loader";
 import {
   getAccessTokenFromLocalStorage,
   getRefreshTokenFromLocalStorage,
@@ -22,7 +21,7 @@ function SignOut() {
   const refreshTokenFromUrl = searchParams.get("refreshToken");
   const accessTokenFromUrl = searchParams.get("accessToken");
 
-  // Get the disconnectSocket function from the app store
+  const disconnectSocket = useAppStore((state) => state.disconnectSocket);
   const setRole = useAppStore((state) => state.setRole);
 
   /*
@@ -59,7 +58,7 @@ function SignOut() {
 
         setRole(undefined);
 
-        // Disconnect socket
+        disconnectSocket();
 
         // No need to redirect to the login page because logging out will automatically redirect there
         // router.push("/login");
@@ -80,7 +79,7 @@ function SignOut() {
     refreshTokenFromUrl,
     accessTokenFromUrl,
     setRole,
-    // disconnect socket dependency
+    disconnectSocket,
   ]);
 
   return null;

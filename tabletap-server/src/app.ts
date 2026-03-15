@@ -6,11 +6,15 @@ import cors from '@fastify/cors'
 import fastifyAuth from '@fastify/auth'
 import fastifyHelmet from '@fastify/helmet'
 import fastifyCookie from '@fastify/cookie'
+import fastifySocketIO from 'fastify-socket.io'
+import socketPlugin from '@/plugins/socket.plugin'
 
 // Config imports
-import { corsOptions } from '@/config/cors'
+import { corsOptions, WHITELIST_DOMAINS } from '@/config/cors'
 import autoRemoveRefreshTokenJob from '@/jobs/auth.job'
 import appLogger from '@/config/logger'
+import { createFolder } from '@/utils/commons'
+import envConfig from '@/config/environment'
 
 // Frameworks/Libraries imports
 import Fastify from 'fastify'
@@ -22,9 +26,8 @@ import authRoutes from '@/routes/auth.route'
 import tablesRoutes from '@/routes/table.route'
 import dishRoutes from '@/routes/dish.route'
 import mediaRoutes from '@/routes/media.route'
-import { createFolder } from '@/utils/commons'
-import envConfig from '@/config/environment'
 import staticRoutes from '@/routes/static.route'
+import guestRoutes from '@/routes/guest.route'
 
 const buildApp = () => {
   const fastify = Fastify({ logger: false })
@@ -45,6 +48,13 @@ const buildApp = () => {
   fastify.register(fastifyCookie)
   fastify.register(validatorCompilerPlugin)
   fastify.register(errorHandlerPlugin)
+  fastify.register(fastifySocketIO, {
+    cors: {
+      origin: WHITELIST_DOMAINS,
+      credentials: true
+    }
+  })
+  fastify.register(socketPlugin)
   fastify.register(prismaPlugin)
 
   fastify.register(authRoutes, {
@@ -61,6 +71,9 @@ const buildApp = () => {
   })
   fastify.register(staticRoutes, {
     prefix: '/static'
+  })
+  fastify.register(guestRoutes, {
+    prefix: '/guest'
   })
   fastify.register(healthRoutes, {
     prefix: '/health'

@@ -10,6 +10,9 @@ import { createJSONStorage, persist } from "zustand/middleware";
 import { useEffect, useRef } from "react";
 import { decodeToken } from "@/lib/jwt-decode";
 import TokenRefreshManager from "@/components/token-refresh-manager";
+import { type Socket } from "socket.io-client";
+import { generateSocketInstace } from "@/lib/utils/socket";
+import SocketLogoutListener from "@/components/socket-logout-listener";
 
 type AppStoreType = {
   isAuth: boolean;
@@ -20,6 +23,9 @@ type AppStoreType = {
   sidebarOpen: boolean;
   setSidebarOpen: (open: boolean) => void;
   toggleSidebar: () => void;
+  socket: Socket | undefined;
+  setSocket: (socket?: Socket | undefined) => void;
+  disconnectSocket: () => void;
 };
 
 export const useAppStore = create<AppStoreType>()(
@@ -42,6 +48,13 @@ export const useAppStore = create<AppStoreType>()(
         set((state) => ({
           sidebarOpen: !state.sidebarOpen,
         })),
+      socket: undefined as Socket | undefined,
+      setSocket: (socket?: Socket | undefined) => set({ socket }),
+      disconnectSocket: () =>
+        set((state) => {
+          state.socket?.disconnect();
+          return { socket: undefined };
+        }),
     }),
     {
       name: "sidebar",
@@ -61,7 +74,7 @@ export default function AppProvider({
 }) {
   const hydrated = useAppStore((state) => state.hydrated);
   const setRole = useAppStore((state) => state.setRole);
-  // Initialize socket instance
+  const setSocket = useAppStore((state) => state.setSocket);
 
   const count = useRef(0);
 
@@ -73,15 +86,12 @@ export default function AppProvider({
         const role = decodeToken(accessToken).role;
 
         setRole(role);
-        // Set socket instance
+        setSocket(generateSocketInstace(accessToken));
       }
 
       count.current++;
     }
-  }, [
-    setRole,
-    // set socket dependency
-  ]);
+  }, [setRole, setSocket]);
 
   if (!hydrated) {
     return null;
@@ -91,6 +101,7 @@ export default function AppProvider({
     <>
       {children}
       <TokenRefreshManager />
+      <SocketLogoutListener />
     </>
   );
 }

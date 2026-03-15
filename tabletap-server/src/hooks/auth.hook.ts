@@ -60,3 +60,10 @@ export const requireRoleHook = (role: RoleValue) => {
     }
   }
 }
+
+export const requireGuestHook = async (request: FastifyRequest) => {
+  if (request.decodedAccessToken?.role !== Role.Guest) {
+    appLogger.warn('auth-hook', `Forbidden guest route access on ${request.method} ${request.url}`)
+    throw new AuthError('You do not have access to this function')
+  }
+}

@@ -1,6 +1,6 @@
 import envConfig from '@/config/environment'
 import { TokenType } from '@/constants/type'
-import { type TokenPayload } from '@/types/jwt.type'
+import { TokenPayload } from '@/types/jwt.type'
 import { PrivateKey, SignerOptions, createSigner, createVerifier } from 'fast-jwt'
 import ms, { type StringValue } from 'ms'
 
