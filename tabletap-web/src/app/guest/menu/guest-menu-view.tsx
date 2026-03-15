@@ -8,12 +8,14 @@ import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
 import { DEFAULT_LIMIT } from "@/constants/pagination";
 import { DishStatus } from "@/constants/type";
+import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { handleErrorApi } from "@/lib/utils/api-error";
 import { useDishListQuery } from "@/queries/use-dish";
 import { useGuestOrderDishMutation } from "@/queries/use-guest";
 import { GuestCreateOrdersBodyType } from "@/schemas/guest.schema";
-import { Search } from "lucide-react";
+import { ClipboardList, Search } from "lucide-react";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useCallback, useEffect, useMemo, useState } from "react";
 
@@ -164,6 +166,29 @@ export default function GuestMenuView() {
 
   return (
     <>
+      <div className="max-w-lg mx-auto w-full px-4 pt-5 pb-2 space-y-4">
+        <div className="flex items-start justify-between gap-3">
+          <div className="space-y-1">
+            <h1 className="text-lg font-semibold tracking-tight text-foreground">
+              Our menu
+            </h1>
+            <p className="text-sm text-muted-foreground leading-relaxed">
+              Browse dishes and add them to your order.
+            </p>
+          </div>
+          <Button
+            asChild
+            variant="outline"
+            size="sm"
+            className="shrink-0 rounded-lg border-border/60 text-xs font-medium h-8 px-2.5 active:scale-[0.98] transition-transform duration-100"
+          >
+            <Link href="/guest/orders">
+              <ClipboardList className="size-3.5" strokeWidth={2} />
+              Orders
+            </Link>
+          </Button>
+        </div>
+      </div>
       <div className="max-w-lg mx-auto w-full px-4 pt-0 pb-2">
         <div className="relative">
           <Search
