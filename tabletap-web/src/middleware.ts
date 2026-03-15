@@ -93,11 +93,5 @@ export function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: [
-    "/",
-    "/manage/:path*",
-    "/guest/:path*",
-    "/login",
-    "/restore-session",
-  ],
+  matcher: ["/", "/manage/:path*", "/guest/:path*", "/login"],
 };

@@ -135,14 +135,14 @@ export default function NewDish() {
               control={form.control}
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel htmlFor="price">Price</FormLabel>
+                  <FormLabel htmlFor="price">Price (USD)</FormLabel>
                   <FormControl>
                     <Input
                       {...field}
                       id="price"
                       type="number"
                       min={1}
-                      placeholder="Enter dish price"
+                      placeholder="Enter dish price (USD)"
                     />
                   </FormControl>
                   <FormMessage />

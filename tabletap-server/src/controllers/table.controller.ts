@@ -1,9 +1,7 @@
 import prisma from '@/database'
 import { UpdateTableBodyType, type CreateTableBodyType } from '@/schemas/table.schema'
 import { randomId } from '@/utils/commons'
-import { EntityError, handlePrismaNotFoundError, isPrismaClientKnownRequestError } from '@/utils/errors'
-
-const TABLE_ENTITY_NAME = 'RestaurantTable'
+import { EntityError, isPrismaClientKnownRequestError } from '@/utils/errors'
 
 export const getTableList = async (page: number, limit: number) => {
   const data = await prisma.restaurantTable.findMany({
@@ -18,14 +16,10 @@ export const getTableList = async (page: number, limit: number) => {
   return { items: data, totalItem, page, limit, totalPage }
 }
 
-export const getTableDetail = async (number: number) => {
-  try {
-    return await prisma.restaurantTable.findUniqueOrThrow({
-      where: { number }
-    })
-  } catch (error) {
-    handlePrismaNotFoundError(error, TABLE_ENTITY_NAME)
-  }
+export const getTableDetail = (number: number) => {
+  return prisma.restaurantTable.findUniqueOrThrow({
+    where: { number }
+  })
 }
 
 export const createTable = async (body: CreateTableBodyType) => {
@@ -49,57 +43,46 @@ export const createTable = async (body: CreateTableBodyType) => {
   }
 }
 
-export const updateTable = async (number: number, body: UpdateTableBodyType) => {
-  if (body.changeToken) {
+export const updateTable = (number: number, data: UpdateTableBodyType) => {
+  if (data.changeToken) {
     const token = randomId()
 
-    // Delete all refresh tokens of guests for the table
-    try {
-      return await prisma.$transaction(async (tx) => {
-        const [table] = await Promise.all([
-          tx.restaurantTable.update({
-            where: { number },
-            data: {
-              status: body.status,
-              capacity: body.capacity,
-              token
-            }
-          }),
+    // Delete all refresh tokens of guests by table
+    return prisma.$transaction(async (tx) => {
+      const [table] = await Promise.all([
+        tx.restaurantTable.update({
+          where: { number },
+          data: {
+            status: data.status,
+            capacity: data.capacity,
+            token
+          }
+        }),
 
-          tx.guest.updateMany({
-            where: { tableNumber: number },
-            data: {
-              refreshToken: null,
-              refreshTokenExpiresAt: null
-            }
-          })
-        ])
-        return table
-      })
-    } catch (error) {
-      handlePrismaNotFoundError(error, TABLE_ENTITY_NAME)
-    }
-  }
+        tx.guest.updateMany({
+          where: { tableNumber: number },
+          data: {
+            refreshToken: null,
+            refreshTokenExpiresAt: null
+          }
+        })
+      ])
 
-  try {
-    return await prisma.restaurantTable.update({
-      where: { number },
-      data: {
-        status: body.status,
-        capacity: body.capacity
-      }
+      return table
     })
-  } catch (error) {
-    handlePrismaNotFoundError(error, TABLE_ENTITY_NAME)
   }
+
+  return prisma.restaurantTable.update({
+    where: { number },
+    data: {
+      status: data.status,
+      capacity: data.capacity
+    }
+  })
 }
 
-export const deleteTable = async (number: number) => {
-  try {
-    return await prisma.restaurantTable.delete({
-      where: { number }
-    })
-  } catch (error) {
-    handlePrismaNotFoundError(error, TABLE_ENTITY_NAME)
-  }
+export const deleteTable = (number: number) => {
+  return prisma.restaurantTable.delete({
+    where: { number }
+  })
 }

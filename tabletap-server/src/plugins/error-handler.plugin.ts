@@ -91,6 +91,7 @@ const errorHandlerPlugin = fastifyPlugin(async (fastify) => {
           field: issue.path.join('.')
         }
       })
+
       const statusCode = 422
       appLogger.warn('error-handler', `Zod validation error at ${requestLabel}`)
 
@@ -103,6 +104,7 @@ const errorHandlerPlugin = fastifyPlugin(async (fastify) => {
     } else if (isPrismaClientKnownRequestError(error) && error.code === 'P2025') {
       const statusCode = 404
       appLogger.warn('error-handler', `Prisma P2025 at ${requestLabel}`)
+
       return reply.status(statusCode).send({
         message: error.message ?? 'Data not found',
         statusCode: statusCode
@@ -110,6 +112,7 @@ const errorHandlerPlugin = fastifyPlugin(async (fastify) => {
     } else {
       const statusCode = (error as any).statusCode || 400
       appLogger.error('error-handler', `Unhandled error at ${requestLabel}`, error)
+
       return reply.status(statusCode).send({
         message: error.message,
         error,

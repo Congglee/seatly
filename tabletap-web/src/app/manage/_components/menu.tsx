@@ -27,7 +27,7 @@ export default function Menu({ sidebarOpen }: MenuProps) {
   const router = useRouter();
 
   const setRole = useAppStore((state) => state.setRole);
-  // Get the disconnectSocket function from the app store
+  const disconnectSocket = useAppStore((state) => state.disconnectSocket);
 
   const logoutMutation = useLogoutMutation();
 
@@ -48,11 +48,8 @@ export default function Menu({ sidebarOpen }: MenuProps) {
 
     try {
       await logoutMutation.mutateAsync();
-
       setRole(undefined);
-
-      // Disconnect socket
-
+      disconnectSocket();
       router.push("/");
     } catch (error: any) {
       handleErrorApi({ error });

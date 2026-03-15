@@ -3,6 +3,7 @@
 import { usePathname, useRouter } from "next/navigation";
 import { refreshTokensIfNeeded } from "@/lib/utils/auth-client";
 import { useEffect } from "react";
+import { useAppStore } from "@/providers/app-provider";
 
 // Pages that should not check the refresh token
 const UNAUTHENTICATED_PATHS = ["/login", "/restore-session"];
@@ -14,8 +15,8 @@ export default function TokenRefreshManager() {
   const pathname = usePathname();
   const router = useRouter();
 
-  // Get the socket instance from the app store
-  // Get the disconnectSocket function from the app store
+  const socket = useAppStore((state) => state.socket);
+  const disconnectSocket = useAppStore((state) => state.disconnectSocket);
 
   useEffect(() => {
     // Pages that do not need to check the refresh token
@@ -33,9 +34,7 @@ export default function TokenRefreshManager() {
       refreshTokensIfNeeded({
         onError: () => {
           clearInterval(interval);
-
-          // Disconnect socket
-
+          disconnectSocket();
           router.push("/login");
         },
         force,
@@ -49,18 +48,33 @@ export default function TokenRefreshManager() {
     // Start checking the token every TIMEOUT interval
     interval = setInterval(onRefreshToken, TIMEOUT);
 
-    // Socket listeners to handle the socket connection, disconnection and other socket events
+    if (socket?.connected) {
+      onConnect();
+    }
+
+    function onConnect() {
+      console.log(socket?.id);
+    }
+
+    function onDisconnect() {
+      console.log("disconnect");
+    }
+
+    function onRefreshTokenSocket() {
+      onRefreshToken(true);
+    }
+
+    socket?.on("connect", onConnect);
+    socket?.on("disconnect", onDisconnect);
+    socket?.on("refresh-token", onRefreshTokenSocket);
 
     return () => {
       clearInterval(interval);
-
-      // Remove socket listeners
+      socket?.off("connect", onConnect);
+      socket?.off("disconnect", onDisconnect);
+      socket?.off("refresh-token", onRefreshTokenSocket);
     };
-  }, [
-    pathname,
-    router,
-    // socket and disconnectSocket dependencies
-  ]);
+  }, [pathname, router, socket, disconnectSocket]);
 
   return null;
 }

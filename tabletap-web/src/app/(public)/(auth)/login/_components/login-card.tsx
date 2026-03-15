@@ -27,6 +27,7 @@ import { handleErrorApi } from "@/lib/utils/api-error";
 import SearchParamsLoader, {
   useSearchParamsLoader,
 } from "@/components/search-params-loader";
+import { generateSocketInstace } from "@/lib/utils/socket";
 
 export default function LoginCard() {
   const form = useForm<LoginBodyType>({
@@ -39,8 +40,8 @@ export default function LoginCard() {
   const { searchParams, setSearchParams } = useSearchParamsLoader();
   const clearTokens = searchParams?.get("clearTokens");
 
-  // Get the setRole function from the app store
   const setRole = useAppStore((state) => state.setRole);
+  const setSocket = useAppStore((state) => state.setSocket);
 
   const loginMutation = useLoginMutation();
 
@@ -53,14 +54,13 @@ export default function LoginCard() {
   const onSubmit = form.handleSubmit(
     async (values) => {
       if (loginMutation.isPending) return;
+
       try {
         const result = await loginMutation.mutateAsync(values);
-
         toast.success(result.payload.message);
         setRole(result.payload.data.account.role);
         router.push("/manage/dashboard");
-
-        // Set socket instance using the access token
+        setSocket(generateSocketInstace(result.payload.data.accessToken));
       } catch (error) {
         handleErrorApi({ error, setError: form.setError });
       }

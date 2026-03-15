@@ -1,8 +1,5 @@
 import prisma from '@/database'
 import { CreateDishBodyType, UpdateDishBodyType } from '@/schemas/dish.schema'
-import { handlePrismaNotFoundError } from '@/utils/errors'
-
-const DISH_ENTITY_NAME = 'Dish'
 
 export const getDishList = async (page: number, limit: number) => {
   const data = await prisma.dish.findMany({
@@ -17,35 +14,25 @@ export const getDishList = async (page: number, limit: number) => {
   return { items: data, totalItem, page, limit, totalPage }
 }
 
-export const getDishDetail = async (id: string) => {
-  try {
-    return await prisma.dish.findUniqueOrThrow({
-      where: { id }
-    })
-  } catch (error) {
-    handlePrismaNotFoundError(error, DISH_ENTITY_NAME)
-  }
+export const getDishDetail = (id: string) => {
+  return prisma.dish.findUniqueOrThrow({
+    where: { id }
+  })
 }
 
 export const createDish = async (data: CreateDishBodyType) => {
   return await prisma.dish.create({ data })
 }
 
-export const updateDish = async (id: string, data: UpdateDishBodyType) => {
-  try {
-    return await prisma.dish.update({
-      where: { id },
-      data
-    })
-  } catch (error) {
-    handlePrismaNotFoundError(error, DISH_ENTITY_NAME)
-  }
+export const updateDish = (id: string, data: UpdateDishBodyType) => {
+  return prisma.dish.update({
+    where: { id },
+    data
+  })
 }
 
-export const deleteDish = async (id: string) => {
-  try {
-    return await prisma.dish.delete({ where: { id } })
-  } catch (error) {
-    handlePrismaNotFoundError(error, DISH_ENTITY_NAME)
-  }
+export const deleteDish = (id: string) => {
+  return prisma.dish.delete({
+    where: { id }
+  })
 }
