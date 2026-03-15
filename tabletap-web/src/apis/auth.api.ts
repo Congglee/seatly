@@ -48,7 +48,7 @@ const authApiRequest = {
 
     // If there is no pending refresh token request, call the refresh token API
     this.refreshTokenRequest = http.post<RefreshTokenResType>(
-      "/api/auth/session/refresh",
+      "/api/auth/refresh-token",
       null,
       { baseUrl: "" }
     );
@@ -62,7 +62,7 @@ const authApiRequest = {
   },
 
   setTokenToCookie: (body: { accessToken: string; refreshToken: string }) =>
-    http.post("/api/auth/session", body, { baseUrl: "" }),
+    http.post("/api/auth/token", body, { baseUrl: "" }),
 };
 
 export default authApiRequest;

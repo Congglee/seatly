@@ -2,8 +2,8 @@ import authApiRequest from "@/apis/auth.api";
 import { cookies } from "next/headers";
 import jwt from "jsonwebtoken";
 
-// If any error occurs while sending the refresh token request, return an error with status code 401
-// This lets the client detect the error and continue handling it in `http.ts`
+// When refreshing the token, if any error occurs during the request, a 401 status code should be returned
+// So that the client can recognize the error and handle it accordingly in the http.ts file.
 export async function POST() {
   const cookieStore = cookies();
   const refreshToken = cookieStore.get("refreshToken")?.value;
@@ -45,7 +45,7 @@ export async function POST() {
     return Response.json(payload);
   } catch (error: any) {
     return Response.json(
-      { message: error.message ?? "An error occurred" },
+      { message: error.message ?? "Có lỗi xảy ra" },
       { status: 401 }
     );
   }

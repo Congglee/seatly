@@ -2,8 +2,8 @@ import { cookies } from "next/headers";
 import jwt from "jsonwebtoken";
 import guestApiRequest from "@/apis/guest.api";
 
-// Khi refresh token mà gặp phải lỗi gì trong quá trình gửi request thì phải trả về lỗi với status code 401
-// Để client biết được lỗi và xử lý tiếp trong file `http.ts`
+// When refreshing the token, if any error occurs during the request, a 401 status code should be returned
+// So that the client can recognize the error and handle it accordingly in the http.ts file.
 export async function POST() {
   const cookieStore = cookies();
   const refreshToken = cookieStore.get("refreshToken")?.value;

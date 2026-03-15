@@ -9,14 +9,15 @@ export async function POST(request: NextRequest) {
     refreshToken: string;
   };
   const { accessToken, refreshToken } = body;
+
   const cookieStore = cookies();
 
   try {
     const decodedAccessToken = jwt.decode(accessToken) as { exp: number };
     const decodedRefreshToken = jwt.decode(refreshToken) as { exp: number };
 
-    // Store the access token and refresh token in cookies so that:
-    // Server Components can use cookies to verify whether the user is logged in (because Server Components cannot access the client's localStorage)
+    // Store access token and refresh token in cookies so that:
+    // Server Components can use cookies to verify if the user is logged in (since Server Components do not have access to localStorage)
     cookieStore.set("accessToken", accessToken, {
       path: "/",
       httpOnly: true,
@@ -35,7 +36,9 @@ export async function POST(request: NextRequest) {
     return Response.json(body);
   } catch (error) {
     if (error instanceof HttpError) {
-      return Response.json(error.payload, { status: error.status });
+      return Response.json(error.payload, {
+        status: error.status,
+      });
     } else {
       return Response.json({ message: "An error occurred" }, { status: 500 });
     }

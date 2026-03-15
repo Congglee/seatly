@@ -35,7 +35,7 @@ model Dish {
   price       Int
   description String
   image       String
-  status      String   @default("Active")
+  status      String   @default("Available")
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 
@@ -56,7 +56,7 @@ model DishSnapshot {
   price       Int
   description String
   image       String
-  status      String   @default("Active")
+  status      String   @default("Available")
   dishId      String?
   updatedAt   DateTime @updatedAt
   createdAt   DateTime @default(now())
@@ -123,12 +123,12 @@ model Order {
   dishSnapshotId String   @unique
   quantity       Int
   orderHandlerId String?
-  status         String
+  status         String   @default("Pending")
   createdAt      DateTime @default(now())
   updatedAt      DateTime @updatedAt
 
   // Added for future feature development, expansion, and upgrade scenarios around grouping related orders into batches.
-  orderBatchId     String?   @default(uuid())
+  orderBatchId     String?
   // Added for future feature development, expansion, and upgrade scenarios around readiness time estimation.
   estimatedReadyAt DateTime? @default(now())
 
