@@ -1,4 +1,5 @@
 export const MAX_DISH_IMAGE_FILES = 1;
+export const MAX_AVATAR_IMAGE_FILES = 1;
 export const MAX_IMAGE_FILE_SIZE = 4 * 1024 * 1024;
 
 export const ALLOWED_IMAGE_MIME_TYPES = [

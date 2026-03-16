@@ -6,8 +6,10 @@ import {
   Square,
   UtensilsCrossed,
   Users,
-  BarChart3,
 } from "lucide-react";
+import { Role } from "@/constants/type";
+import { hasAllowedRole } from "@/lib/utils/role-access";
+import type { RoleType } from "@/types/jwt.type";
 
 export type MenuGroup = {
   label: string;
@@ -16,12 +18,14 @@ export type MenuGroup = {
     label: string;
     icon: LucideIcon;
     submenus: Submenu[];
+    roles: RoleType[];
   }[];
 };
 
 export type Submenu = {
   href: string;
   label: string;
+  roles?: RoleType[];
 };
 
 export const menuItems: MenuGroup[] = [
@@ -33,6 +37,7 @@ export const menuItems: MenuGroup[] = [
         label: "Dashboard",
         icon: LayoutGrid,
         submenus: [],
+        roles: [Role.Owner, Role.Employee],
       },
     ],
   },
@@ -47,22 +52,27 @@ export const menuItems: MenuGroup[] = [
           {
             href: "/manage/orders",
             label: "All orders",
+            roles: [Role.Owner, Role.Employee],
           },
           {
             href: "/manage/orders/pending",
             label: "Pending orders",
+            roles: [Role.Owner, Role.Employee],
           },
           {
             href: "/manage/orders/cooking",
             label: "Cooking orders",
+            roles: [Role.Owner, Role.Employee],
           },
         ],
+        roles: [Role.Owner, Role.Employee],
       },
       {
         href: "/manage/tables",
         label: "Tables",
         icon: Square,
         submenus: [],
+        roles: [Role.Owner, Role.Employee],
       },
     ],
   },
@@ -74,6 +84,7 @@ export const menuItems: MenuGroup[] = [
         label: "Dishes",
         icon: UtensilsCrossed,
         submenus: [],
+        roles: [Role.Owner, Role.Employee],
       },
     ],
   },
@@ -85,32 +96,31 @@ export const menuItems: MenuGroup[] = [
         label: "Accounts",
         icon: Users,
         submenus: [],
-      },
-      {
-        href: "/manage/reports",
-        label: "Reports & Statistics",
-        icon: BarChart3,
-        submenus: [
-          {
-            href: "/manage/reports/revenue",
-            label: "Revenue",
-          },
-          {
-            href: "/manage/reports/dishes",
-            label: "Dishes statistics",
-          },
-          {
-            href: "/manage/reports/tables",
-            label: "Table performance",
-          },
-        ],
+        roles: [Role.Owner],
       },
       {
         href: "/manage/settings",
         label: "Settings",
         icon: Settings,
         submenus: [],
+        roles: [Role.Owner, Role.Employee],
       },
     ],
   },
 ];
+
+export const getVisibleMenuGroups = (role?: RoleType) => {
+  return menuItems
+    .map((group) => ({
+      ...group,
+      menus: group.menus
+        .filter((menu) => hasAllowedRole(menu.roles, role))
+        .map((menu) => ({
+          ...menu,
+          submenus: menu.submenus.filter((submenu) =>
+            hasAllowedRole(submenu.roles, role)
+          ),
+        })),
+    }))
+    .filter((group) => group.menus.length > 0);
+};

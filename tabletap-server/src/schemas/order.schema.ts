@@ -61,14 +61,22 @@ export type UpdateOrderResType = z.TypeOf<typeof UpdateOrderRes>
 
 export const GetOrdersQueryParams = z.object({
   fromDate: z.coerce.date().optional(),
-  toDate: z.coerce.date().optional()
+  toDate: z.coerce.date().optional(),
+  page: z.coerce.number().positive().lte(10000).default(1),
+  limit: z.coerce.number().positive().lte(10000).default(10)
 })
 
 export type GetOrdersQueryParamsType = z.TypeOf<typeof GetOrdersQueryParams>
 
 export const GetOrdersRes = z.object({
-  message: z.string(),
-  data: z.array(OrderSchema)
+  data: z.object({
+    items: z.array(OrderSchema),
+    totalItem: z.number(),
+    totalPage: z.number(),
+    page: z.number(),
+    limit: z.number()
+  }),
+  message: z.string()
 })
 
 export type GetOrdersResType = z.TypeOf<typeof GetOrdersRes>
@@ -88,7 +96,10 @@ export const PayGuestOrdersBody = z.object({
 
 export type PayGuestOrdersBodyType = z.TypeOf<typeof PayGuestOrdersBody>
 
-export const PayGuestOrdersRes = GetOrdersRes
+export const PayGuestOrdersRes = z.object({
+  message: z.string(),
+  data: z.array(OrderSchema)
+})
 
 export type PayGuestOrdersResType = z.TypeOf<typeof PayGuestOrdersRes>
 
