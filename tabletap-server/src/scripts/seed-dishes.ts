@@ -148,10 +148,10 @@ const buildUpdateData = ({ id, createdAt, ...dish }: SeedDish): Prisma.DishUnche
 })
 
 const main = async () => {
-  const [{ default: prisma, connectPrisma }, { default: appLogger }] = await Promise.all([
-    import('../database'),
-    import('../config/logger')
-  ])
+  const databaseModule = require('../database') as typeof import('@/database')
+  const loggerModule = require('../config/logger') as typeof import('@/config/logger')
+  const { default: prisma, connectPrisma } = databaseModule
+  const appLogger = loggerModule.default
 
   try {
     await connectPrisma()
@@ -183,7 +183,7 @@ const main = async () => {
     process.exitCode = 1
   } finally {
     try {
-      const { disconnectPrisma } = await import('../database')
+      const { disconnectPrisma } = require('../database') as typeof import('@/database')
       await disconnectPrisma()
     } catch (disconnectError) {
       console.error('Failed to disconnect Prisma cleanly after seeding dishes.')

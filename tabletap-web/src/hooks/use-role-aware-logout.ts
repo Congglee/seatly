@@ -21,6 +21,12 @@ export const useRoleAwareLogout = () => {
   const isPending =
     staffLogoutMutation.isPending || guestLogoutMutation.isPending;
 
+  const finalizeLogout = useCallback(() => {
+    setRole(undefined);
+    disconnectSocket();
+    router.push("/");
+  }, [disconnectSocket, router, setRole]);
+
   const logout = useCallback(async () => {
     if (isPending) return;
 
@@ -31,19 +37,15 @@ export const useRoleAwareLogout = () => {
         await staffLogoutMutation.mutateAsync();
       }
 
-      setRole(undefined);
-      disconnectSocket();
-      router.push("/");
+      finalizeLogout();
     } catch (error: any) {
       handleErrorApi({ error });
     }
   }, [
-    disconnectSocket,
+    finalizeLogout,
     guestLogoutMutation,
     isPending,
     role,
-    router,
-    setRole,
     staffLogoutMutation,
   ]);
 

@@ -28,11 +28,32 @@ type AppStoreType = {
   disconnectSocket: () => void;
 };
 
+const getInitialRole = () => {
+  if (typeof window === "undefined") {
+    return undefined;
+  }
+
+  const accessToken = getAccessTokenFromLocalStorage();
+
+  if (!accessToken) {
+    return undefined;
+  }
+
+  try {
+    return decodeToken(accessToken).role;
+  } catch {
+    removeTokensFromLocalStorage();
+    return undefined;
+  }
+};
+
+const initialRole = getInitialRole();
+
 export const useAppStore = create<AppStoreType>()(
   persist(
     (set) => ({
-      isAuth: false,
-      role: undefined as RoleType | undefined,
+      isAuth: Boolean(initialRole),
+      role: initialRole,
       setRole: (role?: RoleType | undefined) => {
         set({ role, isAuth: Boolean(role) });
 
@@ -80,16 +101,17 @@ export default function AppProvider({
 
   useEffect(() => {
     if (count.current === 0) {
-      const accessToken = getAccessTokenFromLocalStorage();
-
-      if (accessToken) {
-        const role = decodeToken(accessToken).role;
-
-        setRole(role);
-        setSocket(generateSocketInstace(accessToken));
-      }
-
       count.current++;
+
+      try {
+        const accessToken = getAccessTokenFromLocalStorage();
+
+        if (accessToken) {
+          setSocket(generateSocketInstace(accessToken));
+        }
+      } catch {
+        setRole(undefined);
+      }
     }
   }, [setRole, setSocket]);
 

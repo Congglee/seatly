@@ -1,7 +1,7 @@
-import Footer from "@/app/(public)/_components/footer";
-import Hero from "@/app/(public)/_components/hero";
-import Navbar from "@/app/(public)/_components/navbar";
-import Dishes from "@/app/(public)/_components/dishes";
+import Footer from "./_components/footer";
+import Hero from "./_components/hero";
+import Navbar from "./_components/navbar";
+import Dishes from "./_components/dishes";
 
 export default function Home() {
   return (

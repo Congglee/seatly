@@ -48,23 +48,7 @@ export const menuItems: MenuGroup[] = [
         href: "/manage/orders",
         label: "Orders",
         icon: ShoppingCart,
-        submenus: [
-          {
-            href: "/manage/orders",
-            label: "All orders",
-            roles: [Role.Owner, Role.Employee],
-          },
-          {
-            href: "/manage/orders/pending",
-            label: "Pending orders",
-            roles: [Role.Owner, Role.Employee],
-          },
-          {
-            href: "/manage/orders/cooking",
-            label: "Cooking orders",
-            roles: [Role.Owner, Role.Employee],
-          },
-        ],
+        submenus: [],
         roles: [Role.Owner, Role.Employee],
       },
       {

@@ -2,11 +2,11 @@ import Image from "next/image";
 import { cn } from "@/lib/utils";
 import { formatCurrency } from "@/lib/utils/currency";
 import { OrderStatus } from "@/constants/type";
-import { type GetOrdersResType } from "@/schemas/order.schema";
+import { type GuestGetOrdersResType } from "@/schemas/guest.schema";
 import OrderStatusBadge from "@/app/guest/orders/_components/order-status-badge";
 
 interface OrderItemCardProps {
-  order: GetOrdersResType["data"][number];
+  order: GuestGetOrdersResType["data"][number];
 }
 
 const formatRelativeTime = (date: Date | string) => {

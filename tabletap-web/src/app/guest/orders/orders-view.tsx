@@ -13,10 +13,10 @@ import { handleErrorApi } from "@/lib/utils/api-error";
 import { useGuestGetOrderListQuery } from "@/queries/use-guest";
 import { useAppStore } from "@/providers/app-provider";
 import type {
-  GetOrdersResType,
   PayGuestOrdersResType,
   UpdateOrderResType,
 } from "@/schemas/order.schema";
+import type { GuestGetOrdersResType } from "@/schemas/guest.schema";
 import OrderItemCard from "@/app/guest/orders/_components/order-item-card";
 import OrdersEmptyState from "@/app/guest/orders/_components/orders-empty-state";
 import OrdersSkeleton from "@/app/guest/orders/_components/orders-skeleton";
@@ -43,7 +43,7 @@ const STATUS_GROUPS = {
 } as const;
 
 type StatusGroupKey = keyof typeof STATUS_GROUPS;
-type GuestOrder = GetOrdersResType["data"]["items"][number];
+type GuestOrder = GuestGetOrdersResType["data"][number];
 
 const GROUP_ORDER: StatusGroupKey[] = ["active", "completed", "settled"];
 

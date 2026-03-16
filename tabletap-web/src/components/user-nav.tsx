@@ -10,10 +10,9 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Role } from "@/constants/type";
-import { handleErrorApi } from "@/lib/utils/api-error";
+import { useRoleAwareLogout } from "@/hooks/use-role-aware-logout";
 import { useAppStore } from "@/providers/app-provider";
 import { useGetMeQuery } from "@/queries/use-account";
-import { useLogoutMutation } from "@/queries/use-auth";
 import {
   KeyRound,
   LayoutGrid,
@@ -35,30 +34,16 @@ const getInitials = (name?: string) =>
 export default function UserNav() {
   const router = useRouter();
 
-  const logoutMutation = useLogoutMutation();
   const meQuery = useGetMeQuery();
   const account = meQuery.data?.payload.data;
 
-  const setRole = useAppStore((state) => state.setRole);
-  const disconnectSocket = useAppStore((state) => state.disconnectSocket);
+  const role = useAppStore((state) => state.role);
+  const { logout } = useRoleAwareLogout();
 
   const fallbackName = account?.name ?? "Staff Account";
   const fallbackEmail = account?.email ?? (meQuery.isError ? "Unavailable" : "Loading...");
   const fallbackAvatar = account?.avatar ?? undefined;
   const initials = getInitials(account?.name);
-
-  const logout = async () => {
-    if (logoutMutation.isPending) return;
-
-    try {
-      await logoutMutation.mutateAsync();
-      setRole(undefined);
-      disconnectSocket();
-      router.push("/");
-    } catch (error: any) {
-      handleErrorApi({ error });
-    }
-  };
 
   return (
     <DropdownMenu modal={false}>
@@ -102,7 +87,7 @@ export default function UserNav() {
             <LayoutGrid className="mr-2 size-4" />
             Dashboard
           </DropdownMenuItem>
-          {account?.role === Role.Owner && (
+          {(account?.role ?? role) === Role.Owner && (
             <DropdownMenuItem
               className="h-9 cursor-pointer px-4 font-medium"
               onClick={() => router.push("/manage/accounts")}

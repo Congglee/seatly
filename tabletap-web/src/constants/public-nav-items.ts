@@ -16,7 +16,7 @@ export const publicNavItems: PublicNavItem[] = [
   },
   {
     label: "Menu",
-    href: "#dishes",
+    href: "/#dishes",
   },
   {
     label: "Guest menu",
