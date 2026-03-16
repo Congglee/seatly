@@ -1,0 +1,38 @@
+import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
+import { Drawer, DrawerContent } from "@/components/ui/drawer";
+import { useMedia } from "react-use";
+
+interface ResponsiveModalProps {
+  children: React.ReactNode;
+  open: boolean;
+  onOpenChange: (open: boolean) => void;
+}
+
+export default function ResponsiveModal({
+  open,
+  children,
+  onOpenChange,
+}: ResponsiveModalProps) {
+  const isDesktop = useMedia("(min-width: 1024px)", true);
+
+  if (isDesktop) {
+    return (
+      <Dialog open={open} onOpenChange={onOpenChange}>
+        <DialogContent className="w-full sm:max-w-lg p-0 border-none overflow-y-auto hide-scrollbar max-h-[85vh]">
+          <DialogTitle className="hidden" />
+          {children}
+        </DialogContent>
+      </Dialog>
+    );
+  }
+
+  return (
+    <Drawer open={open} onOpenChange={onOpenChange}>
+      <DrawerContent>
+        <div className="overflow-y-auto hide-scrollbar max-h-[85vh]">
+          {children}
+        </div>
+      </DrawerContent>
+    </Drawer>
+  );
+}

@@ -1,0 +1,161 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 50 30% 96.0784%;
+    --foreground: 0 0% 10.1961%;
+    --card: 0 0% 100%;
+    --card-foreground: 0 0% 10.1961%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 10.1961%;
+    --primary: 40.2632 38% 60.7843%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 45 23.5294% 86.6667%;
+    --secondary-foreground: 0 0% 10.1961%;
+    --muted: 45 36.3636% 91.3725%;
+    --muted-foreground: 40.8 13.2275% 37.0588%;
+    --accent: 40.2632 38% 60.7843%;
+    --accent-foreground: 0 0% 100%;
+    --destructive: 0 65.0794% 50.5882%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 49.5652 28.3951% 84.1176%;
+    --input: 49.5652 28.3951% 84.1176%;
+    --ring: 40.2632 38% 60.7843%;
+    --chart-1: 40.2632 38% 60.7843%;
+    --chart-2: 216 7.5758% 25.8824%;
+    --chart-3: 45 23.5294% 86.6667%;
+    --chart-4: 42.2727 18.9655% 45.4902%;
+    --chart-5: 214.2857 7.6923% 17.8431%;
+    --sidebar: 45 36.3636% 91.3725%;
+    --sidebar-foreground: 0 0% 10.1961%;
+    --sidebar-primary: 40.2632 38% 60.7843%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 49.5652 28.3951% 84.1176%;
+    --sidebar-accent-foreground: 0 0% 10.1961%;
+    --sidebar-border: 49.5652 28.3951% 84.1176%;
+    --sidebar-ring: 40.2632 38% 60.7843%;
+    --font-sans: Inter, -apple-system, sans-serif;
+    --font-serif: Georgia, serif;
+    --font-mono: JetBrains Mono, monospace;
+    --radius: 0.5rem;
+    --shadow-x: 0px;
+    --shadow-y: 8px;
+    --shadow-blur: 15px;
+    --shadow-spread: 0px;
+    --shadow-opacity: 0.05;
+    --shadow-color: #000000;
+    --shadow-2xs: 0px 8px 15px 0px hsl(0 0% 0% / 0.03);
+    --shadow-xs: 0px 8px 15px 0px hsl(0 0% 0% / 0.03);
+    --shadow-sm: 0px 8px 15px 0px hsl(0 0% 0% / 0.05),
+      0px 1px 2px -1px hsl(0 0% 0% / 0.05);
+    --shadow: 0px 8px 15px 0px hsl(0 0% 0% / 0.05),
+      0px 1px 2px -1px hsl(0 0% 0% / 0.05);
+    --shadow-md: 0px 8px 15px 0px hsl(0 0% 0% / 0.05),
+      0px 2px 4px -1px hsl(0 0% 0% / 0.05);
+    --shadow-lg: 0px 8px 15px 0px hsl(0 0% 0% / 0.05),
+      0px 4px 6px -1px hsl(0 0% 0% / 0.05);
+    --shadow-xl: 0px 8px 15px 0px hsl(0 0% 0% / 0.05),
+      0px 8px 10px -1px hsl(0 0% 0% / 0.05);
+    --shadow-2xl: 0px 8px 15px 0px hsl(0 0% 0% / 0.13);
+    --tracking-normal: -0.02em;
+    --spacing: 0.25rem;
+  }
+
+  .dark {
+    --background: 60 5.2632% 7.451%;
+    --foreground: 50 30% 96.0784%;
+    --card: 60 3.4483% 11.3725%;
+    --card-foreground: 50 30% 96.0784%;
+    --popover: 60 3.4483% 11.3725%;
+    --popover-foreground: 50 30% 96.0784%;
+    --primary: 40.274 45.9119% 68.8235%;
+    --primary-foreground: 60 5.2632% 7.451%;
+    --secondary: 36 5.8824% 16.6667%;
+    --secondary-foreground: 50 30% 96.0784%;
+    --muted: 60 2.8571% 13.7255%;
+    --muted-foreground: 40 7.5377% 60.9804%;
+    --accent: 40.274 45.9119% 68.8235%;
+    --accent-foreground: 60 5.2632% 7.451%;
+    --destructive: 0 84.2365% 60.1961%;
+    --destructive-foreground: 50 30% 96.0784%;
+    --border: 36 5.8824% 16.6667%;
+    --input: 36 5.8824% 16.6667%;
+    --ring: 40.274 45.9119% 68.8235%;
+    --chart-1: 40.274 45.9119% 68.8235%;
+    --chart-2: 212.7273 4.8035% 44.902%;
+    --chart-3: 36 5.1546% 19.0196%;
+    --chart-4: 42.2727 20.1835% 57.2549%;
+    --chart-5: 60 4% 9.8039%;
+    --sidebar: 60 5.2632% 7.451%;
+    --sidebar-foreground: 50 30% 96.0784%;
+    --sidebar-primary: 40.274 45.9119% 68.8235%;
+    --sidebar-primary-foreground: 60 5.2632% 7.451%;
+    --sidebar-accent: 36 5.8824% 16.6667%;
+    --sidebar-accent-foreground: 50 30% 96.0784%;
+    --sidebar-border: 36 5.8824% 16.6667%;
+    --sidebar-ring: 40.274 45.9119% 68.8235%;
+    --font-sans: Inter, -apple-system, sans-serif;
+    --font-serif: Georgia, serif;
+    --font-mono: JetBrains Mono, monospace;
+    --radius: 0.5rem;
+    --shadow-x: 0px;
+    --shadow-y: 10px;
+    --shadow-blur: 25px;
+    --shadow-spread: 0px;
+    --shadow-opacity: 0.4;
+    --shadow-color: #000000;
+    --shadow-2xs: 0px 10px 25px 0px hsl(0 0% 0% / 0.2);
+    --shadow-xs: 0px 10px 25px 0px hsl(0 0% 0% / 0.2);
+    --shadow-sm: 0px 10px 25px 0px hsl(0 0% 0% / 0.4),
+      0px 1px 2px -1px hsl(0 0% 0% / 0.4);
+    --shadow: 0px 10px 25px 0px hsl(0 0% 0% / 0.4),
+      0px 1px 2px -1px hsl(0 0% 0% / 0.4);
+    --shadow-md: 0px 10px 25px 0px hsl(0 0% 0% / 0.4),
+      0px 2px 4px -1px hsl(0 0% 0% / 0.4);
+    --shadow-lg: 0px 10px 25px 0px hsl(0 0% 0% / 0.4),
+      0px 4px 6px -1px hsl(0 0% 0% / 0.4);
+    --shadow-xl: 0px 10px 25px 0px hsl(0 0% 0% / 0.4),
+      0px 8px 10px -1px hsl(0 0% 0% / 0.4);
+    --shadow-2xl: 0px 10px 25px 0px hsl(0 0% 0% / 1);
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+.scroll {
+  @apply w-full h-full cursor-pointer;
+}
+
+.scroll::-webkit-scrollbar {
+  @apply w-1 h-1.5;
+}
+
+.scroll::-webkit-scrollbar-track {
+  @apply bg-background rounded-lg;
+}
+
+.scroll::-webkit-scrollbar-thumb {
+  @apply rounded-lg bg-border;
+}
+
+.rdp-vhidden {
+  @apply hidden;
+}
+
+.hide-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.hide-scrollbar::-webkit-scrollbar {
+  @apply hidden;
+}

@@ -1,6 +1,6 @@
 {
-  "watch": ["src", ".env"],
-  "ext": ".ts,.js",
+  "watch": ["src", ".env.development", ".env.staging", ".env.production"],
+  "ext": "ts,js,env,development,staging,production",
   "ignore": [],
   "exec": "tsx ./src/index.ts"
 }
