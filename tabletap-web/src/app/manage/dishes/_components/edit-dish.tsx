@@ -105,21 +105,27 @@ export default function EditDish() {
 
       try {
         let imageValue = values.image;
+
         if (file) {
           const formData = new FormData();
           formData.append("image", file);
+
           const uploadImageResult = await uploadImageMutation.mutateAsync(
             formData
           );
           imageValue = uploadImageResult.payload.data;
         }
+
         const body: UpdateDishBodyType & { id: string } = {
           id: dishId,
           ...values,
           image: imageValue,
         };
+
         const result = await updateDishMutation.mutateAsync(body);
+
         toast.success(result.payload.message);
+
         handleResetEditDishForm();
       } catch (error) {
         handleErrorApi({ error, setError: form.setError });

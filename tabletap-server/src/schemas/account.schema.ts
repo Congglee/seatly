@@ -7,22 +7,13 @@ export const AccountSchema = z.object({
   name: z.string(),
   email: z.string(),
   role: z.enum([Role.Owner, Role.Employee]),
-  avatar: z.string().nullable(),
-  ownerId: z.string().nullable(),
-  createdAt: z.date(),
-  updatedAt: z.date()
+  avatar: z.string().nullable()
 })
 
 export type AccountType = z.TypeOf<typeof AccountSchema>
 
 export const AccountListRes = z.object({
-  data: z.object({
-    items: z.array(AccountSchema),
-    totalItem: z.number(),
-    totalPage: z.number(),
-    page: z.number(),
-    limit: z.number()
-  }),
+  data: z.array(AccountSchema),
   message: z.string()
 })
 
@@ -36,13 +27,6 @@ export const AccountRes = z
   .strict()
 
 export type AccountResType = z.TypeOf<typeof AccountRes>
-
-export const AccountListQuery = z.object({
-  page: z.coerce.number().positive().lte(10000).default(1),
-  limit: z.coerce.number().positive().lte(10000).default(10)
-})
-
-export type AccountListQueryType = z.TypeOf<typeof AccountListQuery>
 
 export const CreateEmployeeAccountBody = z
   .object({
@@ -133,7 +117,7 @@ export const ChangePasswordV2Res = LoginRes
 export type ChangePasswordV2ResType = z.TypeOf<typeof ChangePasswordV2Res>
 
 export const AccountIdParam = z.object({
-  id: z.string().uuid()
+  id: z.coerce.number()
 })
 
 export type AccountIdParamType = z.TypeOf<typeof AccountIdParam>

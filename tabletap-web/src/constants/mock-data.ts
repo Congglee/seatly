@@ -1,3 +1,58 @@
+export const mockDashboardStats = {
+  revenue: 12500000,
+  guests: 45,
+  orders: 32,
+  activeTables: 8,
+};
+
+export const mockRevenueData = [
+  { date: "01/12/2025", revenue: 15000000 },
+  { date: "02/12/2025", revenue: 12000000 },
+  { date: "03/12/2025", revenue: 8000000 },
+  { date: "04/12/2025", revenue: 8000000 },
+  { date: "05/12/2025", revenue: 10000000 },
+  { date: "06/12/2025", revenue: 14000000 },
+  { date: "07/12/2025", revenue: 18000000 },
+];
+
+export const mockDishRanking = [
+  {
+    id: "dish-1",
+    name: "Chicken Wings",
+    orders: 120,
+    image: "/images/chicken-wings.jpg",
+    description: "Chicken wings with cheese",
+  },
+  {
+    id: "dish-2",
+    name: "Crab Cake",
+    orders: 95,
+    image: "/images/crab-cake.jpg",
+    description: "Crab cake with sauce",
+  },
+  {
+    id: "dish-3",
+    name: "Shrimp Cocktail",
+    orders: 85,
+    image: "/images/shrimp-cocktail.jpg",
+    description: "Shrimp cocktail with salt and pepper",
+  },
+  {
+    id: "dish-4",
+    name: "Milkfish",
+    orders: 70,
+    image: "/images/milkfish.jpg",
+    description: "Milkfish with garlic and oil",
+  },
+  {
+    id: "dish-5",
+    name: "Red Shrimp",
+    orders: 60,
+    image: "/images/red-shrimp.jpg",
+    description: "Red shrimp with oil",
+  },
+];
+
 export interface MockNotification {
   id: string;
   title: string;
