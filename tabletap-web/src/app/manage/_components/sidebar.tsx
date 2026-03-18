@@ -1,5 +1,3 @@
-"use client";
-
 import Logo from "@/components/logo";
 import Menu from "@/app/manage/_components/menu";
 import SidebarToggle from "@/app/manage/_components/sidebar-toggle";

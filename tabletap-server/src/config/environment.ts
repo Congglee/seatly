@@ -49,8 +49,6 @@ export const envConfigSchema = z.object({
   INITIAL_EMAIL_OWNER: z.string(),
   INITIAL_PASSWORD_OWNER: z.string(),
 
-  SERVER_TIMEZONE: z.string(),
-
   CLIENT_URL: z.string(),
 
   PRODUCTION: z.enum(['true', 'false']).transform((value) => value === 'true'),

@@ -8,15 +8,15 @@ import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { OrderStatus } from "@/constants/type";
 import { cn } from "@/lib/utils";
-import { getOrderStatus } from "@/lib/utils/restaurant-status";
+import { getVietnameseOrderStatus } from "@/lib/utils/restaurant-status";
 import { handleErrorApi } from "@/lib/utils/api-error";
 import { useGuestGetOrderListQuery } from "@/queries/use-guest";
 import { useAppStore } from "@/providers/app-provider";
 import type {
+  GetOrdersResType,
   PayGuestOrdersResType,
   UpdateOrderResType,
 } from "@/schemas/order.schema";
-import type { GuestGetOrdersResType } from "@/schemas/guest.schema";
 import OrderItemCard from "@/app/guest/orders/_components/order-item-card";
 import OrdersEmptyState from "@/app/guest/orders/_components/orders-empty-state";
 import OrdersSkeleton from "@/app/guest/orders/_components/orders-skeleton";
@@ -43,7 +43,7 @@ const STATUS_GROUPS = {
 } as const;
 
 type StatusGroupKey = keyof typeof STATUS_GROUPS;
-type GuestOrder = GuestGetOrdersResType["data"][number];
+type GuestOrder = GetOrdersResType["data"][number];
 
 const GROUP_ORDER: StatusGroupKey[] = ["active", "completed", "settled"];
 
@@ -130,7 +130,7 @@ export default function OrdersView() {
       } = data;
 
       toast(
-        `Dish ${name} (Qty: ${quantity}) has just been updated to status "${getOrderStatus(
+        `Mon an ${name} (SL: ${quantity}) vua duoc cap nhat sang trang thai "${getVietnameseOrderStatus(
           data.status
         )}"`
       );
@@ -146,9 +146,9 @@ export default function OrdersView() {
       const { guest } = data[0];
 
       toast(
-        `${guest?.name ?? "Guest"} at table ${
+        `${guest?.name ?? "Khach"} tai ban ${
           guest?.tableNumber ?? "-"
-        } paid successfully ${data.length} orders`
+        } thanh toan thanh cong ${data.length} don`
       );
 
       refetch();

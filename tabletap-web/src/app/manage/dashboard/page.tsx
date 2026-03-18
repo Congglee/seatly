@@ -3,17 +3,12 @@ import DashboardView from "@/app/manage/dashboard/dashboard-view";
 
 const breadcrumbs = [
   { name: "Home", href: "/" },
-  { name: "Dashboard", href: "/manage/dashboard" },
+  { name: "Dashboard", href: "/dashboard" },
 ];
 
 export default function Dashboard() {
   return (
-    <ManageContentLayout
-      breadcrumbs={breadcrumbs}
-      heading="Dashboard"
-      description="Track revenue, paid orders, active tables, and dish performance"
-      hasManageFilters={false}
-    >
+    <ManageContentLayout breadcrumbs={breadcrumbs}>
       <DashboardView />
     </ManageContentLayout>
   );
