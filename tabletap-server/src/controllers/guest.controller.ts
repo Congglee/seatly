@@ -8,48 +8,27 @@ import { signAccessToken, signRefreshToken, verifyRefreshToken } from '@/utils/j
 import ms, { type StringValue } from 'ms'
 
 export const guestLoginController = async (body: GuestLoginBodyType) => {
-  let guest = await prisma.$transaction(async (tx) => {
-    const table = await tx.restaurantTable.findUnique({
-      where: { number: body.tableNumber, token: body.token }
-    })
+  const table = await prisma.restaurantTable.findUnique({
+    where: { number: body.tableNumber, token: body.token }
+  })
 
-    if (!table) {
-      throw new Error('Table does not exist or token is incorrect')
+  if (!table) {
+    throw new Error('Table does not exist or token is incorrect')
+  }
+
+  if (table.status === TableStatus.Hidden) {
+    throw new Error('Table is hidden, please select another table to login')
+  }
+
+  if (table.status === TableStatus.Reserved) {
+    throw new Error('Table is reserved, please contact staff for support')
+  }
+
+  let guest = await prisma.guest.create({
+    data: {
+      name: body.name,
+      tableNumber: body.tableNumber
     }
-
-    if (table.status === TableStatus.Hidden) {
-      throw new Error('Table is hidden, please select another table to login')
-    }
-
-    if (table.status === TableStatus.Reserved) {
-      throw new Error('Table is reserved, please contact staff for support')
-    }
-
-    const lockTableResult = await tx.restaurantTable.updateMany({
-      where: {
-        number: body.tableNumber,
-        isOccupied: false
-      },
-      data: {
-        isOccupied: true,
-        occupiedAt: new Date(),
-        lastActivityAt: new Date()
-      }
-    })
-
-    if (lockTableResult.count === 0) {
-      throw new Error('Table is currently occupied, please contact staff for support')
-    }
-
-    return tx.guest.create({
-      data: {
-        name: body.name,
-        tableNumber: body.tableNumber,
-        sessionStatus: 'Active',
-        lastActivityAt: new Date(),
-        endedAt: null
-      }
-    })
   })
 
   const refreshToken = signRefreshToken(
@@ -75,42 +54,10 @@ export const guestLoginController = async (body: GuestLoginBodyType) => {
 }
 
 export const guestLogoutController = async (id: string) => {
-  const guest = await prisma.guest.findUniqueOrThrow({
+  await prisma.guest.update({
     where: { id },
-    include: {
-      orders: {
-        where: {
-          status: {
-            in: [OrderStatus.Pending, OrderStatus.Processing, OrderStatus.Delivered]
-          }
-        }
-      }
-    }
+    data: { refreshToken: null, refreshTokenExpiresAt: null }
   })
-
-  await prisma.$transaction(async (tx) => {
-    await tx.guest.update({
-      where: { id },
-      data: {
-        refreshToken: null,
-        refreshTokenExpiresAt: null,
-        sessionStatus: guest.orders.length > 0 ? guest.sessionStatus : 'LoggedOut',
-        endedAt: guest.orders.length > 0 ? guest.endedAt : new Date(),
-        lastActivityAt: new Date()
-      }
-    })
-
-    if (guest.tableNumber !== null && guest.orders.length === 0) {
-      await tx.restaurantTable.update({
-        where: { number: guest.tableNumber },
-        data: {
-          isOccupied: false,
-          lastActivityAt: new Date()
-        }
-      })
-    }
-  })
-
   return 'Logout successfully'
 }
 

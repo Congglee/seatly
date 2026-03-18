@@ -3,10 +3,6 @@ import { AccountSchema } from "@/schemas/account.schema";
 import { TableSchema } from "@/schemas/table.schema";
 import { z } from "zod";
 
-export const OrderStatus = z.enum(OrderStatusValues);
-
-export type OrderStatusType = z.TypeOf<typeof OrderStatus>;
-
 const DishSnapshotSchema = z.object({
   id: z.string(),
   name: z.string(),
@@ -66,21 +62,13 @@ export type UpdateOrderResType = z.TypeOf<typeof UpdateOrderRes>;
 export const GetOrdersQueryParams = z.object({
   fromDate: z.coerce.date().optional(),
   toDate: z.coerce.date().optional(),
-  page: z.coerce.number().positive().lte(10000).default(1),
-  limit: z.coerce.number().positive().lte(10000).default(10),
 });
 
 export type GetOrdersQueryParamsType = z.TypeOf<typeof GetOrdersQueryParams>;
 
 export const GetOrdersRes = z.object({
-  data: z.object({
-    items: z.array(OrderSchema),
-    totalItem: z.number(),
-    totalPage: z.number(),
-    page: z.number(),
-    limit: z.number(),
-  }),
   message: z.string(),
+  data: z.array(OrderSchema),
 });
 
 export type GetOrdersResType = z.TypeOf<typeof GetOrdersRes>;
@@ -100,10 +88,7 @@ export const PayGuestOrdersBody = z.object({
 
 export type PayGuestOrdersBodyType = z.TypeOf<typeof PayGuestOrdersBody>;
 
-export const PayGuestOrdersRes = z.object({
-  message: z.string(),
-  data: z.array(OrderSchema),
-});
+export const PayGuestOrdersRes = GetOrdersRes;
 
 export type PayGuestOrdersResType = z.TypeOf<typeof PayGuestOrdersRes>;
 

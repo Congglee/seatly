@@ -11,7 +11,7 @@ import { DishStatus } from "@/constants/type";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { handleErrorApi } from "@/lib/utils/api-error";
-import { useGetDishListQuery } from "@/queries/use-dish";
+import { useDishListQuery } from "@/queries/use-dish";
 import { useGuestOrderDishMutation } from "@/queries/use-guest";
 import { GuestCreateOrdersBodyType } from "@/schemas/guest.schema";
 import { ClipboardList, Search } from "lucide-react";
@@ -23,7 +23,7 @@ export default function GuestMenuView() {
   const [searchQuery, setSearchQuery] = useState("");
   const [orders, setOrders] = useState<GuestCreateOrdersBodyType>([]);
 
-  const dishListQuery = useGetDishListQuery({ page: 1, limit: DEFAULT_LIMIT });
+  const dishListQuery = useDishListQuery({ page: 1, limit: DEFAULT_LIMIT });
   const createGuestOrderMutation = useGuestOrderDishMutation();
 
   const router = useRouter();
