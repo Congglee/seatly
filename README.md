@@ -1,1 +1,1 @@
-# TableTap (QR Table Ordering) 🚀
+# Seatly (QR Table Ordering) 🚀
