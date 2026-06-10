@@ -38,6 +38,8 @@ export const OrderSchema = z.object({
   updatedAt: z.date(),
 });
 
+export type OrderType = z.TypeOf<typeof OrderSchema>;
+
 export const UpdateOrderBody = z.object({
   status: z.enum(OrderStatusValues),
   dishId: z.string(),

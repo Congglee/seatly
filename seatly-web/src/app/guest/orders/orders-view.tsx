@@ -6,14 +6,19 @@ import { useEffect, useMemo } from "react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
+import {
+  GUEST_ORDER_STATUS_GROUP_ORDER,
+  GUEST_ORDER_STATUS_GROUPS,
+  type GuestOrderStatusGroupKey,
+} from "@/constants/order-status";
 import { OrderStatus } from "@/constants/type";
 import { cn } from "@/lib/utils";
+import { toTimestamp } from "@/lib/utils/date";
 import { getVietnameseOrderStatus } from "@/lib/utils/restaurant-status";
-import { handleErrorApi } from "@/lib/utils/api-error";
 import { useGuestGetOrderListQuery } from "@/queries/use-guest";
 import { useAppStore } from "@/providers/app-provider";
 import type {
-  GetOrdersResType,
+  OrderType,
   PayGuestOrdersResType,
   UpdateOrderResType,
 } from "@/schemas/order.schema";
@@ -22,47 +27,10 @@ import OrdersEmptyState from "@/app/guest/orders/_components/orders-empty-state"
 import OrdersSkeleton from "@/app/guest/orders/_components/orders-skeleton";
 import OrdersSummaryFooter from "@/app/guest/orders/_components/orders-summary-footer";
 
-type OrderStatusValue = (typeof OrderStatus)[keyof typeof OrderStatus];
-
-const STATUS_GROUPS = {
-  active: {
-    label: "In progress",
-    statuses: [
-      OrderStatus.Pending,
-      OrderStatus.Processing,
-    ] as OrderStatusValue[],
-  },
-  completed: {
-    label: "Delivered",
-    statuses: [OrderStatus.Delivered] as OrderStatusValue[],
-  },
-  settled: {
-    label: "Settled",
-    statuses: [OrderStatus.Paid, OrderStatus.Rejected] as OrderStatusValue[],
-  },
-} as const;
-
-type StatusGroupKey = keyof typeof STATUS_GROUPS;
-type GuestOrder = GetOrdersResType["data"][number];
-
-const GROUP_ORDER: StatusGroupKey[] = ["active", "completed", "settled"];
-
-const toTimestamp = (value: Date | string) => {
-  return value instanceof Date ? value.getTime() : new Date(value).getTime();
-};
-
 export default function OrdersView() {
   const guestOrderListQuery = useGuestGetOrderListQuery();
   const { refetch } = guestOrderListQuery;
   const socket = useAppStore((state) => state.socket);
-
-  useEffect(() => {
-    if (!guestOrderListQuery.error) {
-      return;
-    }
-
-    handleErrorApi({ error: guestOrderListQuery.error });
-  }, [guestOrderListQuery.error]);
 
   const orders = useMemo(
     () => guestOrderListQuery.data?.payload.data ?? [],
@@ -70,22 +38,24 @@ export default function OrdersView() {
   );
 
   const groupedOrders = useMemo(() => {
-    const groups: Record<StatusGroupKey, GuestOrder[]> = {
+    const groups: Record<GuestOrderStatusGroupKey, OrderType[]> = {
       active: [],
       completed: [],
       settled: [],
     };
 
     for (const order of orders) {
-      for (const groupKey of GROUP_ORDER) {
-        if (STATUS_GROUPS[groupKey].statuses.includes(order.status)) {
+      for (const groupKey of GUEST_ORDER_STATUS_GROUP_ORDER) {
+        if (
+          GUEST_ORDER_STATUS_GROUPS[groupKey].statuses.includes(order.status)
+        ) {
           groups[groupKey].push(order);
           break;
         }
       }
     }
 
-    for (const groupKey of GROUP_ORDER) {
+    for (const groupKey of GUEST_ORDER_STATUS_GROUP_ORDER) {
       groups[groupKey].sort(
         (a, b) => toTimestamp(b.createdAt) - toTimestamp(a.createdAt)
       );
@@ -212,14 +182,14 @@ export default function OrdersView() {
           <OrdersEmptyState />
         ) : (
           <div className="space-y-5">
-            {GROUP_ORDER.map((groupKey) => {
+            {GUEST_ORDER_STATUS_GROUP_ORDER.map((groupKey) => {
               const groupedOrderItems = groupedOrders[groupKey];
 
               if (groupedOrderItems.length === 0) {
                 return null;
               }
 
-              const group = STATUS_GROUPS[groupKey];
+              const group = GUEST_ORDER_STATUS_GROUPS[groupKey];
 
               return (
                 <section key={groupKey} className="space-y-2.5">

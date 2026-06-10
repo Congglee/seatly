@@ -52,3 +52,5 @@ export const OrderStatusValues = [
   OrderStatus.Delivered,
   OrderStatus.Paid,
 ] as const;
+
+export type OrderStatusValue = (typeof OrderStatusValues)[number];
