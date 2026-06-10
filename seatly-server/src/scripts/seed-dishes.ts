@@ -1,9 +1,19 @@
 process.env.NODE_ENV = process.env.NODE_ENV ?? 'development'
 
 import type { Prisma } from '@prisma/client'
+import type prismaClient from '@/database'
+import type appLoggerType from '@/config/logger'
 import { DishStatus } from '@/constants/type'
 
 type SeedDish = Prisma.DishUncheckedCreateInput
+type DatabaseModule = {
+  default: typeof prismaClient
+  connectPrisma: () => Promise<typeof prismaClient>
+  disconnectPrisma: () => Promise<void>
+}
+type LoggerModule = {
+  default: typeof appLoggerType
+}
 
 const seedDishes: SeedDish[] = [
   {
@@ -141,17 +151,26 @@ const seedDishes: SeedDish[] = [
   }
 ]
 
-const buildUpdateData = ({ id, createdAt, ...dish }: SeedDish): Prisma.DishUncheckedUpdateInput => ({
-  ...dish,
-  updatedAt: dish.updatedAt,
-  stockUpdatedAt: dish.stockUpdatedAt
-})
+const buildUpdateData = (dish: SeedDish): Prisma.DishUncheckedUpdateInput => {
+  const updateData: Prisma.DishUncheckedUpdateInput = { ...dish }
+
+  delete updateData.id
+  delete updateData.createdAt
+
+  return {
+    ...updateData,
+    updatedAt: dish.updatedAt,
+    stockUpdatedAt: dish.stockUpdatedAt
+  }
+}
 
 const main = async () => {
-  const [{ default: prisma, connectPrisma }, { default: appLogger }] = await Promise.all([
-    import('../database'),
-    import('../config/logger')
-  ])
+  const [databaseModule, loggerModule] = (await Promise.all([
+    import('../database/index.js'),
+    import('../config/logger.js')
+  ])) as unknown as [DatabaseModule, LoggerModule]
+  const { default: prisma, connectPrisma, disconnectPrisma } = databaseModule
+  const { default: appLogger } = loggerModule
 
   try {
     await connectPrisma()
@@ -169,7 +188,7 @@ const main = async () => {
     appLogger.success('seed-dishes', `Seeded ${seededDishes.length} dishes successfully`)
 
     console.table(
-      seededDishes.map((dish: any) => ({
+      seededDishes.map((dish) => ({
         id: dish.id,
         name: dish.name,
         status: dish.status,
@@ -183,7 +202,6 @@ const main = async () => {
     process.exitCode = 1
   } finally {
     try {
-      const { disconnectPrisma } = await import('../database')
       await disconnectPrisma()
     } catch (disconnectError) {
       console.error('Failed to disconnect Prisma cleanly after seeding dishes.')

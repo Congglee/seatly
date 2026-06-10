@@ -3,11 +3,11 @@ import { cn } from "@/lib/utils";
 import { formatCurrency } from "@/lib/utils/currency";
 import { formatRelativeTime } from "@/lib/utils/date";
 import { OrderStatus } from "@/constants/type";
-import { type OrderType } from "@/schemas/order.schema";
+import { type GetOrdersResType } from "@/schemas/order.schema";
 import OrderStatusBadge from "@/app/guest/orders/_components/order-status-badge";
 
 interface OrderItemCardProps {
-  order: OrderType;
+  order: GetOrdersResType["data"]["items"][number];
 }
 
 export default function OrderItemCard({ order }: OrderItemCardProps) {
