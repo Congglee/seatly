@@ -11,30 +11,22 @@ import { DishStatus } from "@/constants/type";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { handleErrorApi } from "@/lib/utils/api-error";
-import { useDishListQuery } from "@/queries/use-dish";
+import { useGetDishListQuery } from "@/queries/use-dish";
 import { useGuestOrderDishMutation } from "@/queries/use-guest";
 import { GuestCreateOrdersBodyType } from "@/schemas/guest.schema";
 import { ClipboardList, Search } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 
 export default function GuestMenuView() {
   const [searchQuery, setSearchQuery] = useState("");
   const [orders, setOrders] = useState<GuestCreateOrdersBodyType>([]);
 
-  const dishListQuery = useDishListQuery({ page: 1, limit: DEFAULT_LIMIT });
+  const dishListQuery = useGetDishListQuery({ page: 1, limit: DEFAULT_LIMIT });
   const createGuestOrderMutation = useGuestOrderDishMutation();
 
   const router = useRouter();
-
-  useEffect(() => {
-    if (!dishListQuery.error) {
-      return;
-    }
-
-    handleErrorApi({ error: dishListQuery.error });
-  }, [dishListQuery.error]);
 
   const dishes = useMemo(
     () => dishListQuery.data?.payload.data.items ?? [],
@@ -92,48 +84,39 @@ export default function GuestMenuView() {
       .length;
   }, [sortedDishes]);
 
-  const handleQuantityChange = useCallback(
-    (dishId: string, quantity: number) => {
-      setOrders((prevOrders) => {
-        if (quantity <= 0) {
-          return prevOrders.filter((order) => order.dishId !== dishId);
-        }
+  const handleQuantityChange = (dishId: string, quantity: number) => {
+    setOrders((prevOrders) => {
+      if (quantity <= 0) {
+        return prevOrders.filter((order) => order.dishId !== dishId);
+      }
 
-        const currentOrderIndex = prevOrders.findIndex(
-          (order) => order.dishId === dishId
-        );
+      const currentOrderIndex = prevOrders.findIndex(
+        (order) => order.dishId === dishId
+      );
 
-        if (currentOrderIndex === -1) {
-          return [...prevOrders, { dishId, quantity }];
-        }
+      if (currentOrderIndex === -1) {
+        return [...prevOrders, { dishId, quantity }];
+      }
 
-        const nextOrders = [...prevOrders];
-        nextOrders[currentOrderIndex] = {
-          ...nextOrders[currentOrderIndex],
-          quantity,
-        };
+      const nextOrders = [...prevOrders];
+      nextOrders[currentOrderIndex] = {
+        ...nextOrders[currentOrderIndex],
+        quantity,
+      };
 
-        return nextOrders;
-      });
-    },
-    []
-  );
+      return nextOrders;
+    });
+  };
 
-  const handleIncrement = useCallback(
-    (dishId: string) => {
-      const currentQuantity = quantityByDishId[dishId] ?? 0;
-      handleQuantityChange(dishId, currentQuantity + 1);
-    },
-    [handleQuantityChange, quantityByDishId]
-  );
+  const handleIncrement = (dishId: string) => {
+    const currentQuantity = quantityByDishId[dishId] ?? 0;
+    handleQuantityChange(dishId, currentQuantity + 1);
+  };
 
-  const handleDecrement = useCallback(
-    (dishId: string) => {
-      const currentQuantity = quantityByDishId[dishId] ?? 0;
-      handleQuantityChange(dishId, Math.max(0, currentQuantity - 1));
-    },
-    [handleQuantityChange, quantityByDishId]
-  );
+  const handleDecrement = (dishId: string) => {
+    const currentQuantity = quantityByDishId[dishId] ?? 0;
+    handleQuantityChange(dishId, Math.max(0, currentQuantity - 1));
+  };
 
   const totalItems = useMemo(() => {
     return orders.reduce((result, order) => result + order.quantity, 0);
@@ -151,10 +134,8 @@ export default function GuestMenuView() {
     }, 0);
   }, [dishes, quantityByDishId]);
 
-  const createGuestOrders = useCallback(async () => {
-    if (orders.length === 0 || createGuestOrderMutation.isPending) {
-      return;
-    }
+  const createGuestOrders = async () => {
+    if (orders.length === 0 || createGuestOrderMutation.isPending) return;
 
     try {
       await createGuestOrderMutation.mutateAsync(orders);
@@ -162,7 +143,7 @@ export default function GuestMenuView() {
     } catch (error) {
       handleErrorApi({ error });
     }
-  }, [createGuestOrderMutation, orders, router]);
+  };
 
   return (
     <>

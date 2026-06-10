@@ -142,7 +142,6 @@ export default function GuestEntryForm() {
                       id="guest-name"
                       type="text"
                       placeholder="e.g. John Doe"
-                      autoComplete="given-name"
                       autoFocus
                       className="h-12 rounded-xl px-4 text-base bg-muted/40 border-border/60 placeholder:text-muted-foreground/50 focus-visible:ring-primary/30 focus-visible:border-primary/50 transition-colors duration-200"
                     />

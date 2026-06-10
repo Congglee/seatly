@@ -28,6 +28,9 @@ import dishRoutes from '@/routes/dish.route'
 import mediaRoutes from '@/routes/media.route'
 import staticRoutes from '@/routes/static.route'
 import guestRoutes from '@/routes/guest.route'
+import accountRoutes from '@/routes/account.route'
+import dashboardRoutes from '@/routes/dashboard.route'
+import orderRoutes from '@/routes/order.route'
 
 const buildApp = () => {
   const fastify = Fastify({ logger: false })
@@ -74,6 +77,15 @@ const buildApp = () => {
   })
   fastify.register(guestRoutes, {
     prefix: '/guest'
+  })
+  fastify.register(accountRoutes, {
+    prefix: '/accounts'
+  })
+  fastify.register(orderRoutes, {
+    prefix: '/orders'
+  })
+  fastify.register(dashboardRoutes, {
+    prefix: '/indicators'
   })
   fastify.register(healthRoutes, {
     prefix: '/health'

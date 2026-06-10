@@ -107,14 +107,25 @@
 - Store small UI state with Zustand stores under `src/store/**`, following `src/store/dishes/use-new-dish.ts` and `src/store/tables/use-new-table.ts`.
 - Keep reusable query logic under `src/queries/**`, following `src/queries/use-table.ts`, `src/queries/use-media.ts`, and `src/queries/use-guest.ts`.
 
+## React Component Hygiene
+
+- Do not add `useMemo` or `useCallback` by habit. First verify the hook solves a real problem: expensive recomputation, referential stability for a memoized child, stable dependencies for another hook, or a measured render issue.
+- Remove unnecessary `useMemo`/`useCallback` when the wrapped value is cheap, not passed to `React.memo` components, not used as a hook dependency, and does not improve a real performance bottleneck.
+- Keep React components focused on rendering and local orchestration. Avoid defining reusable types, constants, status/config maps, or utility/helper functions at the top of component files.
+- Put reusable types in `src/schemas/**` when derived from API/domain schemas, enum-like values in `src/constants/type.ts`, UI/domain constants in focused files under `src/constants/**`, and pure helpers in `src/lib/utils/**`.
+- Import extracted pieces back into components. Good recent examples: `src/constants/order-status.ts`, `src/lib/utils/date.ts`, and `src/schemas/order.schema.ts`.
+
 ## Do / Do Not Copy
 
 - `DO`: Use `@/` imports like `src/app/layout.tsx` and `src/components/ui/button.tsx`.
 - `DO`: Use `Image` from `next/image` like `src/app/guest/menu/_components/menu-dish-card.tsx` and `src/app/manage/dishes/_components/dish-image-upload.tsx`.
 - `DO`: Keep Server Component pages thin and delegate interactive UI to `_components/**` Client Components.
+- `DO`: Extract reusable order status config and date helpers like `src/constants/order-status.ts` and `src/lib/utils/date.ts`.
 - `DO`: Wrap `useSearchParams` call sites in `Suspense`; use `src/components/search-params-loader.tsx` as a reference pattern.
 - `DO`: Add remote image domains in `next.config.mjs` using `images.remotePatterns`.
 - `DO`: Extend shadcn primitives in `src/components/ui/**` and use Tailwind v3 utility classes plus existing CSS variables from `src/styles/globals.css`.
+- `DON'T`: Add `useMemo`/`useCallback` unless there is a specific dependency, memoization, or measured performance reason.
+- `DON'T`: Keep reusable types, constants, config maps, or helpers embedded at the top of React component files.
 - `DON'T`: Use raw `<img>` for normal app images.
 - `DON'T`: Convert `page.tsx` into a Client Component unless the full route truly requires client-only behavior.
 - `DON'T`: Use Next.js 15/16 docs, `next@latest`, or examples incompatible with Next.js `14.2.35`.

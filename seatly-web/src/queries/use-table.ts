@@ -5,10 +5,14 @@ import {
 } from "@/schemas/table.schema";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
-export const useTableListQuery = (params: TableListQueryType) => {
+export const useGetTableListQuery = (
+  params: TableListQueryType,
+  options?: { enabled?: boolean }
+) => {
   return useQuery({
     queryFn: () => tableApiRequest.getTableList(params),
     queryKey: ["tables", params],
+    enabled: options?.enabled,
   });
 };
 

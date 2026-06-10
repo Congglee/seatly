@@ -1,32 +1,14 @@
 import Image from "next/image";
 import { cn } from "@/lib/utils";
 import { formatCurrency } from "@/lib/utils/currency";
+import { formatRelativeTime } from "@/lib/utils/date";
 import { OrderStatus } from "@/constants/type";
 import { type GetOrdersResType } from "@/schemas/order.schema";
 import OrderStatusBadge from "@/app/guest/orders/_components/order-status-badge";
 
 interface OrderItemCardProps {
-  order: GetOrdersResType["data"][number];
+  order: GetOrdersResType["data"]["items"][number];
 }
-
-const formatRelativeTime = (date: Date | string) => {
-  const targetDate = date instanceof Date ? date : new Date(date);
-
-  const now = new Date();
-  const diffMs = now.getTime() - targetDate.getTime();
-  const diffMinutes = Math.floor(diffMs / (1000 * 60));
-
-  if (diffMinutes < 1) return "Just now";
-  if (diffMinutes < 60) return `${diffMinutes}m ago`;
-
-  const diffHours = Math.floor(diffMinutes / 60);
-  if (diffHours < 24) return `${diffHours}h ago`;
-
-  return targetDate.toLocaleDateString("en-US", {
-    month: "short",
-    day: "numeric",
-  });
-};
 
 export default function OrderItemCard({ order }: OrderItemCardProps) {
   const isPaid = order.status === OrderStatus.Paid;
