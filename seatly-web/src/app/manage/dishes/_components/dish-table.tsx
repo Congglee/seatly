@@ -8,7 +8,7 @@ import DataTable from "@/components/data-table";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { DEFAULT_LIMIT } from "@/constants/pagination";
-import { useDishListQuery } from "@/queries/use-dish";
+import { useGetDishListQuery } from "@/queries/use-dish";
 import { useNewDishStore } from "@/store/dishes/use-new-dish";
 import { Plus, X } from "lucide-react";
 import { useSearchParams } from "next/navigation";
@@ -19,7 +19,7 @@ export default function DishTable() {
 
   const { onOpenNewDishSheet } = useNewDishStore();
 
-  const dishListQuery = useDishListQuery({
+  const dishListQuery = useGetDishListQuery({
     page,
     limit: DEFAULT_LIMIT,
   });

@@ -6,19 +6,13 @@ import { useEffect, useMemo } from "react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
-import {
-  GUEST_ORDER_STATUS_GROUP_ORDER,
-  GUEST_ORDER_STATUS_GROUPS,
-  type GuestOrderStatusGroupKey,
-} from "@/constants/order-status";
-import { OrderStatus } from "@/constants/type";
+import { OrderStatus, OrderStatusValue } from "@/constants/type";
 import { cn } from "@/lib/utils";
-import { toTimestamp } from "@/lib/utils/date";
-import { getVietnameseOrderStatus } from "@/lib/utils/restaurant-status";
+import { getOrderStatus } from "@/lib/utils/restaurant-status";
 import { useGuestGetOrderListQuery } from "@/queries/use-guest";
 import { useAppStore } from "@/providers/app-provider";
 import type {
-  OrderType,
+  GetOrdersResType,
   PayGuestOrdersResType,
   UpdateOrderResType,
 } from "@/schemas/order.schema";
@@ -26,10 +20,35 @@ import OrderItemCard from "@/app/guest/orders/_components/order-item-card";
 import OrdersEmptyState from "@/app/guest/orders/_components/orders-empty-state";
 import OrdersSkeleton from "@/app/guest/orders/_components/orders-skeleton";
 import OrdersSummaryFooter from "@/app/guest/orders/_components/orders-summary-footer";
+import { toTimestamp } from "@/lib/utils/date";
+
+const STATUS_GROUPS = {
+  active: {
+    label: "In progress",
+    statuses: [
+      OrderStatus.Pending,
+      OrderStatus.Processing,
+    ] as OrderStatusValue[],
+  },
+  completed: {
+    label: "Delivered",
+    statuses: [OrderStatus.Delivered] as OrderStatusValue[],
+  },
+  settled: {
+    label: "Settled",
+    statuses: [OrderStatus.Paid, OrderStatus.Rejected] as OrderStatusValue[],
+  },
+} as const;
+
+type StatusGroupKey = keyof typeof STATUS_GROUPS;
+type GuestOrder = GetOrdersResType["data"]["items"][number];
+
+const GROUP_ORDER: StatusGroupKey[] = ["active", "completed", "settled"];
 
 export default function OrdersView() {
   const guestOrderListQuery = useGuestGetOrderListQuery();
   const { refetch } = guestOrderListQuery;
+
   const socket = useAppStore((state) => state.socket);
 
   const orders = useMemo(
@@ -38,24 +57,22 @@ export default function OrdersView() {
   );
 
   const groupedOrders = useMemo(() => {
-    const groups: Record<GuestOrderStatusGroupKey, OrderType[]> = {
+    const groups: Record<StatusGroupKey, GuestOrder[]> = {
       active: [],
       completed: [],
       settled: [],
     };
 
     for (const order of orders) {
-      for (const groupKey of GUEST_ORDER_STATUS_GROUP_ORDER) {
-        if (
-          GUEST_ORDER_STATUS_GROUPS[groupKey].statuses.includes(order.status)
-        ) {
+      for (const groupKey of GROUP_ORDER) {
+        if (STATUS_GROUPS[groupKey].statuses.includes(order.status)) {
           groups[groupKey].push(order);
           break;
         }
       }
     }
 
-    for (const groupKey of GUEST_ORDER_STATUS_GROUP_ORDER) {
+    for (const groupKey of GROUP_ORDER) {
       groups[groupKey].sort(
         (a, b) => toTimestamp(b.createdAt) - toTimestamp(a.createdAt)
       );
@@ -100,7 +117,7 @@ export default function OrdersView() {
       } = data;
 
       toast(
-        `Mon an ${name} (SL: ${quantity}) vua duoc cap nhat sang trang thai "${getVietnameseOrderStatus(
+        `Dish ${name} (Qty: ${quantity}) has just been updated to status "${getOrderStatus(
           data.status
         )}"`
       );
@@ -116,9 +133,9 @@ export default function OrdersView() {
       const { guest } = data[0];
 
       toast(
-        `${guest?.name ?? "Khach"} tai ban ${
+        `${guest?.name ?? "Guest"} at table ${
           guest?.tableNumber ?? "-"
-        } thanh toan thanh cong ${data.length} don`
+        } paid successfully ${data.length} orders`
       );
 
       refetch();
@@ -182,14 +199,14 @@ export default function OrdersView() {
           <OrdersEmptyState />
         ) : (
           <div className="space-y-5">
-            {GUEST_ORDER_STATUS_GROUP_ORDER.map((groupKey) => {
+            {GROUP_ORDER.map((groupKey) => {
               const groupedOrderItems = groupedOrders[groupKey];
 
               if (groupedOrderItems.length === 0) {
                 return null;
               }
 
-              const group = GUEST_ORDER_STATUS_GROUPS[groupKey];
+              const group = STATUS_GROUPS[groupKey];
 
               return (
                 <section key={groupKey} className="space-y-2.5">

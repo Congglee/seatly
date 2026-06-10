@@ -30,6 +30,10 @@ export const formatDateTimeToLocaleString = (date: string | Date) => {
   );
 };
 
+export const formatDateTimeToTimeString = (date: string | Date) => {
+  return format(date instanceof Date ? date : new Date(date), "HH:mm:ss");
+};
+
 export const getDefaultDateRange = () => ({
   fromDate: startOfDay(new Date()),
   toDate: endOfDay(new Date()),

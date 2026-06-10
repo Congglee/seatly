@@ -1,4 +1,14 @@
-import { CheckCircle2, Clock, CreditCard, Flame, XCircle } from "lucide-react";
+import {
+  BookX,
+  CheckCircle2,
+  Clock,
+  CookingPot,
+  CreditCard,
+  Flame,
+  HandCoins,
+  Truck,
+  XCircle,
+} from "lucide-react";
 import type { ElementType } from "react";
 import { OrderStatus, type OrderStatusValue } from "@/constants/type";
 
@@ -72,5 +82,51 @@ export const ORDER_STATUS_BADGE_CONFIG: Record<
     icon: CreditCard,
     className:
       "bg-violet-50 text-violet-700 border-violet-200/60 dark:bg-violet-950/40 dark:text-violet-400 dark:border-violet-800/40",
+  },
+};
+
+export const ORDER_STATUS_CONFIG: Record<
+  string,
+  {
+    label: string;
+    icon: typeof Clock;
+    className: string;
+    dotClassName: string;
+  }
+> = {
+  [OrderStatus.Pending]: {
+    label: "Pending",
+    icon: Clock,
+    className:
+      "bg-amber-500/15 text-amber-700 border-amber-500/25 dark:text-amber-400 dark:border-amber-400/20",
+    dotClassName: "bg-amber-500",
+  },
+  [OrderStatus.Processing]: {
+    label: "Processing",
+    icon: CookingPot,
+    className:
+      "bg-sky-500/15 text-sky-700 border-sky-500/25 dark:text-sky-400 dark:border-sky-400/20",
+    dotClassName: "bg-sky-500",
+  },
+  [OrderStatus.Delivered]: {
+    label: "Delivered",
+    icon: Truck,
+    className:
+      "bg-emerald-500/15 text-emerald-700 border-emerald-500/25 dark:text-emerald-400 dark:border-emerald-400/20",
+    dotClassName: "bg-emerald-500",
+  },
+  [OrderStatus.Paid]: {
+    label: "Paid",
+    icon: HandCoins,
+    className:
+      "bg-violet-500/15 text-violet-700 border-violet-500/25 dark:text-violet-400 dark:border-violet-400/20",
+    dotClassName: "bg-violet-500",
+  },
+  [OrderStatus.Rejected]: {
+    label: "Rejected",
+    icon: BookX,
+    className:
+      "bg-red-500/15 text-red-700 border-red-500/25 dark:text-red-400 dark:border-red-400/20",
+    dotClassName: "bg-red-500",
   },
 };

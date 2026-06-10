@@ -1,39 +1,13 @@
 import TableActions from "@/app/manage/tables/_components/table-actions";
 import QRCodeTable from "@/components/qrcode-table";
-import { Badge } from "@/components/ui/badge";
+import TableStatusBadge from "@/components/table-status-badge";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
-import { TableStatus } from "@/constants/type";
-import { cn } from "@/lib/utils";
 import { type TableListResType } from "@/schemas/table.schema";
 import { ColumnDef } from "@tanstack/react-table";
-import { ArrowUpDown, CircleCheck, CircleDot, CircleX } from "lucide-react";
+import { ArrowUpDown } from "lucide-react";
 
 type TableItem = TableListResType["data"]["items"][number];
-
-const statusConfig: Record<
-  string,
-  { label: string; icon: typeof CircleCheck; className: string }
-> = {
-  [TableStatus.Available]: {
-    label: "Available",
-    icon: CircleCheck,
-    className:
-      "bg-emerald-500/15 text-emerald-700 border-emerald-500/25 hover:bg-emerald-500/20 dark:text-emerald-400 dark:border-emerald-400/20",
-  },
-  [TableStatus.Hidden]: {
-    label: "Hidden",
-    icon: CircleX,
-    className:
-      "bg-zinc-500/10 text-zinc-600 border-zinc-500/20 hover:bg-zinc-500/15 dark:text-zinc-400 dark:border-zinc-400/15",
-  },
-  [TableStatus.Reserved]: {
-    label: "Reserved",
-    icon: CircleDot,
-    className:
-      "bg-amber-500/15 text-amber-700 border-amber-500/25 hover:bg-amber-500/20 dark:text-amber-400 dark:border-amber-400/20",
-  },
-};
 
 export const columns: ColumnDef<TableItem>[] = [
   {
@@ -107,26 +81,7 @@ export const columns: ColumnDef<TableItem>[] = [
     },
     cell: ({ row }) => {
       const status = row.getValue("status") as string;
-      const config = statusConfig[status];
-
-      if (!config) {
-        return <span>{status}</span>;
-      }
-
-      const StatusIcon = config.icon;
-
-      return (
-        <Badge
-          variant="outline"
-          className={cn(
-            "gap-1.5 px-2 py-0.5 font-medium transition-colors",
-            config.className
-          )}
-        >
-          <StatusIcon className="size-3.5" />
-          {config.label}
-        </Badge>
-      );
+      return <TableStatusBadge status={status} />;
     },
     filterFn: (row, id, value) => {
       return value.includes(row.getValue(id));

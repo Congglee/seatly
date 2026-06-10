@@ -1,10 +1,14 @@
-import { DishStatus, Role, TableStatus } from "@/constants/type";
+import { DishStatus, OrderStatus, Role, TableStatus } from "@/constants/type";
 import {
   BadgeCheck,
+  Ban,
   CircleCheck,
   CircleDot,
   CircleX,
+  Clock10,
+  Loader2,
   LucideIcon,
+  SendHorizontal,
   Users,
 } from "lucide-react";
 
@@ -60,5 +64,33 @@ export const accountRoleOptions: Option[] = [
     label: "Employee",
     value: Role.Employee,
     icon: Users,
+  },
+];
+
+export const orderStatusOptions: Option[] = [
+  {
+    label: "Pending",
+    value: OrderStatus.Pending,
+    icon: Clock10,
+  },
+  {
+    label: "Processing",
+    value: OrderStatus.Processing,
+    icon: Loader2,
+  },
+  {
+    label: "Rejected",
+    value: OrderStatus.Rejected,
+    icon: Ban,
+  },
+  {
+    label: "Delivered",
+    value: OrderStatus.Delivered,
+    icon: SendHorizontal,
+  },
+  {
+    label: "Paid",
+    value: OrderStatus.Paid,
+    icon: BadgeCheck,
   },
 ];

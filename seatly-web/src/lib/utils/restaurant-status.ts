@@ -1,7 +1,7 @@
 import { DishStatus, OrderStatus, TableStatus } from "@/constants/type";
 import { BookX, CookingPot, HandCoins, Loader, Truck } from "lucide-react";
 
-export const getVietnameseDishStatus = (
+export const getDishStatus = (
   status: (typeof DishStatus)[keyof typeof DishStatus]
 ) => {
   switch (status) {
@@ -14,7 +14,7 @@ export const getVietnameseDishStatus = (
   }
 };
 
-export const getVietnameseOrderStatus = (
+export const getOrderStatus = (
   status: (typeof OrderStatus)[keyof typeof OrderStatus]
 ) => {
   switch (status) {
@@ -31,7 +31,7 @@ export const getVietnameseOrderStatus = (
   }
 };
 
-export const getVietnameseTableStatus = (
+export const getTableStatus = (
   status: (typeof TableStatus)[keyof typeof TableStatus]
 ) => {
   switch (status) {

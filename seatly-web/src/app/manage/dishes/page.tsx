@@ -6,7 +6,7 @@ const breadcrumbs = [
   { name: "Dishes", href: "/manage/dishes" },
 ];
 
-export default function DishesPage() {
+export default function Dishes() {
   return (
     <ManageContentLayout
       breadcrumbs={breadcrumbs}

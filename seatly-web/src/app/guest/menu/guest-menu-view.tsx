@@ -11,27 +11,27 @@ import { DishStatus } from "@/constants/type";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { handleErrorApi } from "@/lib/utils/api-error";
-import { useDishListQuery } from "@/queries/use-dish";
+import { useGetDishListQuery } from "@/queries/use-dish";
 import { useGuestOrderDishMutation } from "@/queries/use-guest";
-import { type DishType } from "@/schemas/dish.schema";
 import { GuestCreateOrdersBodyType } from "@/schemas/guest.schema";
 import { ClipboardList, Search } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useMemo, useState } from "react";
 
-const EMPTY_DISHES: DishType[] = [];
-
 export default function GuestMenuView() {
   const [searchQuery, setSearchQuery] = useState("");
   const [orders, setOrders] = useState<GuestCreateOrdersBodyType>([]);
 
-  const dishListQuery = useDishListQuery({ page: 1, limit: DEFAULT_LIMIT });
-  const dishes = dishListQuery.data?.payload.data.items ?? EMPTY_DISHES;
-
+  const dishListQuery = useGetDishListQuery({ page: 1, limit: DEFAULT_LIMIT });
   const createGuestOrderMutation = useGuestOrderDishMutation();
 
   const router = useRouter();
+
+  const dishes = useMemo(
+    () => dishListQuery.data?.payload.data.items ?? [],
+    [dishListQuery.data]
+  );
 
   const quantityByDishId = useMemo(() => {
     return orders.reduce<Record<string, number>>((result, order) => {
@@ -135,9 +135,7 @@ export default function GuestMenuView() {
   }, [dishes, quantityByDishId]);
 
   const createGuestOrders = async () => {
-    if (orders.length === 0 || createGuestOrderMutation.isPending) {
-      return;
-    }
+    if (orders.length === 0 || createGuestOrderMutation.isPending) return;
 
     try {
       await createGuestOrderMutation.mutateAsync(orders);

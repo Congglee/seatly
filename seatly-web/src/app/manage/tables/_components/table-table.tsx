@@ -8,7 +8,7 @@ import DataTable from "@/components/data-table";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { DEFAULT_LIMIT } from "@/constants/pagination";
-import { useTableListQuery } from "@/queries/use-table";
+import { useGetTableListQuery } from "@/queries/use-table";
 import { useNewTableStore } from "@/store/tables/use-new-table";
 import { Plus, X } from "lucide-react";
 import { useSearchParams } from "next/navigation";
@@ -19,7 +19,7 @@ export default function TableTable() {
 
   const { onOpenNewTableSheet } = useNewTableStore();
 
-  const tableListQuery = useTableListQuery({
+  const tableListQuery = useGetTableListQuery({
     page,
     limit: DEFAULT_LIMIT,
   });

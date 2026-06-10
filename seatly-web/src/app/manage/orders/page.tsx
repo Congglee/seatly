@@ -1,20 +1,20 @@
 import ManageContentLayout from "@/app/manage/_components/layouts/manage-content-layout";
-import AccountsView from "@/app/manage/accounts/accounts-view";
+import OrdersView from "@/app/manage/orders/orders-view";
 
 const breadcrumbs = [
   { name: "Home", href: "/" },
-  { name: "Accounts", href: "/manage/accounts" },
+  { name: "Orders", href: "/orders" },
 ];
 
-export default function Accounts() {
+export default function Orders() {
   return (
     <ManageContentLayout
       breadcrumbs={breadcrumbs}
-      heading="Accounts"
-      description="Manage staff accounts and access roles"
+      heading="Orders"
+      description="Manage orders"
       hasManageFilters={false}
     >
-      <AccountsView />
+      <OrdersView />
     </ManageContentLayout>
   );
 }
