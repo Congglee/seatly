@@ -1,5 +1,12 @@
-import { DishStatus, TableStatus } from "@/constants/type";
-import { CircleCheck, CircleDot, CircleX, LucideIcon } from "lucide-react";
+import { DishStatus, Role, TableStatus } from "@/constants/type";
+import {
+  BadgeCheck,
+  CircleCheck,
+  CircleDot,
+  CircleX,
+  LucideIcon,
+  Users,
+} from "lucide-react";
 
 export type Option<T = string> = {
   label: string;
@@ -40,5 +47,18 @@ export const dishStatusOptions: Option[] = [
     label: "Hidden",
     value: DishStatus.Hidden,
     icon: CircleX,
+  },
+];
+
+export const accountRoleOptions: Option[] = [
+  {
+    label: "Owner",
+    value: Role.Owner,
+    icon: BadgeCheck,
+  },
+  {
+    label: "Employee",
+    value: Role.Employee,
+    icon: Users,
   },
 ];

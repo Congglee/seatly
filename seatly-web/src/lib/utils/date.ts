@@ -1,3 +1,5 @@
+import { format } from "date-fns";
+
 export const toTimestamp = (value: Date | string) => {
   return value instanceof Date ? value.getTime() : new Date(value).getTime();
 };
@@ -19,4 +21,11 @@ export const formatRelativeTime = (date: Date | string) => {
     month: "short",
     day: "numeric",
   });
+};
+
+export const formatDateTimeToLocaleString = (date: string | Date) => {
+  return format(
+    date instanceof Date ? date : new Date(date),
+    "HH:mm:ss dd/MM/yyyy"
+  );
 };
