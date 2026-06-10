@@ -8,7 +8,10 @@ import {
   Clock10,
   Loader2,
   LucideIcon,
+  Monitor,
+  MoonStar,
   SendHorizontal,
+  Sun,
   Users,
 } from "lucide-react";
 
@@ -92,5 +95,37 @@ export const orderStatusOptions: Option[] = [
     label: "Paid",
     value: OrderStatus.Paid,
     icon: BadgeCheck,
+  },
+];
+
+export interface ThemeOption {
+  value: string;
+  label: string;
+  description: string;
+  icon: LucideIcon;
+  preview: "light" | "dark" | "system";
+}
+
+export const themeOptions: ThemeOption[] = [
+  {
+    value: "light",
+    label: "Light",
+    description: "Bright and clean for daytime.",
+    icon: Sun,
+    preview: "light",
+  },
+  {
+    value: "dark",
+    label: "Dark",
+    description: "Easy on the eyes in low light.",
+    icon: MoonStar,
+    preview: "dark",
+  },
+  {
+    value: "system",
+    label: "System",
+    description: "Match your device settings.",
+    icon: Monitor,
+    preview: "system",
   },
 ];

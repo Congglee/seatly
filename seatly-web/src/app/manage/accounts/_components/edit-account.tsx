@@ -72,7 +72,7 @@ export default function EditAccount() {
 
   const changePassword = form.watch("changePassword");
 
-  const handleResetForm = () => {
+  const handleResetEditAccountForm = () => {
     setAccountId(undefined);
     setEditAccountSheetOpen(false);
     setFile(null);
@@ -154,7 +154,7 @@ export default function EditAccount() {
       });
 
       toast.success(result.payload.message);
-      handleResetForm();
+      handleResetEditAccountForm();
     } catch (error) {
       handleErrorApi({ error, setError: form.setError });
     }
@@ -165,7 +165,7 @@ export default function EditAccount() {
       open={editAccountSheetOpen}
       onOpenChange={(value) => {
         if (!value) {
-          handleResetForm();
+          handleResetEditAccountForm();
         }
       }}
     >

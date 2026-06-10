@@ -48,14 +48,14 @@ export default function NewAccount() {
     },
   });
 
-  const handleResetForm = () => {
+  const handleResetNewAccountForm = () => {
     form.reset();
     setFile(null);
   };
 
   const handleSheetOpenChange = (value: boolean) => {
     if (!value) {
-      handleResetForm();
+      handleResetNewAccountForm();
     }
 
     setNewAccountSheetOpen(value);
@@ -84,7 +84,7 @@ export default function NewAccount() {
       });
 
       toast.success(result.payload.message);
-      handleResetForm();
+      handleResetNewAccountForm();
       setNewAccountSheetOpen(false);
     } catch (error) {
       handleErrorApi({ error, setError: form.setError });
