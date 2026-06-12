@@ -38,7 +38,7 @@ export const getTableStatus = (
     case TableStatus.Available:
       return "Còn trống";
     case TableStatus.Reserved:
-      return "Đang sử dụng";
+      return "Đã đặt trước";
     default:
       return "Đã ẩn";
   }

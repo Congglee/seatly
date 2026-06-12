@@ -33,7 +33,7 @@ export const tableStatusOptions: Option[] = [
     icon: CircleX,
   },
   {
-    label: "Đang sử dụng",
+    label: "Đã đặt trước",
     value: TableStatus.Reserved,
     icon: CircleDot,
   },
