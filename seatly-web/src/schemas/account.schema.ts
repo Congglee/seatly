@@ -46,18 +46,28 @@ export type AccountListQueryType = z.TypeOf<typeof AccountListQuery>;
 
 export const CreateEmployeeAccountBody = z
   .object({
-    name: z.string().trim().min(2).max(256),
-    email: z.string().email(),
-    avatar: z.string().url().optional(),
-    password: z.string().min(6).max(100),
-    confirmPassword: z.string().min(6).max(100),
+    name: z
+      .string()
+      .trim()
+      .min(2, "Tên nhân viên phải có ít nhất 2 ký tự")
+      .max(256, "Tên nhân viên không được vượt quá 256 ký tự"),
+    email: z.string().email("Email không hợp lệ"),
+    avatar: z.string().url("Đường dẫn ảnh đại diện không hợp lệ").optional(),
+    password: z
+      .string()
+      .min(6, "Mật khẩu phải có ít nhất 6 ký tự")
+      .max(100, "Mật khẩu không được vượt quá 100 ký tự"),
+    confirmPassword: z
+      .string()
+      .min(6, "Mật khẩu xác nhận phải có ít nhất 6 ký tự")
+      .max(100, "Mật khẩu xác nhận không được vượt quá 100 ký tự"),
   })
   .strict()
   .superRefine(({ confirmPassword, password }, ctx) => {
     if (confirmPassword !== password) {
       ctx.addIssue({
         code: "custom",
-        message: "Password does not match",
+        message: "Mật khẩu xác nhận không khớp",
         path: ["confirmPassword"],
       });
     }
@@ -69,12 +79,24 @@ export type CreateEmployeeAccountBodyType = z.TypeOf<
 
 export const UpdateEmployeeAccountBody = z
   .object({
-    name: z.string().trim().min(2).max(256),
-    email: z.string().email(),
-    avatar: z.string().url().optional(),
+    name: z
+      .string()
+      .trim()
+      .min(2, "Tên nhân viên phải có ít nhất 2 ký tự")
+      .max(256, "Tên nhân viên không được vượt quá 256 ký tự"),
+    email: z.string().email("Email không hợp lệ"),
+    avatar: z.string().url("Đường dẫn ảnh đại diện không hợp lệ").optional(),
     changePassword: z.boolean().optional(),
-    password: z.string().min(6).max(100).optional(),
-    confirmPassword: z.string().min(6).max(100).optional(),
+    password: z
+      .string()
+      .min(6, "Mật khẩu mới phải có ít nhất 6 ký tự")
+      .max(100, "Mật khẩu mới không được vượt quá 100 ký tự")
+      .optional(),
+    confirmPassword: z
+      .string()
+      .min(6, "Mật khẩu xác nhận phải có ít nhất 6 ký tự")
+      .max(100, "Mật khẩu xác nhận không được vượt quá 100 ký tự")
+      .optional(),
     role: z.enum([Role.Owner, Role.Employee]).default(Role.Employee).optional(),
   })
   .strict()
@@ -83,13 +105,13 @@ export const UpdateEmployeeAccountBody = z
       if (!password || !confirmPassword) {
         ctx.addIssue({
           code: "custom",
-          message: "Please enter new password and confirm new password",
+          message: "Vui lòng nhập mật khẩu mới và xác nhận mật khẩu mới",
           path: ["changePassword"],
         });
       } else if (confirmPassword !== password) {
         ctx.addIssue({
           code: "custom",
-          message: "Password does not match",
+          message: "Mật khẩu xác nhận không khớp",
           path: ["confirmPassword"],
         });
       }
@@ -102,8 +124,12 @@ export type UpdateEmployeeAccountBodyType = z.TypeOf<
 
 export const UpdateMeBody = z
   .object({
-    name: z.string().trim().min(2).max(256),
-    avatar: z.string().url().optional(),
+    name: z
+      .string()
+      .trim()
+      .min(2, "Tên hiển thị phải có ít nhất 2 ký tự")
+      .max(256, "Tên hiển thị không được vượt quá 256 ký tự"),
+    avatar: z.string().url("Đường dẫn ảnh đại diện không hợp lệ").optional(),
   })
   .strict();
 
@@ -111,16 +137,25 @@ export type UpdateMeBodyType = z.TypeOf<typeof UpdateMeBody>;
 
 export const ChangePasswordBody = z
   .object({
-    oldPassword: z.string().min(6).max(100),
-    password: z.string().min(6).max(100),
-    confirmPassword: z.string().min(6).max(100),
+    oldPassword: z
+      .string()
+      .min(6, "Mật khẩu hiện tại phải có ít nhất 6 ký tự")
+      .max(100, "Mật khẩu hiện tại không được vượt quá 100 ký tự"),
+    password: z
+      .string()
+      .min(6, "Mật khẩu mới phải có ít nhất 6 ký tự")
+      .max(100, "Mật khẩu mới không được vượt quá 100 ký tự"),
+    confirmPassword: z
+      .string()
+      .min(6, "Mật khẩu xác nhận phải có ít nhất 6 ký tự")
+      .max(100, "Mật khẩu xác nhận không được vượt quá 100 ký tự"),
   })
   .strict()
   .superRefine(({ confirmPassword, password }, ctx) => {
     if (confirmPassword !== password) {
       ctx.addIssue({
         code: "custom",
-        message: "New password does not match",
+        message: "Mật khẩu mới xác nhận không khớp",
         path: ["confirmPassword"],
       });
     }
@@ -168,7 +203,11 @@ export type GetGuestListQueryParamsType = z.TypeOf<
 
 export const CreateGuestBody = z
   .object({
-    name: z.string().trim().min(2).max(256),
+    name: z
+      .string()
+      .trim()
+      .min(2, "Tên khách phải có ít nhất 2 ký tự")
+      .max(256, "Tên khách không được vượt quá 256 ký tự"),
     tableNumber: z.number(),
   })
   .strict();

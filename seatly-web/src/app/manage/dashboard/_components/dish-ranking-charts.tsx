@@ -35,24 +35,26 @@ export default function DishRankingCharts({ data }: DishRankingChartsProps) {
     <Card className="drop-shadow-sm h-full flex flex-col">
       <CardHeader className="flex justify-between space-y-2 lg:flex-row lg:items-center lg:space-y-0">
         <div className="space-y-1">
-          <CardTitle className="line-clamp-1 text-xl">Dish ranking</CardTitle>
-          <CardDescription>Most called</CardDescription>
+          <CardTitle className="line-clamp-1 text-xl">
+            Xếp hạng món ăn
+          </CardTitle>
+          <CardDescription>Được gọi nhiều nhất</CardDescription>
         </div>
         <Select value={chartType} onValueChange={handleTypeChange}>
           <SelectTrigger className="h-9 rounded-md border px-3 dark:border-neutral-600 lg:w-[180px]">
-            <SelectValue placeholder="Select chart type" />
+            <SelectValue placeholder="Chọn loại biểu đồ" />
           </SelectTrigger>
           <SelectContent>
             <SelectItem value="bar">
               <div className="flex items-center">
                 <BarChart3 className="mr-2 size-4 shrink-0" />
-                <p className="line-clamp-1">Bar chart</p>
+                <p className="line-clamp-1">Biểu đồ cột</p>
               </div>
             </SelectItem>
             <SelectItem value="pie">
               <div className="flex items-center">
                 <PieChartIcon className="mr-2 size-4 shrink-0" />
-                <p className="line-clamp-1">Pie chart</p>
+                <p className="line-clamp-1">Biểu đồ tròn</p>
               </div>
             </SelectItem>
           </SelectContent>
@@ -64,7 +66,7 @@ export default function DishRankingCharts({ data }: DishRankingChartsProps) {
           <div className="flex h-[350px] w-full flex-col items-center justify-center gap-y-4">
             <FileSearch className="size-6 text-muted-foreground" />
             <p className="text-sm text-muted-foreground">
-              No data for the selected time period
+              Không có dữ liệu cho khoảng thời gian đã chọn
             </p>
           </div>
         ) : chartType === "bar" ? (

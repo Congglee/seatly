@@ -112,15 +112,15 @@ export default function GuestEntryForm() {
       </div>
       <div className="text-center space-y-1.5">
         <h1 className="text-xl font-semibold tracking-tight text-foreground">
-          Welcome to table {tableNumber}
+          Chào mừng đến bàn {tableNumber}
         </h1>
         <p className="text-sm text-muted-foreground leading-relaxed max-w-[280px] mx-auto">
-          Enter your name to join this table and start browsing the menu.
+          Nhập tên của bạn để tham gia bàn này và bắt đầu xem thực đơn.
         </p>
       </div>
       <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-muted/60 text-muted-foreground text-xs font-medium">
         <Users className="size-3.5" strokeWidth={1.5} />
-        <span>Up to 4 guests at this table</span>
+        <span>Tối đa 4 khách tại bàn này</span>
       </div>
       <div className="w-full pt-1">
         <Form {...form}>
@@ -134,14 +134,14 @@ export default function GuestEntryForm() {
                     htmlFor="guest-name"
                     className="text-sm font-medium text-foreground"
                   >
-                    Your name
+                    Tên của bạn
                   </FormLabel>
                   <FormControl>
                     <Input
                       {...field}
                       id="guest-name"
                       type="text"
-                      placeholder="e.g. John Doe"
+                      placeholder="Ví dụ: Nguyễn Văn An"
                       autoFocus
                       className="h-12 rounded-xl px-4 text-base bg-muted/40 border-border/60 placeholder:text-muted-foreground/50 focus-visible:ring-primary/30 focus-visible:border-primary/50 transition-colors duration-200"
                     />
@@ -155,14 +155,14 @@ export default function GuestEntryForm() {
               disabled={loginMutation.isPending}
               className="w-full h-12 rounded-xl text-sm font-semibold bg-primary text-primary-foreground hover:bg-primary/90 active:scale-[0.98] active:translate-y-[1px] transition-all duration-200 shadow-sm hover:shadow-md"
             >
-              Join table
+              Vào bàn
               <ArrowRight className="size-4" />
             </SubmitButton>
           </form>
         </Form>
       </div>
       <p className="text-xs text-muted-foreground/70 leading-relaxed max-w-[260px] mx-auto text-center">
-        By joining, you can browse the menu and place orders for this table.
+        Sau khi vào bàn, bạn có thể xem thực đơn và đặt món cho bàn này.
       </p>
     </div>
   );

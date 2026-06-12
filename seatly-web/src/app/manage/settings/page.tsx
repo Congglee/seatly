@@ -2,16 +2,16 @@ import ManageContentLayout from "@/app/manage/_components/layouts/manage-content
 import SettingsView from "@/app/manage/settings/settings-view";
 
 const breadcrumbs = [
-  { name: "Home", href: "/" },
-  { name: "Settings", href: "/manage/settings" },
+  { name: "Trang chủ", href: "/" },
+  { name: "Cài đặt", href: "/manage/settings" },
 ];
 
 export default function Settings() {
   return (
     <ManageContentLayout
       breadcrumbs={breadcrumbs}
-      heading="Settings"
-      description="Manage your profile, security, and workspace preferences"
+      heading="Cài đặt"
+      description="Quản lý hồ sơ, bảo mật và tùy chọn không gian làm việc"
       hasManageFilters={false}
     >
       <SettingsView />

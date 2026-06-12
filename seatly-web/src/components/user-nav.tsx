@@ -11,12 +11,17 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { handleErrorApi } from "@/lib/utils/api-error";
 import { useAppStore } from "@/providers/app-provider";
+import { useGetMeQuery } from "@/queries/use-account";
 import { useLogoutMutation } from "@/queries/use-auth";
 import { LogOut } from "lucide-react";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 
 export default function UserNav() {
   const router = useRouter();
+
+  const { data } = useGetMeQuery();
+  const account = data?.payload.data;
 
   const logoutMutation = useLogoutMutation();
 
@@ -40,9 +45,9 @@ export default function UserNav() {
     <DropdownMenu modal={false}>
       <DropdownMenuTrigger className="outline-none relative">
         <Avatar className="size-9 hover:opacity-75 transition">
-          <AvatarImage src="https://github.com/shadcn.png" />
+          <AvatarImage src={account?.avatar ?? undefined} alt={account?.name} />
           <AvatarFallback className="font-medium flex items-center justify-center">
-            JD
+            {account?.name.slice(0, 2).toUpperCase()}
           </AvatarFallback>
         </Avatar>
       </DropdownMenuTrigger>
@@ -54,25 +59,36 @@ export default function UserNav() {
       >
         <div className="flex flex-col items-center justify-center gap-2 px-2.5 py-4">
           <Avatar className="size-[52px]">
-            <AvatarImage src="https://github.com/shadcn.png" />
+            <AvatarImage
+              src={account?.avatar ?? undefined}
+              alt={account?.name}
+            />
             <AvatarFallback className="text-xl font-medium flex items-center justify-center">
-              JD
+              {account?.name.slice(0, 2).toUpperCase()}
             </AvatarFallback>
           </Avatar>
           <div className="flex flex-col items-center justify-center">
-            <p className="text-sm font-semibold text-foreground">John Doe</p>
+            <p className="text-sm font-semibold text-foreground">
+              {account?.name}
+            </p>
             <p className="text-xs text-muted-foreground/90 dark:text-muted-foreground/80">
-              example@example.com
+              {account?.email}
             </p>
           </div>
         </div>
         <DropdownMenuSeparator className="bg-border" />
         <DropdownMenuGroup>
-          <DropdownMenuItem className="h-9 px-4 font-medium cursor-pointer">
-            Dashboard
+          <DropdownMenuItem
+            className="h-9 px-4 font-medium cursor-pointer"
+            asChild
+          >
+            <Link href="/manage/dashboard">Tổng quan</Link>
           </DropdownMenuItem>
-          <DropdownMenuItem className="h-9 px-4 font-medium cursor-pointer">
-            Settings
+          <DropdownMenuItem
+            className="h-9 px-4 font-medium cursor-pointer"
+            asChild
+          >
+            <Link href="/manage/settings">Cài đặt</Link>
           </DropdownMenuItem>
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
@@ -81,7 +97,7 @@ export default function UserNav() {
           onClick={logout}
         >
           <LogOut className="size-4 mr-2" />
-          Logout
+          Đăng xuất
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>

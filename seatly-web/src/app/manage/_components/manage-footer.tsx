@@ -5,7 +5,7 @@ export default function ManageFooter() {
     <div className="z-20 w-full bg-background/95 shadow backdrop-blur supports-backdrop-filter:bg-background/60">
       <div className="mx-4 md:mx-8 flex h-14 items-center">
         <p className="text-xs md:text-sm leading-loose text-muted-foreground text-left">
-          Built with{" "}
+          Xây dựng với{" "}
           <Link
             href="https://ui.shadcn.com"
             target="_blank"
@@ -14,7 +14,7 @@ export default function ManageFooter() {
           >
             shadcn/ui
           </Link>
-          . Source code available on{" "}
+          . Mã nguồn có trên{" "}
           <Link
             href="https://github.com/Congglee/seatly"
             target="_blank"

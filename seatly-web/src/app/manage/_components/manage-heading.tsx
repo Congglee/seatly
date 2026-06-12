@@ -4,8 +4,8 @@ interface ManageHeadingProps {
 }
 
 export default function ManageHeading({
-  heading = "Dashboard",
-  description = "Manage and monitor the system",
+  heading = "Tổng quan",
+  description = "Quản lý và giám sát hệ thống",
 }: ManageHeadingProps) {
   return (
     <div className="space-y-1 py-4 border-b">

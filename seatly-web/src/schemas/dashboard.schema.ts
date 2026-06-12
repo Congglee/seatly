@@ -9,7 +9,7 @@ export const DashboardIndicatorQueryParams = z
     if (fromDate > toDate) {
       ctx.addIssue({
         code: "custom",
-        message: "fromDate must be less than or equal to toDate",
+        message: "Ngày bắt đầu phải nhỏ hơn hoặc bằng ngày kết thúc",
         path: ["fromDate"],
       });
     }

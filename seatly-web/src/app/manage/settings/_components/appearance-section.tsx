@@ -18,12 +18,12 @@ export default function AppearanceSection() {
 
   return (
     <SettingsSection
-      title="Appearance"
-      description="Personalize how Seatly looks on this device."
+      title="Giao diện"
+      description="Tùy chỉnh cách Seatly hiển thị trên thiết bị này."
       icon={Palette}
     >
       <fieldset>
-        <legend className="sr-only">Theme preference</legend>
+        <legend className="sr-only">Tùy chọn giao diện</legend>
         <div className="grid gap-4 sm:grid-cols-3">
           {themeOptions.map((option) => {
             const Icon = option.icon;

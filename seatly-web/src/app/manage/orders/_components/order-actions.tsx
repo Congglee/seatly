@@ -33,7 +33,7 @@ export default function OrderActions({ orderId }: OrderActionsProps) {
           className="cursor-pointer p-[10px] font-medium"
         >
           <Edit className="mr-2 size-4 stroke-2" />
-          Edit Order
+          Chỉnh sửa đơn
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>

@@ -161,13 +161,13 @@ export default function Menu({ sidebarOpen }: MenuProps) {
                     sidebarOpen === false ? "opacity-0 hidden" : "opacity-100"
                   )}
                 >
-                  Logout
+                  Đăng xuất
                 </p>
               </Button>
             </TooltipTrigger>
             {sidebarOpen === false && (
               <TooltipContent side="right">
-                <button onClick={logout}>Logout</button>
+                <button onClick={logout}>Đăng xuất</button>
               </TooltipContent>
             )}
           </Tooltip>

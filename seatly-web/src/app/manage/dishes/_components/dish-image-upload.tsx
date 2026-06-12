@@ -37,7 +37,7 @@ export default function DishImageUpload({
   const hasOriginalImage = Boolean(originalValue);
   const isShowingTemporaryImage = Boolean(file);
   const shouldShowRemoveAction = isShowingTemporaryImage || !hasOriginalImage;
-  const removeActionLabel = hasOriginalImage ? "Restore original" : "Remove";
+  const removeActionLabel = hasOriginalImage ? "Khôi phục ảnh cũ" : "Xóa";
 
   useEffect(() => {
     if (!value) {
@@ -88,7 +88,7 @@ export default function DishImageUpload({
     if (selectedFiles.length > MAX_DISH_IMAGE_FILES) {
       showUploadError(
         withUnchangedImageHint(
-          "Each dish supports only 1 image.",
+          "Mỗi món chỉ hỗ trợ 1 ảnh.",
           Boolean(previewUrl)
         )
       );
@@ -167,7 +167,7 @@ export default function DishImageUpload({
           <div className="relative h-48">
             <Image
               src={previewUrl}
-              alt={altText || "Dish preview"}
+              alt={altText || "Xem trước ảnh món"}
               fill
               className="object-cover"
               unoptimized
@@ -179,7 +179,7 @@ export default function DishImageUpload({
                 className="flex items-center gap-1.5 rounded-md bg-background/90 px-3 py-2 text-xs font-medium text-foreground shadow-md transition-all duration-150 hover:bg-background active:scale-[0.97]"
               >
                 <Upload className="h-3.5 w-3.5" />
-                Change
+                Đổi ảnh
               </button>
               {shouldShowRemoveAction ? (
                 <button
@@ -204,10 +204,10 @@ export default function DishImageUpload({
             </div>
             <div className="space-y-1 text-center">
               <p className="text-sm font-medium text-foreground">
-                Click to upload or drag and drop
+                Bấm để tải lên hoặc kéo thả
               </p>
               <p className="text-xs text-muted-foreground">
-                1 image, JPG, PNG, or WEBP, max 4MB
+                1 ảnh JPG, PNG hoặc WEBP, tối đa 4MB
               </p>
             </div>
           </button>

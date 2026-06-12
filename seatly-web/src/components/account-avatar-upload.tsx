@@ -54,7 +54,7 @@ export default function AccountAvatarUpload({
   const isShowingTemporaryImage = Boolean(file);
   const shouldShowRemoveAction = Boolean(previewUrl);
   const removeActionLabel =
-    isShowingTemporaryImage && hasOriginalImage ? "Restore original" : "Remove";
+    isShowingTemporaryImage && hasOriginalImage ? "Khôi phục ảnh cũ" : "Xóa";
   const initials = useMemo(() => getInitials(fallbackText), [fallbackText]);
 
   useEffect(() => {
@@ -117,7 +117,7 @@ export default function AccountAvatarUpload({
     if (selectedFiles.length > MAX_AVATAR_IMAGE_FILES) {
       showUploadError(
         withUnchangedImageHint(
-          "Each account supports only 1 avatar image.",
+          "Mỗi tài khoản chỉ hỗ trợ 1 ảnh đại diện.",
           Boolean(previewUrl)
         )
       );
@@ -197,7 +197,7 @@ export default function AccountAvatarUpload({
           <div className="relative mx-auto aspect-square w-full max-w-64 overflow-hidden rounded-[18px] bg-muted">
             <Image
               src={previewUrl}
-              alt="Avatar preview"
+              alt="Xem trước ảnh đại diện"
               fill
               className="object-cover"
               unoptimized
@@ -209,7 +209,7 @@ export default function AccountAvatarUpload({
                 className="flex items-center gap-1.5 rounded-md bg-background/90 px-3 py-2 text-xs font-medium text-foreground shadow-md transition-all duration-150 hover:bg-background active:scale-[0.97]"
               >
                 <Upload className="h-3.5 w-3.5" />
-                Change
+                Đổi ảnh
               </button>
               {shouldShowRemoveAction ? (
                 <button
@@ -242,16 +242,15 @@ export default function AccountAvatarUpload({
             </div>
             <div className="space-y-1">
               <p className="text-sm font-medium text-foreground">
-                Upload avatar image
+                Tải ảnh đại diện lên
               </p>
               <p className="text-xs text-muted-foreground">
-                Click to choose or drag and drop 1 JPG, PNG, or WEBP image up to
-                4MB
+                Bấm để chọn hoặc kéo thả 1 ảnh JPG, PNG hoặc WEBP, tối đa 4MB
               </p>
             </div>
             <div className="inline-flex items-center gap-2 rounded-full border border-border/60 bg-background px-3 py-1.5 text-xs font-medium text-muted-foreground">
               <ImagePlus className="size-3.5" />
-              Select image
+              Chọn ảnh
             </div>
           </button>
         )}

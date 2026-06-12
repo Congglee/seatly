@@ -30,84 +30,84 @@ export const menuItems: MenuGroup[] = [
     menus: [
       {
         href: "/manage/dashboard",
-        label: "Dashboard",
+        label: "Tổng quan",
         icon: LayoutGrid,
         submenus: [],
       },
     ],
   },
   {
-    label: "Operations management",
+    label: "Quản lý vận hành",
     menus: [
       {
         href: "/manage/orders",
-        label: "Orders",
+        label: "Đơn hàng",
         icon: ShoppingCart,
         submenus: [
           {
             href: "/manage/orders",
-            label: "All orders",
+            label: "Tất cả đơn hàng",
           },
           {
             href: "/manage/orders/pending",
-            label: "Pending orders",
+            label: "Đơn chờ xử lý",
           },
           {
             href: "/manage/orders/cooking",
-            label: "Cooking orders",
+            label: "Đơn đang chế biến",
           },
         ],
       },
       {
         href: "/manage/tables",
-        label: "Tables",
+        label: "Bàn",
         icon: Square,
         submenus: [],
       },
     ],
   },
   {
-    label: "Category management",
+    label: "Quản lý thực đơn",
     menus: [
       {
         href: "/manage/dishes",
-        label: "Dishes",
+        label: "Món ăn",
         icon: UtensilsCrossed,
         submenus: [],
       },
     ],
   },
   {
-    label: "System management",
+    label: "Quản lý hệ thống",
     menus: [
       {
         href: "/manage/accounts",
-        label: "Accounts",
+        label: "Tài khoản",
         icon: Users,
         submenus: [],
       },
       {
         href: "/manage/reports",
-        label: "Reports & Statistics",
+        label: "Báo cáo & thống kê",
         icon: BarChart3,
         submenus: [
           {
             href: "/manage/reports/revenue",
-            label: "Revenue",
+            label: "Doanh thu",
           },
           {
             href: "/manage/reports/dishes",
-            label: "Dishes statistics",
+            label: "Thống kê món ăn",
           },
           {
             href: "/manage/reports/tables",
-            label: "Table performance",
+            label: "Hiệu suất bàn",
           },
         ],
       },
       {
         href: "/manage/settings",
-        label: "Settings",
+        label: "Cài đặt",
         icon: Settings,
         submenus: [],
       },

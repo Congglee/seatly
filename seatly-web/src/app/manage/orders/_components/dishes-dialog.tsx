@@ -33,7 +33,7 @@ interface DishesDialogProps {
 export const columns: ColumnDef<DishItem>[] = [
   {
     accessorKey: "image",
-    header: "Image",
+    header: "Ảnh",
     cell: ({ row }) => (
       <div className="h-12 w-12 overflow-hidden rounded-md border border-border/60 bg-muted">
         <Image
@@ -54,7 +54,7 @@ export const columns: ColumnDef<DishItem>[] = [
         variant="ghost"
         onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
       >
-        Dish Name
+        Tên món
         <ArrowUpDown className="ml-2 h-4 w-4" />
       </Button>
     ),
@@ -76,7 +76,7 @@ export const columns: ColumnDef<DishItem>[] = [
         variant="ghost"
         onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
       >
-        Price
+        Giá
         <ArrowUpDown className="ml-2 h-4 w-4" />
       </Button>
     ),
@@ -93,7 +93,7 @@ export const columns: ColumnDef<DishItem>[] = [
         variant="ghost"
         onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
       >
-        Status
+        Trạng thái
         <ArrowUpDown className="ml-2 h-4 w-4" />
       </Button>
     ),
@@ -157,7 +157,7 @@ export function DishesDialog({
     <Dialog open={open} onOpenChange={handleOpenChange}>
       <div className="flex items-center gap-2">
         <DialogTrigger asChild>
-          <Button variant="outline">Change</Button>
+          <Button variant="outline">Đổi món</Button>
         </DialogTrigger>
         <Button
           type="button"
@@ -165,23 +165,23 @@ export function DishesDialog({
           onClick={onResetDish}
           disabled={!canReset}
         >
-          Reset
+          Đặt lại
         </Button>
       </div>
       <DialogContent className="sm:max-w-[600px] max-h-[90vh] overflow-auto">
         <DialogHeader>
-          <DialogTitle>Choose a dish</DialogTitle>
+          <DialogTitle>Chọn món</DialogTitle>
         </DialogHeader>
         <DataTable
           columns={columns}
           tableData={data}
           pageSize={PAGE_SIZE}
           loading={dishListQuery.isPending}
-          emptyMessage="No matching dishes found."
+          emptyMessage="Không tìm thấy món phù hợp."
           onRenderToolbar={(table) => (
             <div className="flex items-center py-4">
               <Input
-                placeholder="Filter dish name"
+                placeholder="Lọc theo tên món"
                 value={
                   (table.getColumn("name")?.getFilterValue() as string) ?? ""
                 }
@@ -200,9 +200,9 @@ export function DishesDialog({
             dishListQuery.isPending ? null : (
               <div className="flex items-center justify-end space-x-2 py-4">
                 <div className="flex-1 py-4 text-xs text-muted-foreground">
-                  Display{" "}
+                  Hiển thị{" "}
                   <strong>{table.getPaginationRowModel().rows.length}</strong>{" "}
-                  out of <strong>{totalItems}</strong> results
+                  trên <strong>{totalItems}</strong> kết quả
                 </div>
                 {totalPages > 1 && (
                   <div>

@@ -24,18 +24,18 @@ import { toTimestamp } from "@/lib/utils/date";
 
 const STATUS_GROUPS = {
   active: {
-    label: "In progress",
+    label: "Đang xử lý",
     statuses: [
       OrderStatus.Pending,
       OrderStatus.Processing,
     ] as OrderStatusValue[],
   },
   completed: {
-    label: "Delivered",
+    label: "Đã giao",
     statuses: [OrderStatus.Delivered] as OrderStatusValue[],
   },
   settled: {
-    label: "Settled",
+    label: "Đã kết thúc",
     statuses: [OrderStatus.Paid, OrderStatus.Rejected] as OrderStatusValue[],
   },
 } as const;
@@ -117,7 +117,7 @@ export default function OrdersView() {
       } = data;
 
       toast(
-        `Dish ${name} (Qty: ${quantity}) has just been updated to status "${getOrderStatus(
+        `Món ${name} (SL: ${quantity}) vừa được cập nhật sang trạng thái "${getOrderStatus(
           data.status
         )}"`
       );
@@ -133,9 +133,9 @@ export default function OrdersView() {
       const { guest } = data[0];
 
       toast(
-        `${guest?.name ?? "Guest"} at table ${
+        `${guest?.name ?? "Khách"} tại bàn ${
           guest?.tableNumber ?? "-"
-        } paid successfully ${data.length} orders`
+        } đã thanh toán thành công ${data.length} đơn`
       );
 
       refetch();
@@ -157,7 +157,7 @@ export default function OrdersView() {
           <div className="space-y-1">
             <div className="flex items-center gap-2">
               <h1 className="text-lg font-semibold tracking-tight text-foreground">
-                Your orders
+                Đơn của bạn
               </h1>
               {!guestOrderListQuery.isPending && hasOrders && (
                 <span className="flex items-center gap-1 text-[10px] font-medium text-emerald-600 dark:text-emerald-400">
@@ -165,12 +165,12 @@ export default function OrdersView() {
                     <span className="absolute inline-flex size-full animate-ping rounded-full bg-emerald-400 opacity-75" />
                     <span className="relative inline-flex size-1.5 rounded-full bg-emerald-500" />
                   </span>
-                  Live
+                  Trực tiếp
                 </span>
               )}
             </div>
             <p className="text-sm text-muted-foreground leading-relaxed">
-              Track the status of your dishes in real time.
+              Theo dõi trạng thái món ăn theo thời gian thực.
             </p>
           </div>
           <Button
@@ -181,7 +181,7 @@ export default function OrdersView() {
           >
             <Link href="/guest/menu">
               <Plus className="size-3.5" strokeWidth={2} />
-              Add
+              Thêm món
             </Link>
           </Button>
         </div>

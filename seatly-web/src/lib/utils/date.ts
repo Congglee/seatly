@@ -11,13 +11,13 @@ export const formatRelativeTime = (date: Date | string) => {
   const diffMs = now.getTime() - targetDate.getTime();
   const diffMinutes = Math.floor(diffMs / (1000 * 60));
 
-  if (diffMinutes < 1) return "Just now";
-  if (diffMinutes < 60) return `${diffMinutes}m ago`;
+  if (diffMinutes < 1) return "Vừa xong";
+  if (diffMinutes < 60) return `${diffMinutes} phút trước`;
 
   const diffHours = Math.floor(diffMinutes / 60);
-  if (diffHours < 24) return `${diffHours}h ago`;
+  if (diffHours < 24) return `${diffHours} giờ trước`;
 
-  return targetDate.toLocaleDateString("en-US", {
+  return targetDate.toLocaleDateString("vi-VN", {
     month: "short",
     day: "numeric",
   });

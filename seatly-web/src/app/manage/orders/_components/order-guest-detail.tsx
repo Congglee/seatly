@@ -83,7 +83,9 @@ export default function OrderGuestDetail({
           <div className="px-4 py-3.5">
             <div className="space-y-2.5">
               <div className="flex items-center justify-between">
-                <span className="text-xs text-muted-foreground">Unpaid</span>
+                <span className="text-xs text-muted-foreground">
+                  Chưa thanh toán
+                </span>
                 <Badge
                   variant="outline"
                   className="gap-1.5 tabular-nums text-xs font-semibold"
@@ -93,7 +95,9 @@ export default function OrderGuestDetail({
                 </Badge>
               </div>
               <div className="flex items-center justify-between">
-                <span className="text-xs text-muted-foreground">Paid</span>
+                <span className="text-xs text-muted-foreground">
+                  Đã thanh toán
+                </span>
                 <Badge className="gap-1.5 tabular-nums text-xs font-semibold">
                   {formatCurrency(paidTotal)}
                 </Badge>
@@ -111,7 +115,7 @@ export default function OrderGuestDetail({
               {payForGuestMutation.isPending && (
                 <Loader2 className="size-3.5 animate-spin" />
               )}
-              Pay all ({ordersFilterToPurchase.length} orders)
+              Thanh toán tất cả ({ordersFilterToPurchase.length} đơn)
             </Button>
           </div>
           <Separator />
@@ -131,7 +135,7 @@ export default function OrderGuestDetail({
               <div className="flex items-center gap-1.5 text-xs text-muted-foreground">
                 {guest.tableNumber !== null && (
                   <Fragment>
-                    <span>Table {guest.tableNumber}</span>
+                    <span>Bàn {guest.tableNumber}</span>
                     <span className="text-border">|</span>
                   </Fragment>
                 )}
@@ -142,7 +146,7 @@ export default function OrderGuestDetail({
           <Separator />
           <div className="px-4 py-3.5">
             <p className="mb-2.5 text-xs font-semibold uppercase tracking-wider text-muted-foreground">
-              Orders ({orders.length})
+              Đơn hàng ({orders.length})
             </p>
             <div className="space-y-px">
               {orders.map((order, index) => {
@@ -188,9 +192,9 @@ export default function OrderGuestDetail({
                     </span>
                     <span
                       className="hidden shrink-0 text-[11px] tabular-nums text-muted-foreground sm:inline"
-                      title={`Created: ${formatDateTimeToLocaleString(
+                      title={`Tạo lúc: ${formatDateTimeToLocaleString(
                         order.createdAt
-                      )} | Updated: ${formatDateTimeToLocaleString(
+                      )} | Cập nhật: ${formatDateTimeToLocaleString(
                         order.updatedAt
                       )}`}
                     >
@@ -201,7 +205,7 @@ export default function OrderGuestDetail({
               })}
               {orders.length === 0 && (
                 <p className="py-4 text-center text-xs text-muted-foreground">
-                  No orders yet
+                  Chưa có đơn nào
                 </p>
               )}
             </div>

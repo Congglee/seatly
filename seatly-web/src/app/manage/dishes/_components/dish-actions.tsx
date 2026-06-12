@@ -17,8 +17,8 @@ interface DishActionsProps {
 
 export default function DishActions({ dishId }: DishActionsProps) {
   const [ConfirmDialog, confirm] = useConfirm(
-    "Are you sure you want to delete this dish?",
-    "You are about to delete this dish.",
+    "Bạn có chắc muốn xóa món này?",
+    "Bạn sắp xóa món này khỏi thực đơn.",
     "destructive"
   );
 
@@ -55,14 +55,14 @@ export default function DishActions({ dishId }: DishActionsProps) {
             className="cursor-pointer p-[10px] font-medium"
           >
             <Edit className="mr-2 size-4 stroke-2" />
-            Edit Dish
+            Chỉnh sửa món
           </DropdownMenuItem>
           <DropdownMenuItem
             onClick={handleDeleteDish}
             className="cursor-pointer p-[10px] font-medium text-destructive focus:text-destructive/80"
           >
             <Trash className="mr-2 size-4 stroke-2" />
-            Delete Dish
+            Xóa món
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>

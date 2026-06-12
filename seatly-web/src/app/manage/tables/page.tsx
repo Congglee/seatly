@@ -2,16 +2,16 @@ import ManageContentLayout from "@/app/manage/_components/layouts/manage-content
 import TablesView from "@/app/manage/tables/tables-view";
 
 const breadcrumbs = [
-  { name: "Home", href: "/" },
-  { name: "Tables", href: "/tables" },
+  { name: "Trang chủ", href: "/" },
+  { name: "Bàn", href: "/tables" },
 ];
 
 export default function Tables() {
   return (
     <ManageContentLayout
       breadcrumbs={breadcrumbs}
-      heading="Tables"
-      description="Manage tables"
+      heading="Bàn"
+      description="Quản lý bàn và mã QR gọi món"
       hasManageFilters={false}
     >
       <TablesView />

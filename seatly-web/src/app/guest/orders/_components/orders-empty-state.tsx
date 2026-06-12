@@ -13,11 +13,10 @@ export default function OrdersEmptyState() {
       </div>
       <div className="space-y-1.5 max-w-[260px]">
         <h3 className="text-base font-semibold text-foreground">
-          No orders yet
+          Chưa có đơn nào
         </h3>
         <p className="text-sm text-muted-foreground leading-relaxed">
-          You haven&apos;t placed any orders. Browse the menu and add dishes to
-          get started.
+          Bạn chưa đặt món nào. Hãy xem thực đơn và thêm món để bắt đầu.
         </p>
       </div>
       <Button
@@ -26,7 +25,7 @@ export default function OrdersEmptyState() {
         className="rounded-xl px-5 h-10 text-sm font-medium border-border/60 active:scale-[0.98] transition-transform duration-100"
       >
         <Link href="/guest/menu">
-          Browse menu
+          Xem thực đơn
           <ArrowRight className="size-3.5" />
         </Link>
       </Button>

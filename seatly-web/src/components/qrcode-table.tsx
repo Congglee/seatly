@@ -50,10 +50,10 @@ export default function QRCodeTable({
       </div>
       <div className="flex flex-col items-center gap-0.5 text-center">
         <span className="text-xs font-medium leading-tight">
-          Table {tableNumber}
+          Bàn {tableNumber}
         </span>
         <span className="text-[10px] leading-tight text-muted-foreground">
-          Scan QR code to order
+          Quét mã QR để gọi món
         </span>
       </div>
     </div>

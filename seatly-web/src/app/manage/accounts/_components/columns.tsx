@@ -14,13 +14,13 @@ type AccountItem = AccountListResType["data"]["items"][number];
 
 const roleConfig = {
   [Role.Owner]: {
-    label: "Owner",
+    label: "Chủ quán",
     icon: ShieldCheck,
     className:
       "border-sky-500/25 bg-sky-500/15 text-sky-700 hover:bg-sky-500/20 dark:border-sky-400/20 dark:text-sky-400",
   },
   [Role.Employee]: {
-    label: "Employee",
+    label: "Nhân viên",
     icon: UserCog,
     className:
       "border-amber-500/25 bg-amber-500/15 text-amber-700 hover:bg-amber-500/20 dark:border-amber-400/20 dark:text-amber-400",
@@ -45,14 +45,14 @@ export const columns: ColumnDef<AccountItem>[] = [
           (table.getIsSomePageRowsSelected() && "indeterminate")
         }
         onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
-        aria-label="Select all"
+        aria-label="Chọn tất cả"
       />
     ),
     cell: ({ row }) => (
       <Checkbox
         checked={row.getIsSelected()}
         onCheckedChange={(value) => row.toggleSelected(!!value)}
-        aria-label="Select row"
+        aria-label="Chọn dòng"
       />
     ),
     enableSorting: false,
@@ -65,7 +65,7 @@ export const columns: ColumnDef<AccountItem>[] = [
         variant="ghost"
         onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
       >
-        Account
+        Tài khoản
         <ArrowUpDown className="ml-2 h-4 w-4" />
       </Button>
     ),
@@ -112,7 +112,7 @@ export const columns: ColumnDef<AccountItem>[] = [
         variant="ghost"
         onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
       >
-        Role
+        Vai trò
         <ArrowUpDown className="ml-2 h-4 w-4" />
       </Button>
     ),
@@ -142,7 +142,7 @@ export const columns: ColumnDef<AccountItem>[] = [
         variant="ghost"
         onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
       >
-        Created At
+        Ngày tạo
         <ArrowUpDown className="ml-2 h-4 w-4" />
       </Button>
     ),

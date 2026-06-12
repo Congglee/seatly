@@ -19,14 +19,14 @@ export const columns: ColumnDef<TableItem>[] = [
           (table.getIsSomePageRowsSelected() && "indeterminate")
         }
         onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
-        aria-label="Select all"
+        aria-label="Chọn tất cả"
       />
     ),
     cell: ({ row }) => (
       <Checkbox
         checked={row.getIsSelected()}
         onCheckedChange={(value) => row.toggleSelected(!!value)}
-        aria-label="Select row"
+        aria-label="Chọn dòng"
       />
     ),
     enableSorting: false,
@@ -40,7 +40,7 @@ export const columns: ColumnDef<TableItem>[] = [
           variant="ghost"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
-          Table Number
+          Số bàn
           <ArrowUpDown className="ml-2 h-4 w-4" />
         </Button>
       );
@@ -57,7 +57,7 @@ export const columns: ColumnDef<TableItem>[] = [
           variant="ghost"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
-          Capacity
+          Sức chứa
           <ArrowUpDown className="ml-2 h-4 w-4" />
         </Button>
       );
@@ -74,7 +74,7 @@ export const columns: ColumnDef<TableItem>[] = [
           variant="ghost"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
-          Status
+          Trạng thái
           <ArrowUpDown className="ml-2 h-4 w-4" />
         </Button>
       );
@@ -89,7 +89,7 @@ export const columns: ColumnDef<TableItem>[] = [
   },
   {
     accessorKey: "token",
-    header: "QR Code",
+    header: "Mã QR",
     cell: ({ row }) => (
       <div className="py-1">
         <QRCodeTable

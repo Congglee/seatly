@@ -42,13 +42,20 @@ export const OrderTableContext = createContext({
   orderObjectByGuestId: {} as OrderObjectByGuestID,
 });
 
-export default function OrderTable() {
+interface OrderTableProps {
+  fromDate: Date;
+  toDate: Date;
+}
+
+export default function OrderTable({ fromDate, toDate }: OrderTableProps) {
   const searchParam = useSearchParams();
   const page = searchParam.get("page") ? Number(searchParam.get("page")) : 1;
 
   const { onOpenNewOrderSheet } = useNewOrderStore();
 
   const orderListQuery = useGetOrderListQuery({
+    fromDate,
+    toDate,
     page,
     limit: DEFAULT_LIMIT,
   });
@@ -59,6 +66,8 @@ export default function OrderTable() {
   const refetchOrderList = orderListQuery.refetch;
 
   const orderOverviewQuery = useGetOrderListQuery({
+    fromDate,
+    toDate,
     page: 1,
     limit: MAX_LIST_LIMIT,
   });
@@ -113,7 +122,7 @@ export default function OrderTable() {
     }
 
     function onUpdateOrder(data: UpdateOrderResType["data"]) {
-      toast.success(`Order ${data.id} status updated to ${data.status}`);
+      toast.success(`Đơn ${data.id} đã được cập nhật trạng thái`);
 
       refetch();
     }
@@ -165,6 +174,9 @@ export default function OrderTable() {
         statics={statics}
         tableList={tableListSortedByNumber}
         servingGuestByTableNumber={servingGuestByTableNumber}
+        isTableOverviewLoading={
+          tableListQuery.isPending || orderOverviewQuery.isPending
+        }
       />
       <DataTable
         columns={columns}
@@ -177,10 +189,10 @@ export default function OrderTable() {
           const hasStatusColumn = table.getColumn("status") !== null;
 
           return (
-            <div className="my-2 flex w-full items-center justify-between gap-2 overflow-auto px-1 py-2 scroll">
+            <div className="mb-2 flex w-full items-center justify-between gap-2 overflow-auto px-1 py-2 scroll">
               <div className="flex flex-1 items-center gap-2">
                 <Input
-                  placeholder="Filter table number or guest name"
+                  placeholder="Lọc theo số bàn hoặc tên khách"
                   value={
                     (table.getColumn("guestName")?.getFilterValue() as
                       | string
@@ -202,7 +214,7 @@ export default function OrderTable() {
                     onClick={() => table.resetColumnFilters()}
                     className="h-8 px-2 lg:px-3"
                   >
-                    Reset
+                    Đặt lại
                     <X />
                   </Button>
                 )}
@@ -213,7 +225,7 @@ export default function OrderTable() {
                 onClick={onOpenNewOrderSheet}
               >
                 <Plus className="size-4" />
-                Add order
+                Thêm đơn
               </Button>
             </div>
           );
@@ -222,9 +234,9 @@ export default function OrderTable() {
           orderListQuery.isPending ? null : (
             <div className="flex items-center justify-end space-x-2 py-4">
               <div className="flex-1 py-4 text-xs text-muted-foreground">
-                Display{" "}
-                <strong>{table.getPaginationRowModel().rows.length}</strong> out
-                of <strong>{totalItems}</strong> results
+                Hiển thị{" "}
+                <strong>{table.getPaginationRowModel().rows.length}</strong>{" "}
+                trên <strong>{totalItems}</strong> kết quả
               </div>
               <div>
                 <AutoPagination

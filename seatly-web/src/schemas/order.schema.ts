@@ -52,8 +52,8 @@ export const OrderSchema = z.object({
 });
 
 export const CreateOrderBody = z.object({
-  name: z.string().trim().min(2, "Guest name must be at least 2 characters"),
-  tableNumber: z.number().positive("Please choose a table"),
+  name: z.string().trim().min(2, "Tên khách phải có ít nhất 2 ký tự"),
+  tableNumber: z.number().positive("Vui lòng chọn bàn"),
 });
 
 export type CreateOrderBodyType = z.TypeOf<typeof CreateOrderBody>;

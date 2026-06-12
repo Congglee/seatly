@@ -19,7 +19,7 @@ export const handleErrorApi = ({
       });
     });
   } else {
-    toast.error(error?.payload?.message ?? "Unknown error", {
+    toast.error(error?.payload?.message ?? "Đã xảy ra lỗi không xác định", {
       duration: duration ?? 5000,
     });
   }

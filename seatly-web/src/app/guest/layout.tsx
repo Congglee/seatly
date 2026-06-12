@@ -22,7 +22,7 @@ export default function GuestLayout({ children }: GuestLayoutProps) {
               className="gap-1.5 px-2.5 py-1 text-xs font-medium border-border/60 text-muted-foreground"
             >
               <UtensilsCrossed className="size-3" strokeWidth={2} />
-              Guest
+              Khách
             </Badge>
           </div>
         </div>

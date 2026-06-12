@@ -2,16 +2,16 @@ import ManageContentLayout from "@/app/manage/_components/layouts/manage-content
 import DishesView from "@/app/manage/dishes/dishes-view";
 
 const breadcrumbs = [
-  { name: "Home", href: "/" },
-  { name: "Dishes", href: "/manage/dishes" },
+  { name: "Trang chủ", href: "/" },
+  { name: "Món ăn", href: "/manage/dishes" },
 ];
 
 export default function Dishes() {
   return (
     <ManageContentLayout
       breadcrumbs={breadcrumbs}
-      heading="Dishes"
-      description="Manage menu dishes"
+      heading="Món ăn"
+      description="Quản lý các món trong thực đơn"
       hasManageFilters={false}
     >
       <DishesView />

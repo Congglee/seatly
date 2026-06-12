@@ -74,7 +74,7 @@ export default function LoginCard() {
     <Card className="w-full h-full md:w-[487px] border-none shadow-none bg-muted dark:bg-card">
       <SearchParamsLoader onParamsReceived={setSearchParams} />
       <CardHeader className="flex items-center justify-center text-center p-7">
-        <CardTitle className="text-2xl">Welcome back 🙌</CardTitle>
+        <CardTitle className="text-2xl">Chào mừng quay lại</CardTitle>
       </CardHeader>
       <Separator />
       <CardContent className="p-7">
@@ -85,13 +85,13 @@ export default function LoginCard() {
               control={form.control}
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel htmlFor="email">Email</FormLabel>
+                  <FormLabel htmlFor="email">Địa chỉ email</FormLabel>
                   <FormControl>
                     <Input
                       {...field}
                       id="email"
                       type="email"
-                      placeholder="Enter email address"
+                      placeholder="Nhập địa chỉ email"
                     />
                   </FormControl>
                   <FormMessage />
@@ -104,12 +104,12 @@ export default function LoginCard() {
               render={({ field }) => (
                 <FormItem>
                   <div className="flex items-center">
-                    <FormLabel htmlFor="password">Password</FormLabel>
+                    <FormLabel htmlFor="password">Mật khẩu</FormLabel>
                     <Link
                       href="/reset"
                       className="ml-auto inline-block text-sm underline"
                     >
-                      Forgot your password?
+                      Quên mật khẩu?
                     </Link>
                   </div>
                   <FormControl>
@@ -117,7 +117,7 @@ export default function LoginCard() {
                       {...field}
                       id="password"
                       type="password"
-                      placeholder="Enter password"
+                      placeholder="Nhập mật khẩu"
                     />
                   </FormControl>
                   <FormMessage />
@@ -129,7 +129,7 @@ export default function LoginCard() {
               size="lg"
               className="w-full"
             >
-              Login
+              Đăng nhập
             </SubmitButton>
           </form>
         </Form>
@@ -144,15 +144,15 @@ export default function LoginCard() {
           onClick={() => {}}
         >
           <FcGoogle className="mr-2 size-5" />
-          Login with Google
+          Đăng nhập bằng Google
         </Button>
       </CardContent>
       <Separator />
       <CardContent className="p-4 flex items-center justify-center">
         <p className="text-sm font-medium text-muted-foreground">
-          Don&apos;t have an account?{" "}
+          Chưa có tài khoản?{" "}
           <Link href="/register">
-            <span className="text-primary hover:underline">Register</span>
+            <span className="text-primary hover:underline">Đăng ký</span>
           </Link>
         </p>
       </CardContent>

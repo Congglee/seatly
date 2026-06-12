@@ -1,4 +1,4 @@
-import { Receipt, CircleDollarSign } from "lucide-react";
+import { Banknote, Receipt } from "lucide-react";
 import { Separator } from "@/components/ui/separator";
 import { formatCurrency } from "@/lib/utils/currency";
 
@@ -30,7 +30,7 @@ export default function OrdersSummaryFooter({
                 <span className="font-semibold text-foreground tabular-nums">
                   {unpaidCount}
                 </span>{" "}
-                unpaid {unpaidCount === 1 ? "item" : "items"}
+                món chưa thanh toán
               </span>
             </div>
             <span className="font-semibold text-foreground tabular-nums">
@@ -44,12 +44,12 @@ export default function OrdersSummaryFooter({
         {paidCount > 0 && (
           <div className="flex items-center justify-between text-sm">
             <div className="flex items-center gap-2 text-muted-foreground">
-              <CircleDollarSign className="size-4" strokeWidth={1.5} />
+              <Banknote className="size-4" strokeWidth={1.5} />
               <span>
                 <span className="font-medium text-muted-foreground tabular-nums">
                   {paidCount}
                 </span>{" "}
-                paid {paidCount === 1 ? "item" : "items"}
+                món đã thanh toán
               </span>
             </div>
             <span className="font-medium text-muted-foreground tabular-nums">

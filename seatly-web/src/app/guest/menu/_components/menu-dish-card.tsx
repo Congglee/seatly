@@ -46,7 +46,7 @@ export default function MenuDishCard({
               variant="secondary"
               className="text-[10px] px-1.5 py-0.5 font-semibold"
             >
-              Sold out
+              Tạm hết
             </Badge>
           </div>
         )}
@@ -77,7 +77,7 @@ export default function MenuDishCard({
                   quantity === 0 && "invisible"
                 )}
                 onClick={() => onDecrement(dish.id)}
-                aria-label={`Decrease quantity of ${dish.name}`}
+                aria-label={`Giảm số lượng ${dish.name}`}
               >
                 <Minus className="size-3.5" strokeWidth={2} />
               </Button>
@@ -97,7 +97,7 @@ export default function MenuDishCard({
                 size="icon"
                 className="size-7 rounded-lg border-border/60 active:scale-95 transition-transform duration-100"
                 onClick={() => onIncrement(dish.id)}
-                aria-label={`Increase quantity of ${dish.name}`}
+                aria-label={`Tăng số lượng ${dish.name}`}
               >
                 <Plus className="size-3.5" strokeWidth={2} />
               </Button>

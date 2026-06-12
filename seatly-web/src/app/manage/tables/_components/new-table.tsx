@@ -82,9 +82,9 @@ export default function NewTable() {
     >
       <SheetContent className="space-y-4 w-full sm:max-w-lg overflow-y-auto scroll">
         <SheetHeader>
-          <SheetTitle>New Table</SheetTitle>
+          <SheetTitle>Thêm bàn mới</SheetTitle>
           <SheetDescription>
-            Create a new table to track your tables.
+            Tạo bàn mới để theo dõi và phục vụ khách.
           </SheetDescription>
         </SheetHeader>
         <Form {...form}>
@@ -99,14 +99,14 @@ export default function NewTable() {
               control={form.control}
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel htmlFor="number">Table Number</FormLabel>
+                  <FormLabel htmlFor="number">Số bàn</FormLabel>
                   <FormControl>
                     <Input
                       {...field}
                       id="number"
                       type="number"
                       min={1}
-                      placeholder="Enter table number"
+                      placeholder="Nhập số bàn"
                     />
                   </FormControl>
                   <FormMessage />
@@ -118,14 +118,14 @@ export default function NewTable() {
               control={form.control}
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel htmlFor="capacity">Capacity</FormLabel>
+                  <FormLabel htmlFor="capacity">Sức chứa</FormLabel>
                   <FormControl>
                     <Input
                       {...field}
                       id="capacity"
                       type="number"
                       min={1}
-                      placeholder="Enter capacity"
+                      placeholder="Nhập sức chứa"
                     />
                   </FormControl>
                   <FormMessage />
@@ -137,7 +137,7 @@ export default function NewTable() {
               control={form.control}
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel htmlFor="status">Status</FormLabel>
+                  <FormLabel htmlFor="status">Trạng thái</FormLabel>
                   <FormControl>
                     <Combobox
                       value={field.value}
@@ -145,8 +145,8 @@ export default function NewTable() {
                       onChange={(value) => {
                         form.setValue("status", value as TableStatusType);
                       }}
-                      placeholder="Select a status"
-                      emptyText="No status found"
+                      placeholder="Chọn trạng thái"
+                      emptyText="Không tìm thấy trạng thái"
                     />
                   </FormControl>
                   <FormMessage />
@@ -157,7 +157,7 @@ export default function NewTable() {
               isLoading={addTableMutation.isPending}
               className="!mt-6 w-full"
             >
-              Create table
+              Tạo bàn
             </SubmitButton>
           </form>
         </Form>

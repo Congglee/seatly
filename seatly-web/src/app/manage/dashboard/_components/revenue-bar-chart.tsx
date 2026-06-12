@@ -68,7 +68,7 @@ export default function RevenueBarChart({
           tickLine={false}
           axisLine={false}
           tickFormatter={(value) => formatCompactCurrency(value)}
-          width={45}
+          width={64}
         />
         <Tooltip
           cursor={{ fill: "hsl(var(--muted))", opacity: 0.3 }}

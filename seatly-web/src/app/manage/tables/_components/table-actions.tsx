@@ -17,8 +17,8 @@ interface TableActionsProps {
 
 export default function TableActions({ tableNumber }: TableActionsProps) {
   const [ConfirmDialog, confirm] = useConfirm(
-    "Are you sure you want to delete this table?",
-    "You are about to delete this table.",
+    "Bạn có chắc muốn xóa bàn này?",
+    "Bạn sắp xóa bàn này khỏi hệ thống.",
     "destructive"
   );
 
@@ -55,14 +55,14 @@ export default function TableActions({ tableNumber }: TableActionsProps) {
             className="cursor-pointer font-medium p-[10px]"
           >
             <Edit className="size-4 mr-2 stroke-2" />
-            Edit Table
+            Chỉnh sửa bàn
           </DropdownMenuItem>
           <DropdownMenuItem
             onClick={handleDeleteTable}
             className="cursor-pointer font-medium p-[10px] text-destructive focus:text-destructive/80"
           >
             <Trash className="size-4 mr-2 stroke-2" />
-            Delete Table
+            Xóa bàn
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>

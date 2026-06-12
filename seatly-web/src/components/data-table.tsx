@@ -47,7 +47,7 @@ type DataTableProps<TData, TValue> = {
 export default function DataTable<TData, TValue>({
   columns,
   tableData,
-  emptyMessage = "No results.",
+  emptyMessage = "Không có kết quả.",
   loading = false,
   loadingFallback,
   pageIndex = 0,
@@ -124,7 +124,7 @@ export default function DataTable<TData, TValue>({
         loadingFallback ?? (
           <div className="rounded-md border">
             <div className="flex h-24 items-center justify-center text-sm text-muted-foreground">
-              Loading...
+              Đang tải...
             </div>
           </div>
         )
