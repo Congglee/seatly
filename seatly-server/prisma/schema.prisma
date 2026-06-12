@@ -21,6 +21,7 @@ model Account {
   owner                  Account?         @relation("OwnerEmployee", fields: [ownerId], references: [id], onDelete: SetNull, onUpdate: NoAction)
   employees              Account[]        @relation("OwnerEmployee")
   handledOrders          Order[]
+  confirmedPayments      Payment[]        @relation("PaymentConfirmedBy")
   refreshTokens          RefreshToken[]
   socket                 Socket?
   changedOrderStatusLogs OrderStatusLog[]
@@ -84,6 +85,7 @@ model RestaurantTable {
   guests        Guest[]
   orders        Order[]
   orderBatches  OrderBatch[]
+  payments      Payment[]
   tableRequests TableRequest[]
 
   @@map("restaurant_tables")
@@ -109,6 +111,7 @@ model Guest {
 
   table         RestaurantTable? @relation(fields: [tableNumber], references: [number], onDelete: SetNull, onUpdate: NoAction)
   orders        Order[]
+  payments      Payment[]
   socket        Socket?
   orderBatches  OrderBatch[]
   tableRequests TableRequest[]
@@ -123,6 +126,7 @@ model Order {
   dishSnapshotId String   @unique
   quantity       Int
   orderHandlerId String?
+  paymentId      String?
   status         String   @default("Pending")
   createdAt      DateTime @default(now())
   updatedAt      DateTime @updatedAt
@@ -136,10 +140,65 @@ model Order {
   table        RestaurantTable? @relation(fields: [tableNumber], references: [number], onDelete: SetNull, onUpdate: NoAction)
   dishSnapshot DishSnapshot     @relation(fields: [dishSnapshotId], references: [id], onDelete: Cascade, onUpdate: Cascade)
   orderHandler Account?         @relation(fields: [orderHandlerId], references: [id], onDelete: SetNull, onUpdate: NoAction)
+  payment      Payment?         @relation(fields: [paymentId], references: [id], onDelete: SetNull, onUpdate: NoAction)
   orderBatch   OrderBatch?      @relation(fields: [orderBatchId], references: [id])
   statusLogs   OrderStatusLog[]
 
   @@map("orders")
+}
+
+model Payment {
+  id                   String    @id @default(uuid())
+  code                 String    @unique
+  guestId              String
+  tableNumber          Int?
+  amount               Int
+  status               String    @default("Pending")
+  method               String
+  provider             String?
+  qrUrl                String?   @db.VarChar(1000)
+  expiresAt            DateTime?
+  paidAt               DateTime?
+  confirmedByAccountId String?
+  createdAt            DateTime  @default(now())
+  updatedAt            DateTime  @updatedAt
+
+  guest               Guest                @relation(fields: [guestId], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  table               RestaurantTable?     @relation(fields: [tableNumber], references: [number], onDelete: SetNull, onUpdate: NoAction)
+  confirmedBy         Account?             @relation("PaymentConfirmedBy", fields: [confirmedByAccountId], references: [id], onDelete: SetNull, onUpdate: NoAction)
+  orders              Order[]
+  paymentTransactions PaymentTransaction[]
+
+  @@index([guestId])
+  @@index([status])
+  @@index([guestId, status])
+  @@map("payments")
+}
+
+model PaymentTransaction {
+  id                    String   @id @default(uuid())
+  provider              String
+  providerTransactionId String   @unique
+  paymentId             String?
+  status                String
+  gateway               String
+  transactionDate       DateTime
+  accountNumber         String?  @db.VarChar(100)
+  subAccount            String?  @db.VarChar(250)
+  amountIn              Int      @default(0)
+  amountOut             Int      @default(0)
+  accumulated           Int?
+  code                  String?  @db.VarChar(250)
+  transactionContent    String?  @db.Text
+  referenceNumber       String?  @db.VarChar(255)
+  body                  String?  @db.Text
+  rawPayload            Json
+  createdAt             DateTime @default(now())
+
+  payment Payment? @relation(fields: [paymentId], references: [id], onDelete: SetNull, onUpdate: NoAction)
+
+  @@index([paymentId])
+  @@map("payment_transactions")
 }
 
 model RefreshToken {

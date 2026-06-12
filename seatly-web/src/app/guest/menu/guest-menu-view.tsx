@@ -147,7 +147,7 @@ export default function GuestMenuView() {
 
   return (
     <>
-      <div className="max-w-lg mx-auto w-full px-4 pt-5 pb-2 space-y-4">
+      <div className="max-w-lg mx-auto w-full px-4 pt-5 pb-3 space-y-4">
         <div className="flex items-start justify-between gap-3">
           <div className="space-y-1">
             <h1 className="text-lg font-semibold tracking-tight text-foreground">
@@ -170,7 +170,7 @@ export default function GuestMenuView() {
           </Button>
         </div>
       </div>
-      <div className="max-w-lg mx-auto w-full px-4 pt-0 pb-2">
+      <div className="max-w-lg mx-auto w-full px-4 pb-2 space-y-3.5">
         <div className="relative">
           <Search
             className="absolute left-3 top-1/2 -translate-y-1/2 size-4 text-muted-foreground/60"
@@ -184,11 +184,9 @@ export default function GuestMenuView() {
             className="h-10 pl-9 pr-4 rounded-xl text-sm bg-muted/40 border-border/60 placeholder:text-muted-foreground/50 focus-visible:ring-primary/30 focus-visible:border-primary/50 transition-colors duration-200"
           />
         </div>
-      </div>
-      <Separator className="bg-border/40 max-w-lg mx-auto w-full" />
-      {!dishListQuery.isPending && sortedDishes.length > 0 && (
-        <div className="max-w-lg mx-auto w-full px-4 pt-3 pb-1">
-          <p className="text-xs text-muted-foreground tabular-nums">
+        <Separator className="bg-border/40" />
+        {!dishListQuery.isPending && sortedDishes.length > 0 && (
+          <p className="text-xs text-muted-foreground tabular-nums leading-snug">
             {availableDishCount} món còn phục vụ
             {sortedDishes.length > availableDishCount && (
               <span className="text-muted-foreground/60">
@@ -197,8 +195,8 @@ export default function GuestMenuView() {
               </span>
             )}
           </p>
-        </div>
-      )}
+        )}
+      </div>
       <div
         className={cn(
           "flex-1 max-w-lg mx-auto w-full px-4 py-3",

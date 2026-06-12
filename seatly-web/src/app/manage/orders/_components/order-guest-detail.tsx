@@ -115,7 +115,7 @@ export default function OrderGuestDetail({
               {payForGuestMutation.isPending && (
                 <Loader2 className="size-3.5 animate-spin" />
               )}
-              Thanh toán tất cả ({ordersFilterToPurchase.length} đơn)
+              Xác nhận đã thanh toán ({ordersFilterToPurchase.length} đơn)
             </Button>
           </div>
           <Separator />

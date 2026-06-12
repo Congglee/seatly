@@ -43,3 +43,11 @@ export const parseDateInput = (value: string, fallback: Date) => {
   const nextDate = new Date(value);
   return Number.isNaN(nextDate.getTime()) ? fallback : nextDate;
 };
+
+export const formatRemainingTime = (remainingMs: number) => {
+  const totalSeconds = Math.max(0, Math.floor(remainingMs / 1000));
+  const minutes = Math.floor(totalSeconds / 60);
+  const seconds = totalSeconds % 60;
+
+  return `${minutes}:${seconds.toString().padStart(2, "0")}`;
+};

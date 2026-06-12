@@ -31,6 +31,7 @@ import guestRoutes from '@/routes/guest.route'
 import accountRoutes from '@/routes/account.route'
 import dashboardRoutes from '@/routes/dashboard.route'
 import orderRoutes from '@/routes/order.route'
+import paymentRoutes from '@/routes/payment.route'
 
 const buildApp = () => {
   const fastify = Fastify({ logger: false })
@@ -83,6 +84,9 @@ const buildApp = () => {
   })
   fastify.register(orderRoutes, {
     prefix: '/orders'
+  })
+  fastify.register(paymentRoutes, {
+    prefix: '/payments'
   })
   fastify.register(dashboardRoutes, {
     prefix: '/indicators'
