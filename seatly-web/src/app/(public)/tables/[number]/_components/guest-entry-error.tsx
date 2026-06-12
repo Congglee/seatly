@@ -19,28 +19,28 @@ export const GUEST_ENTRY_TOKEN_ERROR_CONTENT: Record<
   GuestEntryTokenErrorContent
 > = {
   "missing-token": {
-    title: "Missing table token",
+    title: "Thiếu mã xác thực bàn",
     description:
-      "This table link is incomplete. Please scan the QR code again to continue.",
-    actionLabel: "Back to homepage",
+      "Liên kết bàn này chưa đầy đủ. Vui lòng quét lại mã QR để tiếp tục.",
+    actionLabel: "Về trang chủ",
   },
   "invalid-token": {
-    title: "Invalid table token",
+    title: "Mã xác thực bàn không hợp lệ",
     description:
-      "This table link is no longer valid. Please ask staff for a new QR code.",
-    actionLabel: "Back to homepage",
+      "Liên kết bàn này không còn hợp lệ. Vui lòng nhờ nhân viên cung cấp mã QR mới.",
+    actionLabel: "Về trang chủ",
   },
   "expired-token": {
-    title: "Expired table token",
+    title: "Mã xác thực bàn đã hết hạn",
     description:
-      "This table token has expired. Please scan the latest QR code to join.",
-    actionLabel: "Back to homepage",
+      "Mã xác thực của bàn đã hết hạn. Vui lòng quét mã QR mới nhất để tham gia.",
+    actionLabel: "Về trang chủ",
   },
   "unknown-token": {
-    title: "Cannot verify table token",
+    title: "Không thể xác thực mã bàn",
     description:
-      "We could not verify this table token right now. Please try again with a fresh QR code.",
-    actionLabel: "Back to homepage",
+      "Hiện chưa thể xác thực mã bàn này. Vui lòng thử lại bằng mã QR mới.",
+    actionLabel: "Về trang chủ",
   },
 };
 
@@ -114,7 +114,7 @@ interface GuestEntryErrorProps {
 export default function GuestEntryError({
   title,
   description,
-  actionLabel = "Try again",
+  actionLabel = "Thử lại",
   onAction,
 }: GuestEntryErrorProps) {
   return (

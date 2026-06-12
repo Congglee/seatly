@@ -35,5 +35,5 @@ export default function RefreshTokenHandler() {
     }
   }, [router, refreshTokenFromUrl, redirectPathname]);
 
-  return <Loader fullPage message="Restoring session..." />;
+  return <Loader fullPage message="Đang khôi phục phiên đăng nhập..." />;
 }

@@ -1,6 +1,6 @@
 import { Loader2 } from "lucide-react";
 
-const DEFAULT_MESSAGE = "Loading...";
+const DEFAULT_MESSAGE = "Đang tải...";
 
 interface LoaderProps {
   message?: string;

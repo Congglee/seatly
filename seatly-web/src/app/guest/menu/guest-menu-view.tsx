@@ -151,10 +151,10 @@ export default function GuestMenuView() {
         <div className="flex items-start justify-between gap-3">
           <div className="space-y-1">
             <h1 className="text-lg font-semibold tracking-tight text-foreground">
-              Our menu
+              Thực đơn
             </h1>
             <p className="text-sm text-muted-foreground leading-relaxed">
-              Browse dishes and add them to your order.
+              Xem món ăn và thêm vào đơn của bạn.
             </p>
           </div>
           <Button
@@ -165,7 +165,7 @@ export default function GuestMenuView() {
           >
             <Link href="/guest/orders">
               <ClipboardList className="size-3.5" strokeWidth={2} />
-              Orders
+              Đơn của bạn
             </Link>
           </Button>
         </div>
@@ -178,7 +178,7 @@ export default function GuestMenuView() {
           />
           <Input
             type="text"
-            placeholder="Search dishes..."
+            placeholder="Tìm món ăn..."
             value={searchQuery}
             onChange={(event) => setSearchQuery(event.target.value)}
             className="h-10 pl-9 pr-4 rounded-xl text-sm bg-muted/40 border-border/60 placeholder:text-muted-foreground/50 focus-visible:ring-primary/30 focus-visible:border-primary/50 transition-colors duration-200"
@@ -189,12 +189,11 @@ export default function GuestMenuView() {
       {!dishListQuery.isPending && sortedDishes.length > 0 && (
         <div className="max-w-lg mx-auto w-full px-4 pt-3 pb-1">
           <p className="text-xs text-muted-foreground tabular-nums">
-            {availableDishCount} {availableDishCount === 1 ? "dish" : "dishes"}{" "}
-            available
+            {availableDishCount} món còn phục vụ
             {sortedDishes.length > availableDishCount && (
               <span className="text-muted-foreground/60">
                 {" "}
-                &middot; {sortedDishes.length - availableDishCount} sold out
+                &middot; {sortedDishes.length - availableDishCount} món tạm hết
               </span>
             )}
           </p>

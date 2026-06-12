@@ -2,16 +2,16 @@ import ManageContentLayout from "@/app/manage/_components/layouts/manage-content
 import DashboardView from "@/app/manage/dashboard/dashboard-view";
 
 const breadcrumbs = [
-  { name: "Home", href: "/" },
-  { name: "Dashboard", href: "/manage/dashboard" },
+  { name: "Trang chủ", href: "/" },
+  { name: "Tổng quan", href: "/manage/dashboard" },
 ];
 
 export default function Dashboard() {
   return (
     <ManageContentLayout
       breadcrumbs={breadcrumbs}
-      heading="Dashboard"
-      description="Track revenue, paid orders, active tables, and dish performance"
+      heading="Tổng quan"
+      description="Theo dõi doanh thu, đơn đã thanh toán, bàn đang hoạt động và hiệu suất món ăn"
       hasManageFilters={false}
     >
       <DashboardView />

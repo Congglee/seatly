@@ -9,7 +9,7 @@ import NextTopLoader from "nextjs-toploader";
 
 export const metadata: Metadata = {
   title: "Seatly",
-  description: "Seatly is a platform for managing your small restaurant",
+  description: "Seatly là nền tảng quản lý nhà hàng nhỏ của bạn",
 };
 
 export default function RootLayout({
@@ -18,7 +18,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="vi">
       <body className={`${GeistSans.className} antialiased`}>
         <NextTopLoader
           color="hsl(var(--muted-foreground))"

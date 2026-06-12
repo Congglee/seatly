@@ -95,9 +95,9 @@ export default function NewAccount() {
     <Sheet open={newAccountSheetOpen} onOpenChange={handleSheetOpenChange}>
       <SheetContent className="scroll w-full space-y-4 overflow-y-auto sm:max-w-lg">
         <SheetHeader>
-          <SheetTitle>New Account</SheetTitle>
+          <SheetTitle>Thêm tài khoản</SheetTitle>
           <SheetDescription>
-            Create a new employee account for backoffice operations.
+            Tạo tài khoản nhân viên mới cho hoạt động quản trị.
           </SheetDescription>
         </SheetHeader>
         <Form {...form}>
@@ -107,12 +107,12 @@ export default function NewAccount() {
               control={form.control}
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel htmlFor="account-name">Full Name</FormLabel>
+                  <FormLabel htmlFor="account-name">Họ và tên</FormLabel>
                   <FormControl>
                     <Input
                       {...field}
                       id="account-name"
-                      placeholder="Enter staff full name"
+                      placeholder="Nhập họ tên nhân viên"
                     />
                   </FormControl>
                   <FormMessage />
@@ -124,13 +124,13 @@ export default function NewAccount() {
               control={form.control}
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel htmlFor="account-email">Email</FormLabel>
+                  <FormLabel htmlFor="account-email">Địa chỉ email</FormLabel>
                   <FormControl>
                     <Input
                       {...field}
                       id="account-email"
                       type="email"
-                      placeholder="Enter staff email"
+                      placeholder="Nhập email nhân viên"
                     />
                   </FormControl>
                   <FormMessage />
@@ -142,7 +142,7 @@ export default function NewAccount() {
               control={form.control}
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Avatar</FormLabel>
+                  <FormLabel>Ảnh đại diện</FormLabel>
                   <FormControl>
                     <AccountAvatarUpload
                       value={field.value}
@@ -152,7 +152,7 @@ export default function NewAccount() {
                     />
                   </FormControl>
                   <FormDescription>
-                    Upload an avatar image for the staff account.
+                    Tải ảnh đại diện cho tài khoản nhân viên.
                   </FormDescription>
                   <FormMessage />
                 </FormItem>
@@ -163,13 +163,13 @@ export default function NewAccount() {
               control={form.control}
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel htmlFor="account-password">Password</FormLabel>
+                  <FormLabel htmlFor="account-password">Mật khẩu</FormLabel>
                   <FormControl>
                     <Input
                       {...field}
                       id="account-password"
                       type="password"
-                      placeholder="Enter password"
+                      placeholder="Nhập mật khẩu"
                     />
                   </FormControl>
                   <FormMessage />
@@ -182,14 +182,14 @@ export default function NewAccount() {
               render={({ field }) => (
                 <FormItem>
                   <FormLabel htmlFor="account-confirm-password">
-                    Confirm Password
+                    Xác nhận mật khẩu
                   </FormLabel>
                   <FormControl>
                     <Input
                       {...field}
                       id="account-confirm-password"
                       type="password"
-                      placeholder="Re-enter password"
+                      placeholder="Nhập lại mật khẩu"
                     />
                   </FormControl>
                   <FormMessage />
@@ -202,7 +202,7 @@ export default function NewAccount() {
               }
               className="!mt-6 w-full"
             >
-              Create account
+              Tạo tài khoản
             </SubmitButton>
           </form>
         </Form>

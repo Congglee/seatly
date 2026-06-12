@@ -47,7 +47,7 @@ export default function TableTable() {
             <div className="flex w-full items-center justify-between gap-2 overflow-auto px-1 py-2 my-2 scroll">
               <div className="flex flex-1 items-center gap-2">
                 <Input
-                  placeholder="Filter table number"
+                  placeholder="Lọc theo số bàn"
                   value={
                     (table.getColumn("number")?.getFilterValue() as string) ??
                     ""
@@ -68,7 +68,7 @@ export default function TableTable() {
                     onClick={() => table.resetColumnFilters()}
                     className="h-8 px-2 lg:px-3"
                   >
-                    Reset
+                    Đặt lại
                     <X />
                   </Button>
                 )}
@@ -79,7 +79,7 @@ export default function TableTable() {
                 onClick={onOpenNewTableSheet}
               >
                 <Plus className="size-4" />
-                Add table
+                Thêm bàn
               </Button>
             </div>
           );
@@ -88,9 +88,9 @@ export default function TableTable() {
           tableListQuery.isPending ? null : (
             <div className="flex items-center justify-end space-x-2 py-4">
               <div className="text-xs text-muted-foreground py-4 flex-1 ">
-                Display{" "}
-                <strong>{table.getPaginationRowModel().rows.length}</strong> out
-                of <strong>{totalItems}</strong> results
+                Hiển thị{" "}
+                <strong>{table.getPaginationRowModel().rows.length}</strong>{" "}
+                trên <strong>{totalItems}</strong> kết quả
               </div>
               <div>
                 <AutoPagination

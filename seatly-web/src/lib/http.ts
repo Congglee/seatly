@@ -214,17 +214,20 @@ const request = async <Response>(
 };
 
 /**
- * Provides typed convenience wrappers for the application's HTTP methods.
+ * Typed convenience wrappers for the application's HTTP methods.
  *
- * Each method delegates to `request`, preserving the same response shape while
+ * Each method delegates to `request`, preserving the response shape and
  * automatically assigning the correct HTTP verb.
  *
- * @type {{
- *   get: <Response>(url: string, options?: Omit<CustomOptions, "body"> | undefined) => Promise<{ status: number; payload: Response }>;
- *   post: <Response>(url: string, body: any, options?: Omit<CustomOptions, "body"> | undefined) => Promise<{ status: number; payload: Response }>;
- *   put: <Response>(url: string, body: any, options?: Omit<CustomOptions, "body"> | undefined) => Promise<{ status: number; payload: Response }>;
- *   delete: <Response>(url: string, options?: Omit<CustomOptions, "body"> | undefined) => Promise<{ status: number; payload: Response }>;
- * }}
+ * @typedef {Object} http
+ * @property {<Response>(url: string, options?: Omit<CustomOptions, "body">) => Promise<{ status: number, payload: Response }>} get
+ *   Sends a GET request.
+ * @property {<Response>(url: string, body: any, options?: Omit<CustomOptions, "body">) => Promise<{ status: number, payload: Response }>} post
+ *   Sends a POST request.
+ * @property {<Response>(url: string, body: any, options?: Omit<CustomOptions, "body">) => Promise<{ status: number, payload: Response }>} put
+ *   Sends a PUT request.
+ * @property {<Response>(url: string, options?: Omit<CustomOptions, "body">) => Promise<{ status: number, payload: Response }>} delete
+ *   Sends a DELETE request.
  */
 const http = {
   get<Response>(

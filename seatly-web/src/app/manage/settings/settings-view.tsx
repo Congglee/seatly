@@ -13,10 +13,15 @@ import { KeyRound, Palette, UserCog } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 
 const tabs: { value: string; label: string; icon: LucideIcon }[] = [
-  { value: "profile", label: "Profile", icon: UserCog },
-  { value: "security", label: "Security", icon: KeyRound },
-  { value: "appearance", label: "Appearance", icon: Palette },
+  { value: "profile", label: "Hồ sơ", icon: UserCog },
+  { value: "security", label: "Bảo mật", icon: KeyRound },
+  { value: "appearance", label: "Giao diện", icon: Palette },
 ];
+
+const roleLabels: Record<string, string> = {
+  [Role.Owner]: "Chủ quán",
+  [Role.Employee]: "Nhân viên",
+};
 
 const getInitials = (value?: string) => {
   if (!value) return "ST";
@@ -41,7 +46,7 @@ export default function SettingsView() {
         <Avatar className="size-16 rounded-xl border border-border/60">
           <AvatarImage
             src={account?.avatar ?? undefined}
-            alt={account?.name ?? "User avatar"}
+            alt={account?.name ?? "Ảnh đại diện người dùng"}
             className="object-cover"
           />
           <AvatarFallback className="rounded-xl bg-muted text-lg font-semibold">
@@ -51,22 +56,22 @@ export default function SettingsView() {
         <div className="min-w-0 space-y-1">
           <div className="flex flex-wrap items-center gap-2">
             <h2 className="truncate text-lg font-semibold tracking-tight">
-              {account?.name ?? "Your account"}
+              {account?.name ?? "Tài khoản của bạn"}
             </h2>
             {account?.role ? (
               <Badge variant={isOwner ? "default" : "secondary"}>
-                {account.role}
+                {roleLabels[account.role] ?? account.role}
               </Badge>
             ) : null}
           </div>
           <p className="truncate text-sm text-muted-foreground">
-            {account?.email ?? "Manage your personal preferences and security"}
+            {account?.email ?? "Quản lý tùy chọn cá nhân và bảo mật"}
           </p>
         </div>
       </div>
 
       <Tabs defaultValue="profile" className="space-y-6">
-        <TabsList className="grid h-auto w-full grid-cols-3 gap-1 p-1 sm:max-w-md">
+        <TabsList className="grid h-auto w-full grid-cols-3 gap-1 rounded-lg p-1">
           {tabs.map((tab) => {
             const Icon = tab.icon;
 
@@ -74,10 +79,10 @@ export default function SettingsView() {
               <TabsTrigger
                 key={tab.value}
                 value={tab.value}
-                className="gap-2 py-2"
+                className="flex w-full min-h-11 items-center justify-center gap-1.5 px-2 py-2.5 text-xs sm:gap-2 sm:px-3 sm:py-2 sm:text-sm"
               >
-                <Icon className="size-4" aria-hidden />
-                {tab.label}
+                <Icon className="size-4 shrink-0" aria-hidden />
+                <span className="truncate">{tab.label}</span>
               </TabsTrigger>
             );
           })}

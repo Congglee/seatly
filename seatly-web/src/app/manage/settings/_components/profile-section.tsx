@@ -25,6 +25,11 @@ import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 
+const roleLabels: Record<string, string> = {
+  [Role.Owner]: "Chủ quán",
+  [Role.Employee]: "Nhân viên",
+};
+
 export default function ProfileSection() {
   const { data } = useGetMeQuery();
   const account = data?.payload.data;
@@ -97,8 +102,8 @@ export default function ProfileSection() {
     <Form {...form}>
       <form noValidate onSubmit={onSubmit}>
         <SettingsSection
-          title="Profile"
-          description="Update how your account appears across the workspace."
+          title="Hồ sơ"
+          description="Cập nhật cách tài khoản của bạn hiển thị trong hệ thống."
           icon={UserCog}
           footer={
             <>
@@ -109,14 +114,14 @@ export default function ProfileSection() {
                 disabled={isPending}
                 onClick={handleResetProfileForm}
               >
-                Reset
+                Đặt lại
               </Button>
               <SubmitButton
                 isLoading={isPending}
                 disabled={!account}
                 className="w-full sm:w-auto"
               >
-                Save changes
+                Lưu thay đổi
               </SubmitButton>
             </>
           }
@@ -127,7 +132,7 @@ export default function ProfileSection() {
               name="avatar"
               render={({ field }) => (
                 <FormItem className="space-y-3">
-                  <FormLabel>Profile photo</FormLabel>
+                  <FormLabel>Ảnh hồ sơ</FormLabel>
                   <FormControl>
                     <AccountAvatarUpload
                       value={field.value}
@@ -148,16 +153,16 @@ export default function ProfileSection() {
                 name="name"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel htmlFor="settings-name">Display name</FormLabel>
+                    <FormLabel htmlFor="settings-name">Tên hiển thị</FormLabel>
                     <FormControl>
                       <Input
                         {...field}
                         id="settings-name"
-                        placeholder="Enter your full name"
+                        placeholder="Nhập họ tên của bạn"
                       />
                     </FormControl>
                     <FormDescription>
-                      This name is shown to your team and on activity logs.
+                      Tên này hiển thị với đội ngũ của bạn và trong nhật ký hoạt động.
                     </FormDescription>
                     <FormMessage />
                   </FormItem>
@@ -165,7 +170,7 @@ export default function ProfileSection() {
               />
 
               <div className="space-y-2">
-                <Label htmlFor="settings-email">Email address</Label>
+                <Label htmlFor="settings-email">Địa chỉ email</Label>
                 <div className="relative">
                   <Input
                     id="settings-email"
@@ -179,7 +184,7 @@ export default function ProfileSection() {
                   <Lock className="pointer-events-none absolute right-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" />
                 </div>
                 <p className="text-xs text-muted-foreground">
-                  Your email is used for sign-in and cannot be changed here.
+                  Email dùng để đăng nhập và không thể thay đổi tại đây.
                 </p>
               </div>
 
@@ -189,9 +194,9 @@ export default function ProfileSection() {
                     <ShieldCheck className="size-4" />
                   </span>
                   <div className="space-y-0.5">
-                    <p className="text-sm font-medium">Access role</p>
+                    <p className="text-sm font-medium">Vai trò truy cập</p>
                     <p className="text-xs text-muted-foreground">
-                      Determines what you can manage in the workspace.
+                      Quyết định những gì bạn có thể quản lý trong hệ thống.
                     </p>
                   </div>
                 </div>
@@ -199,7 +204,7 @@ export default function ProfileSection() {
                   variant={isOwner ? "default" : "secondary"}
                   className="w-fit"
                 >
-                  {account?.role ?? "—"}
+                  {account?.role ? roleLabels[account.role] ?? account.role : "—"}
                 </Badge>
               </div>
             </div>

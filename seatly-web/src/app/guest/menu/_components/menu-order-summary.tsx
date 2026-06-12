@@ -30,7 +30,7 @@ export default function MenuOrderSummary({
               <span className="font-semibold text-foreground tabular-nums">
                 {totalItems}
               </span>{" "}
-              {totalItems === 1 ? "item" : "items"} selected
+              món đã chọn
             </span>
           </div>
           <span className="font-semibold text-foreground tabular-nums">
@@ -47,11 +47,11 @@ export default function MenuOrderSummary({
           {isSubmitting ? (
             <>
               <Loader2 className="size-4 animate-spin" />
-              Placing order...
+              Đang đặt món...
             </>
           ) : (
             <>
-              Place order
+              Đặt món
               <ArrowRight className="size-4" />
             </>
           )}

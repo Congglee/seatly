@@ -53,8 +53,8 @@ export default function SecuritySection() {
     <Form {...form}>
       <form noValidate onSubmit={onSubmit}>
         <SettingsSection
-          title="Password & security"
-          description="Choose a strong password to keep your account secure."
+          title="Mật khẩu & bảo mật"
+          description="Chọn mật khẩu mạnh để bảo vệ tài khoản của bạn."
           icon={KeyRound}
           footer={
             <>
@@ -65,13 +65,13 @@ export default function SecuritySection() {
                 disabled={changePasswordMutation.isPending}
                 onClick={handleResetChangePasswordForm}
               >
-                Cancel
+                Hủy
               </Button>
               <SubmitButton
                 isLoading={changePasswordMutation.isPending}
                 className="w-full sm:w-auto"
               >
-                Update password
+                Cập nhật mật khẩu
               </SubmitButton>
             </>
           }
@@ -83,14 +83,14 @@ export default function SecuritySection() {
               render={({ field }) => (
                 <FormItem>
                   <FormLabel htmlFor="settings-old-password">
-                    Current password
+                    Mật khẩu hiện tại
                   </FormLabel>
                   <FormControl>
                     <Input
                       {...field}
                       id="settings-old-password"
                       type="password"
-                      placeholder="Enter your current password"
+                      placeholder="Nhập mật khẩu hiện tại"
                     />
                   </FormControl>
                   <FormMessage />
@@ -103,14 +103,14 @@ export default function SecuritySection() {
               render={({ field }) => (
                 <FormItem>
                   <FormLabel htmlFor="settings-new-password">
-                    New password
+                    Mật khẩu mới
                   </FormLabel>
                   <FormControl>
                     <Input
                       {...field}
                       id="settings-new-password"
                       type="password"
-                      placeholder="At least 6 characters"
+                      placeholder="Ít nhất 6 ký tự"
                     />
                   </FormControl>
                   <FormMessage />
@@ -123,14 +123,14 @@ export default function SecuritySection() {
               render={({ field }) => (
                 <FormItem>
                   <FormLabel htmlFor="settings-confirm-password">
-                    Confirm new password
+                    Xác nhận mật khẩu mới
                   </FormLabel>
                   <FormControl>
                     <Input
                       {...field}
                       id="settings-confirm-password"
                       type="password"
-                      placeholder="Re-enter your new password"
+                      placeholder="Nhập lại mật khẩu mới"
                     />
                   </FormControl>
                   <FormMessage />

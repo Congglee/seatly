@@ -30,7 +30,7 @@ type ChartType = "area" | "line" | "bar";
 const chartConfigs: ChartConfig[] = [
   {
     dataKey: "revenue",
-    label: "Revenue",
+    label: "Doanh thu",
     color: "hsl(var(--chart-1))",
   },
 ];
@@ -52,30 +52,30 @@ export default function RevenueCharts({ data }: RevenueChartsProps) {
     <Card className="drop-shadow-sm h-full flex flex-col">
       <CardHeader className="flex space-y-2 lg:space-y-0 lg:flex-row lg:items-center justify-between">
         <div className="space-y-1">
-          <CardTitle className="text-xl line-clamp-1">Revenue</CardTitle>
-          <CardDescription>Revenue chart by day</CardDescription>
+          <CardTitle className="text-xl line-clamp-1">Doanh thu</CardTitle>
+          <CardDescription>Biểu đồ doanh thu theo ngày</CardDescription>
         </div>
         <Select value={chartType} onValueChange={handleTypeChange}>
           <SelectTrigger className="lg:w-[180px] h-9 rounded-md px-3 border dark:border-neutral-600">
-            <SelectValue placeholder="Select chart type" />
+            <SelectValue placeholder="Chọn loại biểu đồ" />
           </SelectTrigger>
           <SelectContent>
             <SelectItem value="area">
               <div className="flex items-center">
                 <AreaChart className="size-4 mr-2 shrink-0" />
-                <p className="line-clamp-1">Area chart</p>
+                <p className="line-clamp-1">Biểu đồ vùng</p>
               </div>
             </SelectItem>
             <SelectItem value="line">
               <div className="flex items-center">
                 <LineChart className="size-4 mr-2 shrink-0" />
-                <p className="line-clamp-1">Line chart</p>
+                <p className="line-clamp-1">Biểu đồ đường</p>
               </div>
             </SelectItem>
             <SelectItem value="bar">
               <div className="flex items-center">
                 <BarChart3 className="size-4 mr-2 shrink-0" />
-                <p className="line-clamp-1">Bar chart</p>
+                <p className="line-clamp-1">Biểu đồ cột</p>
               </div>
             </SelectItem>
           </SelectContent>
@@ -86,7 +86,7 @@ export default function RevenueCharts({ data }: RevenueChartsProps) {
           <div className="flex flex-col gap-y-4 items-center justify-center h-[350px] w-full">
             <FileSearch className="size-6 text-muted-foreground" />
             <p className="text-muted-foreground text-sm">
-              No data for the selected time period
+              Không có dữ liệu cho khoảng thời gian đã chọn
             </p>
           </div>
         ) : (

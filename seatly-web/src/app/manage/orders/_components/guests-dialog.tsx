@@ -27,7 +27,7 @@ type GuestItem = GetListGuestsResType["data"][number];
 const columns: ColumnDef<GuestItem>[] = [
   {
     accessorKey: "name",
-    header: "Guest",
+    header: "Khách",
     cell: ({ row }) => (
       <div className="space-y-0.5">
         <p className="font-medium leading-snug">{row.original.name}</p>
@@ -45,7 +45,7 @@ const columns: ColumnDef<GuestItem>[] = [
   },
   {
     accessorKey: "tableNumber",
-    header: "Table",
+    header: "Bàn",
     cell: ({ row }) => (
       <span className="tabular-nums">{row.original.tableNumber ?? "-"}</span>
     ),
@@ -60,7 +60,7 @@ const columns: ColumnDef<GuestItem>[] = [
   },
   {
     accessorKey: "createdAt",
-    header: "Created At",
+    header: "Ngày tạo",
     cell: ({ row }) => (
       <span className="text-sm text-muted-foreground">
         {formatDateTimeToLocaleString(row.original.createdAt)}
@@ -119,11 +119,11 @@ export default function GuestsDialog({ onGuestChoose }: GuestsDialogProps) {
   return (
     <Dialog open={guestsDialogOpen} onOpenChange={handleGuestsDialogOpenChange}>
       <DialogTrigger asChild>
-        <Button variant="outline">Choose guest</Button>
+        <Button variant="outline">Chọn khách</Button>
       </DialogTrigger>
       <DialogContent className="max-h-[90vh] overflow-auto sm:max-w-[760px]">
         <DialogHeader>
-          <DialogTitle>Choose an existing guest</DialogTitle>
+          <DialogTitle>Chọn khách hiện có</DialogTitle>
         </DialogHeader>
         <DataTable
           key={`${fromDate.toISOString()}-${toDate.toISOString()}`}
@@ -131,12 +131,12 @@ export default function GuestsDialog({ onGuestChoose }: GuestsDialogProps) {
           tableData={guests}
           pageSize={PAGE_SIZE}
           loading={guestsListQuery.isPending}
-          emptyMessage="No matching guests found."
+          emptyMessage="Không tìm thấy khách phù hợp."
           onRenderToolbar={(table) => (
             <div className="flex flex-col gap-3 px-1 py-4">
               <div className="flex flex-wrap gap-2">
                 <Input
-                  placeholder="Filter guest name or ID"
+                  placeholder="Lọc theo tên khách hoặc ID"
                   value={
                     (table.getColumn("name")?.getFilterValue() as string) ?? ""
                   }
@@ -146,7 +146,7 @@ export default function GuestsDialog({ onGuestChoose }: GuestsDialogProps) {
                   className="h-9 w-full sm:w-56"
                 />
                 <Input
-                  placeholder="Filter table"
+                  placeholder="Lọc theo bàn"
                   value={
                     (table
                       .getColumn("tableNumber")
@@ -163,7 +163,7 @@ export default function GuestsDialog({ onGuestChoose }: GuestsDialogProps) {
               <div className="flex flex-wrap items-end gap-2">
                 <div className="flex w-fit flex-col gap-1.5">
                   <p className="text-xs font-medium text-muted-foreground">
-                    Date range
+                    Khoảng thời gian
                   </p>
                   <DatePicker
                     id="guest-dialog-date-range"
@@ -172,7 +172,7 @@ export default function GuestsDialog({ onGuestChoose }: GuestsDialogProps) {
                     variant="outline"
                     numberOfMonths={2}
                     className="justify-start text-left font-normal"
-                    aria-label="Choose guest created date range"
+                    aria-label="Chọn khoảng thời gian tạo khách"
                   />
                 </div>
                 <Button
@@ -180,7 +180,7 @@ export default function GuestsDialog({ onGuestChoose }: GuestsDialogProps) {
                   variant="outline"
                   onClick={handleResetDateFilter}
                 >
-                  Reset dates
+                  Đặt lại ngày
                 </Button>
               </div>
             </div>
@@ -193,9 +193,9 @@ export default function GuestsDialog({ onGuestChoose }: GuestsDialogProps) {
             guestsListQuery.isPending ? null : (
               <div className="flex items-center justify-end space-x-2 py-4">
                 <div className="flex-1 py-4 text-xs text-muted-foreground">
-                  Display{" "}
+                  Hiển thị{" "}
                   <strong>{table.getPaginationRowModel().rows.length}</strong>{" "}
-                  out of <strong>{guests.length}</strong> results
+                  trên <strong>{guests.length}</strong> kết quả
                 </div>
                 {table.getPageCount() > 1 && (
                   <div>

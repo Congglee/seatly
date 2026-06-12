@@ -46,7 +46,7 @@ export default function AccountTable() {
             <div className="my-2 flex w-full items-center justify-between gap-2 overflow-auto px-1 py-2 scroll">
               <div className="flex flex-1 items-center gap-2">
                 <Input
-                  placeholder="Filter name, email or ID"
+                  placeholder="Lọc theo tên, email hoặc ID"
                   value={
                     (table.getColumn("name")?.getFilterValue() as string) ?? ""
                   }
@@ -64,7 +64,7 @@ export default function AccountTable() {
                     onClick={() => table.resetColumnFilters()}
                     className="h-8 px-2 lg:px-3"
                   >
-                    Reset
+                    Đặt lại
                     <X />
                   </Button>
                 )}
@@ -75,7 +75,7 @@ export default function AccountTable() {
                 onClick={onOpenNewAccountSheet}
               >
                 <Plus className="size-4" />
-                Add account
+                Thêm tài khoản
               </Button>
             </div>
           );
@@ -84,9 +84,9 @@ export default function AccountTable() {
           accountListQuery.isPending ? null : (
             <div className="flex items-center justify-end space-x-2 py-4">
               <div className="flex-1 py-4 text-xs text-muted-foreground">
-                Display{" "}
-                <strong>{table.getPaginationRowModel().rows.length}</strong> out
-                of <strong>{totalItems}</strong> results
+                Hiển thị{" "}
+                <strong>{table.getPaginationRowModel().rows.length}</strong>{" "}
+                trên <strong>{totalItems}</strong> kết quả
               </div>
               <div>
                 <AutoPagination

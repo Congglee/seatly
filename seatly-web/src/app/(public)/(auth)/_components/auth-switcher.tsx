@@ -11,7 +11,7 @@ export default function AuthSwitcher() {
   return (
     <Button variant="secondary" asChild>
       <Link href={isLogin ? "/register" : "/login"}>
-        {isLogin ? "Register" : "Login"}
+        {isLogin ? "Đăng ký" : "Đăng nhập"}
       </Link>
     </Button>
   );

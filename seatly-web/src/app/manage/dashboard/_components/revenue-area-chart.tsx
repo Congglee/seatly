@@ -69,7 +69,7 @@ export default function RevenueAreaChart({
           tickLine={false}
           axisLine={false}
           tickFormatter={(value) => formatCompactCurrency(value)}
-          width={45}
+          width={64}
         />
         <Tooltip
           content={

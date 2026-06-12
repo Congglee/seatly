@@ -35,7 +35,7 @@ export default function DishSkeleton() {
               <Skeleton className="h-4 w-20" />
             </TableHead>
             <TableHead>
-              <span className="sr-only">Actions</span>
+              <span className="sr-only">Thao tác</span>
             </TableHead>
           </TableRow>
         </TableHeader>

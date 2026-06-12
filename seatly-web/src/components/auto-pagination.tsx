@@ -150,7 +150,7 @@ export default function AutoPagination({
               variant="ghost"
               onClick={() => onClick(page - 1)}
             >
-              <ChevronLeft className="w-5 h-5" /> Previous
+              <ChevronLeft className="w-5 h-5" /> Trước
             </Button>
           )}
         </PaginationItem>
@@ -180,7 +180,7 @@ export default function AutoPagination({
                 onClick(page + 1);
               }}
             >
-              Next <ChevronRight className="w-5 h-5" />
+              Sau <ChevronRight className="w-5 h-5" />
             </Button>
           )}
         </PaginationItem>

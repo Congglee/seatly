@@ -46,14 +46,14 @@ export const columns: ColumnDef<OrderItem>[] = [
           (table.getIsSomePageRowsSelected() && "indeterminate")
         }
         onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
-        aria-label="Select all"
+        aria-label="Chọn tất cả"
       />
     ),
     cell: ({ row }) => (
       <Checkbox
         checked={row.getIsSelected()}
         onCheckedChange={(value) => row.toggleSelected(!!value)}
-        aria-label="Select row"
+        aria-label="Chọn dòng"
       />
     ),
     enableSorting: false,
@@ -68,7 +68,7 @@ export const columns: ColumnDef<OrderItem>[] = [
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
           className="-ml-3"
         >
-          Table
+          Bàn
           <ArrowUpDown className="ml-1.5 size-3.5" />
         </Button>
       );
@@ -93,7 +93,7 @@ export const columns: ColumnDef<OrderItem>[] = [
   },
   {
     id: "guestName",
-    header: "Guest Name",
+    header: "Tên khách",
     cell: function Cell({ row }) {
       const { orderObjectByGuestId } = useContext(OrderTableContext);
       const guest = row.original.guest;
@@ -101,7 +101,7 @@ export const columns: ColumnDef<OrderItem>[] = [
       if (!guest) {
         return (
           <span className="text-xs italic text-muted-foreground">
-            Guest removed
+            Khách đã bị xóa
           </span>
         );
       }
@@ -135,7 +135,7 @@ export const columns: ColumnDef<OrderItem>[] = [
     filterFn: (row, columnId, filterValue: string) => {
       if (filterValue === undefined) return true;
       return simpleMatchText(
-        `${row.original.guest?.name ?? "Guest removed"} ${String(
+        `${row.original.guest?.name ?? "Khách đã bị xóa"} ${String(
           row.original.tableNumber ?? ""
         )}`,
         String(filterValue)
@@ -144,7 +144,7 @@ export const columns: ColumnDef<OrderItem>[] = [
   },
   {
     id: "dishName",
-    header: "Dish",
+    header: "Món ăn",
     cell: ({ row }) => {
       const dish = row.original.dishSnapshot;
       const quantity = row.original.quantity;
@@ -205,7 +205,7 @@ export const columns: ColumnDef<OrderItem>[] = [
   },
   {
     accessorKey: "status",
-    header: "Status",
+    header: "Trạng thái",
     cell: function Cell({ row }) {
       const { handleUpdateOrderStatus } = useContext(OrderTableContext);
       const currentStatus = row.getValue("status") as string;
@@ -241,7 +241,7 @@ export const columns: ColumnDef<OrderItem>[] = [
               config?.className
             )}
           >
-            <SelectValue placeholder="Status" />
+            <SelectValue placeholder="Trạng thái" />
           </SelectTrigger>
           <SelectContent>
             {OrderStatusValues.map((status) => {
@@ -270,7 +270,7 @@ export const columns: ColumnDef<OrderItem>[] = [
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
           className="-ml-3"
         >
-          Order Handler
+          Người xử lý
           <ArrowUpDown className="ml-1.5 size-3.5" />
         </Button>
       );
@@ -301,7 +301,7 @@ export const columns: ColumnDef<OrderItem>[] = [
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
           className="-ml-3"
         >
-          Created/Updated At
+          Ngày tạo/cập nhật
           <ArrowUpDown className="ml-1.5 size-3.5" />
         </Button>
       );
@@ -325,11 +325,11 @@ export const columns: ColumnDef<OrderItem>[] = [
             </TooltipTrigger>
             <TooltipContent side="left" className="text-xs">
               <p>
-                <span className="font-medium">Created:</span>{" "}
+                <span className="font-medium">Tạo lúc:</span>{" "}
                 {formatDateTimeToLocaleString(createdAt)}
               </p>
               <p>
-                <span className="font-medium">Updated:</span>{" "}
+                <span className="font-medium">Cập nhật:</span>{" "}
                 {formatDateTimeToLocaleString(updatedAt)}
               </p>
             </TooltipContent>

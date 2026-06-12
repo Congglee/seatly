@@ -3,11 +3,14 @@ import { z } from "zod";
 
 export const LoginBody = z
   .object({
-    email: z.string().min(1, { message: "Email is required" }).email(),
+    email: z
+      .string()
+      .min(1, { message: "Vui lòng nhập email" })
+      .email("Email không hợp lệ"),
     password: z
       .string()
-      .min(6, "Password must be at least 6 characters")
-      .max(100, "Password must be at most 100 characters"),
+      .min(6, "Mật khẩu phải có ít nhất 6 ký tự")
+      .max(100, "Mật khẩu không được vượt quá 100 ký tự"),
   })
   .strict();
 

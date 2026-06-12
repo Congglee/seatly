@@ -35,7 +35,7 @@ export default function DishStatusFilter<TData, TValue>({
       <PopoverTrigger asChild>
         <Button variant="outline" size="sm">
           <ListCheckIcon />
-          Dish Status
+          Trạng thái món
           {selectedValues.size > 0 && (
             <>
               <Separator orientation="vertical" className="mx-2 h-4" />
@@ -51,7 +51,7 @@ export default function DishStatusFilter<TData, TValue>({
                     variant="secondary"
                     className="rounded-sm px-1 font-normal"
                   >
-                    {selectedValues.size} selected
+                    {selectedValues.size} đã chọn
                   </Badge>
                 ) : (
                   dishStatusOptions
@@ -76,9 +76,9 @@ export default function DishStatusFilter<TData, TValue>({
         align="start"
       >
         <Command>
-          <CommandInput placeholder="Search dish status..." />
+          <CommandInput placeholder="Tìm trạng thái món..." />
           <CommandList>
-            <CommandEmpty>No results found.</CommandEmpty>
+            <CommandEmpty>Không tìm thấy kết quả.</CommandEmpty>
             <CommandGroup>
               {dishStatusOptions.map((option) => {
                 const isSelected = selectedValues.has(option.value);
@@ -133,7 +133,7 @@ export default function DishStatusFilter<TData, TValue>({
                     onSelect={() => column?.setFilterValue(undefined)}
                     className="justify-center text-center"
                   >
-                    Clear filters
+                    Xóa bộ lọc
                   </CommandItem>
                 </CommandGroup>
               </>

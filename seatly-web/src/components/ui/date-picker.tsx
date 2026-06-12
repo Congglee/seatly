@@ -34,18 +34,18 @@ import {
 import { cn } from "@/lib/utils";
 
 const months = [
-  "January",
-  "February",
-  "March",
-  "April",
-  "May",
-  "June",
-  "July",
-  "August",
-  "September",
-  "October",
-  "November",
-  "December",
+  "Tháng 1",
+  "Tháng 2",
+  "Tháng 3",
+  "Tháng 4",
+  "Tháng 5",
+  "Tháng 6",
+  "Tháng 7",
+  "Tháng 8",
+  "Tháng 9",
+  "Tháng 10",
+  "Tháng 11",
+  "Tháng 12",
 ];
 
 const multiSelectVariants = cva(
@@ -99,7 +99,7 @@ export const DatePicker = React.forwardRef<HTMLButtonElement, DatePickerProps>(
   ) => {
     const [isPopoverOpen, setIsPopoverOpen] = React.useState(false);
     const [selectedRange, setSelectedRange] = React.useState<string | null>(
-      numberOfMonths === 2 ? "This Year" : "Today"
+      numberOfMonths === 2 ? "Năm nay" : "Hôm nay"
     );
     const [monthFrom, setMonthFrom] = React.useState<Date | undefined>(
       date?.from
@@ -262,32 +262,32 @@ export const DatePicker = React.forwardRef<HTMLButtonElement, DatePickerProps>(
     );
 
     const dateRanges = [
-      { label: "Today", start: today, end: today },
-      { label: "Yesterday", start: subDays(today, 1), end: subDays(today, 1) },
+      { label: "Hôm nay", start: today, end: today },
+      { label: "Hôm qua", start: subDays(today, 1), end: subDays(today, 1) },
       {
-        label: "This Week",
+        label: "Tuần này",
         start: startOfWeek(today, { weekStartsOn: 1 }),
         end: endOfWeek(today, { weekStartsOn: 1 }),
       },
       {
-        label: "Last Week",
+        label: "Tuần trước",
         start: subDays(startOfWeek(today, { weekStartsOn: 1 }), 7),
         end: subDays(endOfWeek(today, { weekStartsOn: 1 }), 7),
       },
-      { label: "Last 7 Days", start: subDays(today, 6), end: today },
+      { label: "7 ngày qua", start: subDays(today, 6), end: today },
       {
-        label: "This Month",
+        label: "Tháng này",
         start: startOfMonth(today),
         end: endOfMonth(today),
       },
       {
-        label: "Last Month",
+        label: "Tháng trước",
         start: startOfMonth(subDays(today, today.getDate())),
         end: endOfMonth(subDays(today, today.getDate())),
       },
-      { label: "This Year", start: startOfYear(today), end: endOfYear(today) },
+      { label: "Năm nay", start: startOfYear(today), end: endOfYear(today) },
       {
-        label: "Last Year",
+        label: "Năm trước",
         start: startOfYear(subDays(today, 365)),
         end: endOfYear(subDays(today, 365)),
       },
@@ -437,7 +437,7 @@ export const DatePicker = React.forwardRef<HTMLButtonElement, DatePickerProps>(
                         onMouseOver={() => handleMouseOver("firstMonth")}
                         onMouseLeave={handleMouseLeave}
                       >
-                        {formatWithTz(date.from, "LLL")}
+                        {months[date.from.getMonth()]}
                       </span>
                       ,{" "}
                       <span
@@ -477,7 +477,7 @@ export const DatePicker = React.forwardRef<HTMLButtonElement, DatePickerProps>(
                             onMouseOver={() => handleMouseOver("secondMonth")}
                             onMouseLeave={handleMouseLeave}
                           >
-                            {formatWithTz(date.to, "LLL")}
+                            {months[date.to.getMonth()]}
                           </span>
                           ,{" "}
                           <span
@@ -517,7 +517,7 @@ export const DatePicker = React.forwardRef<HTMLButtonElement, DatePickerProps>(
                         onMouseOver={() => handleMouseOver("month")}
                         onMouseLeave={handleMouseLeave}
                       >
-                        {formatWithTz(date.from, "LLL")}
+                        {months[date.from.getMonth()]}
                       </span>
                       ,{" "}
                       <span
@@ -534,7 +534,7 @@ export const DatePicker = React.forwardRef<HTMLButtonElement, DatePickerProps>(
                     </>
                   )
                 ) : (
-                  <span>Pick a date</span>
+                  <span>Chọn ngày</span>
                 )}
               </span>
             </Button>
@@ -590,7 +590,7 @@ export const DatePicker = React.forwardRef<HTMLButtonElement, DatePickerProps>(
                         }
                       >
                         <SelectTrigger className="flex w-[122px] focus:ring-0 focus:ring-offset-0 font-medium hover:bg-accent hover:text-accent-foreground">
-                          <SelectValue placeholder="Month" />
+                          <SelectValue placeholder="Tháng" />
                         </SelectTrigger>
                         <SelectContent>
                           {months.map((month, idx) => (
@@ -608,7 +608,7 @@ export const DatePicker = React.forwardRef<HTMLButtonElement, DatePickerProps>(
                         value={yearFrom ? yearFrom.toString() : undefined}
                       >
                         <SelectTrigger className="flex w-[122px] focus:ring-0 focus:ring-offset-0 font-medium hover:bg-accent hover:text-accent-foreground">
-                          <SelectValue placeholder="Year" />
+                          <SelectValue placeholder="Năm" />
                         </SelectTrigger>
                         <SelectContent>
                           {years.map((year, idx) => (
@@ -631,7 +631,7 @@ export const DatePicker = React.forwardRef<HTMLButtonElement, DatePickerProps>(
                           }
                         >
                           <SelectTrigger className="flex w-[122px] focus:ring-0 focus:ring-offset-0 font-medium hover:bg-accent hover:text-accent-foreground">
-                            <SelectValue placeholder="Month" />
+                            <SelectValue placeholder="Tháng" />
                           </SelectTrigger>
                           <SelectContent>
                             {months.map((month, idx) => (
@@ -649,7 +649,7 @@ export const DatePicker = React.forwardRef<HTMLButtonElement, DatePickerProps>(
                           value={yearTo ? yearTo.toString() : undefined}
                         >
                           <SelectTrigger className="flex w-[122px] focus:ring-0 focus:ring-offset-0 font-medium hover:bg-accent hover:text-accent-foreground">
-                            <SelectValue placeholder="Year" />
+                            <SelectValue placeholder="Năm" />
                           </SelectTrigger>
                           <SelectContent>
                             {years.map((year, idx) => (

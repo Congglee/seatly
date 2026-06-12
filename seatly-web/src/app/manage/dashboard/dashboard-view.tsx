@@ -98,14 +98,14 @@ export default function DashboardView() {
       ) : dashboardQuery.isError && !dashboardData ? (
         <Card className="drop-shadow-sm">
           <CardHeader>
-            <CardTitle>Dashboard unavailable</CardTitle>
+            <CardTitle>Không thể tải tổng quan</CardTitle>
             <CardDescription>
-              Could not load analytics data for the selected time range.
+              Không thể tải dữ liệu phân tích cho khoảng thời gian đã chọn.
             </CardDescription>
           </CardHeader>
           <CardContent>
             <Button type="button" onClick={() => dashboardQuery.refetch()}>
-              Try again
+              Thử lại
             </Button>
           </CardContent>
         </Card>

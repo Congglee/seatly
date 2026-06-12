@@ -4,7 +4,11 @@ import { z } from "zod";
 
 export const GuestLoginBody = z
   .object({
-    name: z.string().min(2).max(50),
+    name: z
+      .string()
+      .trim()
+      .min(2, "Tên khách phải có ít nhất 2 ký tự")
+      .max(50, "Tên khách không được vượt quá 50 ký tự"),
     tableNumber: z.number(),
     token: z.string(),
   })

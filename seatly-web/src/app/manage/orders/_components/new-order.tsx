@@ -24,6 +24,7 @@ import { DishStatus } from "@/constants/type";
 import { cn } from "@/lib/utils";
 import { handleErrorApi } from "@/lib/utils/api-error";
 import { formatCurrency } from "@/lib/utils/currency";
+import { getTableStatus } from "@/lib/utils/restaurant-status";
 import { useCreateGuestMutation } from "@/queries/use-account";
 import { useGetDishListQuery } from "@/queries/use-dish";
 import { useCreateOrderMutation } from "@/queries/use-order";
@@ -200,18 +201,18 @@ export default function NewOrder() {
         guestId = guestResult.payload.data.id;
       } else {
         if (!selectedGuest) {
-          toast.error("Please choose an existing guest.");
+          toast.error("Vui lòng chọn khách hiện có.");
           return;
         }
 
         if (selectedGuest.tableNumber === null) {
-          toast.error("This guest is no longer assigned to a table.");
+          toast.error("Khách này không còn được gán với bàn nào.");
           return;
         }
       }
 
       if (!guestId) {
-        toast.error("Please choose a valid guest before creating the order.");
+        toast.error("Vui lòng chọn khách hợp lệ trước khi tạo đơn.");
         return;
       }
 
@@ -242,10 +243,9 @@ export default function NewOrder() {
     >
       <SheetContent className="scroll w-full space-y-4 overflow-y-auto sm:max-w-2xl">
         <SheetHeader>
-          <SheetTitle>Add Order</SheetTitle>
+          <SheetTitle>Thêm đơn hàng</SheetTitle>
           <SheetDescription>
-            Create an order for a new guest or assign dishes to an existing
-            guest.
+            Tạo đơn cho khách mới hoặc thêm món cho khách hiện có.
           </SheetDescription>
         </SheetHeader>
 
@@ -253,9 +253,9 @@ export default function NewOrder() {
           <form onSubmit={onSubmit} className="space-y-6 pt-4" noValidate>
             <div className="flex items-center justify-between rounded-lg border border-border/60 bg-muted/30 p-4">
               <div className="space-y-1">
-                <p className="text-sm font-medium">New guest</p>
+                <p className="text-sm font-medium">Khách mới</p>
                 <p className="text-xs text-muted-foreground">
-                  Switch off to choose an existing guest from the recent list.
+                  Tắt tùy chọn này để chọn khách hiện có từ danh sách gần đây.
                 </p>
               </div>
               <Switch checked={isNewGuest} onCheckedChange={setIsNewGuest} />
@@ -268,12 +268,12 @@ export default function NewOrder() {
                   control={form.control}
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel htmlFor="guest-name">Guest Name</FormLabel>
+                      <FormLabel htmlFor="guest-name">Tên khách</FormLabel>
                       <FormControl>
                         <Input
                           {...field}
                           id="guest-name"
-                          placeholder="Enter guest name"
+                          placeholder="Nhập tên khách"
                         />
                       </FormControl>
                       <FormMessage />
@@ -287,7 +287,7 @@ export default function NewOrder() {
                   render={({ field }) => (
                     <FormItem>
                       <div className="flex items-center justify-between gap-3">
-                        <FormLabel>Table</FormLabel>
+                        <FormLabel>Bàn</FormLabel>
                         <TablesDialog
                           onTableChoose={(table) => {
                             setSelectedTable(table);
@@ -299,18 +299,18 @@ export default function NewOrder() {
                         {selectedTable ? (
                           <div className="flex flex-wrap items-center gap-2 text-sm">
                             <Badge variant="secondary">
-                              Table {selectedTable.number}
+                              Bàn {selectedTable.number}
                             </Badge>
                             <span className="text-muted-foreground">
-                              {selectedTable.capacity} seats
+                              {selectedTable.capacity} chỗ
                             </span>
                             <span className="text-muted-foreground">
-                              Status: {selectedTable.status}
+                              Trạng thái: {getTableStatus(selectedTable.status)}
                             </span>
                           </div>
                         ) : (
                           <p className="text-sm text-muted-foreground">
-                            No table selected yet.
+                            Chưa chọn bàn.
                           </p>
                         )}
                       </div>
@@ -335,19 +335,18 @@ export default function NewOrder() {
                           ID: {selectedGuest.id}
                         </p>
                         <p className="text-muted-foreground">
-                          Table: {selectedGuest.tableNumber ?? "-"}
+                          Bàn: {selectedGuest.tableNumber ?? "-"}
                         </p>
                         {selectedGuest.tableNumber === null && (
                           <p className="text-xs text-destructive">
-                            This guest cannot be used because no table is
-                            assigned.
+                            Không thể dùng khách này vì chưa được gán bàn.
                           </p>
                         )}
                       </div>
                     </div>
                   ) : (
                     <p className="text-sm text-muted-foreground">
-                      No existing guest selected yet.
+                      Chưa chọn khách hiện có.
                     </p>
                   )}
                 </div>
@@ -357,21 +356,21 @@ export default function NewOrder() {
             <div className="space-y-3">
               <div className="flex items-center justify-between gap-3">
                 <div>
-                  <p className="text-sm font-medium">Dishes</p>
+                  <p className="text-sm font-medium">Món ăn</p>
                   <p className="text-xs text-muted-foreground">
-                    Add dishes and adjust quantities before creating the order.
+                    Thêm món và điều chỉnh số lượng trước khi tạo đơn.
                   </p>
                 </div>
-                <Badge variant="secondary">{totalItems} items</Badge>
+                <Badge variant="secondary">{totalItems} món</Badge>
               </div>
 
               {dishListQuery.isPending ? (
                 <div className="rounded-lg border border-border/60 p-6 text-center text-sm text-muted-foreground">
-                  Loading dishes...
+                  Đang tải món...
                 </div>
               ) : dishes.length === 0 ? (
                 <div className="rounded-lg border border-border/60 p-6 text-center text-sm text-muted-foreground">
-                  No available dishes found.
+                  Không tìm thấy món khả dụng.
                 </div>
               ) : (
                 <div className="space-y-3">
@@ -397,11 +396,11 @@ export default function NewOrder() {
 
             <div className="space-y-3 rounded-lg border border-border/60 bg-muted/20 p-4">
               <div className="flex items-center justify-between text-sm">
-                <span className="text-muted-foreground">Selected items</span>
+                <span className="text-muted-foreground">Món đã chọn</span>
                 <span className="font-medium tabular-nums">{totalItems}</span>
               </div>
               <div className="flex items-center justify-between text-sm">
-                <span className="text-muted-foreground">Estimated total</span>
+                <span className="text-muted-foreground">Tổng tạm tính</span>
                 <span className="font-semibold tabular-nums">
                   {formatCurrency(totalPrice)}
                 </span>
@@ -417,7 +416,7 @@ export default function NewOrder() {
                 isNewGuest ? !canSubmitNewGuest : !canSubmitExistingGuest
               }
             >
-              <span>Create order</span>
+              <span>Tạo đơn</span>
               <span>{formatCurrency(totalPrice)}</span>
             </SubmitButton>
           </form>
@@ -461,7 +460,7 @@ function DishOrderCard({
               variant="secondary"
               className="px-1.5 py-0.5 text-[10px] font-semibold"
             >
-              Sold out
+              Tạm hết
             </Badge>
           </div>
         )}
@@ -492,7 +491,7 @@ function DishOrderCard({
                   quantity === 0 && "invisible"
                 )}
                 onClick={onDecrement}
-                aria-label={`Decrease quantity of ${dish.name}`}
+                aria-label={`Giảm số lượng ${dish.name}`}
               >
                 <Minus className="size-3.5" strokeWidth={2} />
               </Button>
@@ -512,7 +511,7 @@ function DishOrderCard({
                 size="icon"
                 className="size-7 rounded-lg border-border/60 transition-transform duration-100 active:scale-95"
                 onClick={onIncrement}
-                aria-label={`Increase quantity of ${dish.name}`}
+                aria-label={`Tăng số lượng ${dish.name}`}
               >
                 <Plus className="size-3.5" strokeWidth={2} />
               </Button>

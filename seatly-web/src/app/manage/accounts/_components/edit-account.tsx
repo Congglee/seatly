@@ -171,9 +171,9 @@ export default function EditAccount() {
     >
       <SheetContent className="scroll w-full space-y-4 overflow-y-auto sm:max-w-lg">
         <SheetHeader>
-          <SheetTitle>Edit Account</SheetTitle>
+          <SheetTitle>Chỉnh sửa tài khoản</SheetTitle>
           <SheetDescription>
-            Update staff information and adjust access role.
+            Cập nhật thông tin nhân viên và điều chỉnh vai trò truy cập.
           </SheetDescription>
         </SheetHeader>
         <Form {...form}>
@@ -183,12 +183,12 @@ export default function EditAccount() {
               control={form.control}
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel htmlFor="edit-account-name">Full Name</FormLabel>
+                  <FormLabel htmlFor="edit-account-name">Họ và tên</FormLabel>
                   <FormControl>
                     <Input
                       {...field}
                       id="edit-account-name"
-                      placeholder="Enter staff full name"
+                      placeholder="Nhập họ tên nhân viên"
                     />
                   </FormControl>
                   <FormMessage />
@@ -200,13 +200,13 @@ export default function EditAccount() {
               control={form.control}
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel htmlFor="edit-account-email">Email</FormLabel>
+                  <FormLabel htmlFor="edit-account-email">Địa chỉ email</FormLabel>
                   <FormControl>
                     <Input
                       {...field}
                       id="edit-account-email"
                       type="email"
-                      placeholder="Enter staff email"
+                      placeholder="Nhập email nhân viên"
                     />
                   </FormControl>
                   <FormMessage />
@@ -218,7 +218,7 @@ export default function EditAccount() {
               control={form.control}
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Avatar</FormLabel>
+                  <FormLabel>Ảnh đại diện</FormLabel>
                   <FormControl>
                     <AccountAvatarUpload
                       value={field.value}
@@ -229,7 +229,7 @@ export default function EditAccount() {
                     />
                   </FormControl>
                   <FormDescription>
-                    Upload or replace the avatar image used in staff listings.
+                    Tải lên hoặc thay ảnh đại diện hiển thị trong danh sách nhân viên.
                   </FormDescription>
                   <FormMessage />
                 </FormItem>
@@ -240,7 +240,7 @@ export default function EditAccount() {
               control={form.control}
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel htmlFor="edit-account-role">Role</FormLabel>
+                  <FormLabel htmlFor="edit-account-role">Vai trò</FormLabel>
                   <FormControl>
                     <Combobox
                       value={field.value}
@@ -248,8 +248,8 @@ export default function EditAccount() {
                       onChange={(value) =>
                         form.setValue("role", value as typeof field.value)
                       }
-                      placeholder="Select a role"
-                      emptyText="No role found"
+                      placeholder="Chọn vai trò"
+                      emptyText="Không tìm thấy vai trò"
                     />
                   </FormControl>
                   <FormMessage />
@@ -262,9 +262,9 @@ export default function EditAccount() {
               render={({ field }) => (
                 <FormItem className="flex items-center justify-between rounded-lg border border-border/60 p-4">
                   <div className="space-y-1">
-                    <FormLabel className="text-sm">Change password</FormLabel>
+                    <FormLabel className="text-sm">Đổi mật khẩu</FormLabel>
                     <FormDescription>
-                      Enable this option to set a new password for the account.
+                      Bật tùy chọn này để đặt mật khẩu mới cho tài khoản.
                     </FormDescription>
                   </div>
                   <FormControl>
@@ -290,7 +290,7 @@ export default function EditAccount() {
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel htmlFor="edit-account-password">
-                        New Password
+                        Mật khẩu mới
                       </FormLabel>
                       <FormControl>
                         <Input
@@ -300,7 +300,7 @@ export default function EditAccount() {
                           }
                           id="edit-account-password"
                           type="password"
-                          placeholder="Enter new password"
+                          placeholder="Nhập mật khẩu mới"
                         />
                       </FormControl>
                       <FormMessage />
@@ -313,7 +313,7 @@ export default function EditAccount() {
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel htmlFor="edit-account-confirm-password">
-                        Confirm New Password
+                        Xác nhận mật khẩu mới
                       </FormLabel>
                       <FormControl>
                         <Input
@@ -323,7 +323,7 @@ export default function EditAccount() {
                           }
                           id="edit-account-confirm-password"
                           type="password"
-                          placeholder="Re-enter new password"
+                          placeholder="Nhập lại mật khẩu mới"
                         />
                       </FormControl>
                       <FormMessage />
@@ -338,7 +338,7 @@ export default function EditAccount() {
               }
               className="!mt-6 w-full"
             >
-              Save changes
+              Lưu thay đổi
             </SubmitButton>
           </form>
         </Form>

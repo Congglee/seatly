@@ -35,12 +35,12 @@ export const withUnchangedImageHint = (
     return message;
   }
 
-  return `${message} The current image remains unchanged.`;
+  return `${message} Ảnh hiện tại vẫn được giữ nguyên.`;
 };
 
 export const validateImageFile = (selectedFile: File) => {
   if (selectedFile.size === 0) {
-    return `Image \"${selectedFile.name}\" is empty or cannot be read.`;
+    return `Ảnh \"${selectedFile.name}\" đang rỗng hoặc không thể đọc.`;
   }
 
   const extension = getFileExtension(selectedFile.name);
@@ -50,7 +50,7 @@ export const validateImageFile = (selectedFile: File) => {
       extension as (typeof ALLOWED_IMAGE_EXTENSIONS)[number]
     )
   ) {
-    return "Only JPG, JPEG, PNG, or WEBP images are allowed.";
+    return "Chỉ cho phép ảnh JPG, JPEG, PNG hoặc WEBP.";
   }
 
   if (
@@ -58,15 +58,15 @@ export const validateImageFile = (selectedFile: File) => {
       selectedFile.type as (typeof ALLOWED_IMAGE_MIME_TYPES)[number]
     )
   ) {
-    return "Invalid image format. Please choose a JPG, PNG, or WEBP file.";
+    return "Định dạng ảnh không hợp lệ. Vui lòng chọn tệp JPG, PNG hoặc WEBP.";
   }
 
   if (selectedFile.size > MAX_IMAGE_FILE_SIZE) {
-    return `Image \"${
+    return `Ảnh \"${
       selectedFile.name
-    }\" exceeds the size limit. Maximum ${formatFileSize(
+    }\" vượt quá giới hạn dung lượng. Tối đa ${formatFileSize(
       MAX_IMAGE_FILE_SIZE
-    )} per image.`;
+    )} cho mỗi ảnh.`;
   }
 
   return null;

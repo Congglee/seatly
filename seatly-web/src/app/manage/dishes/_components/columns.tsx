@@ -16,19 +16,19 @@ const statusConfig: Record<
   { label: string; icon: typeof CircleCheck; className: string }
 > = {
   [DishStatus.Available]: {
-    label: "Available",
+    label: "Có sẵn",
     icon: CircleCheck,
     className:
       "bg-emerald-500/15 text-emerald-700 border-emerald-500/25 hover:bg-emerald-500/20 dark:text-emerald-400 dark:border-emerald-400/20",
   },
   [DishStatus.Unavailable]: {
-    label: "Unavailable",
+    label: "Tạm hết",
     icon: CircleDot,
     className:
       "bg-amber-500/15 text-amber-700 border-amber-500/25 hover:bg-amber-500/20 dark:text-amber-400 dark:border-amber-400/20",
   },
   [DishStatus.Hidden]: {
-    label: "Hidden",
+    label: "Đã ẩn",
     icon: CircleX,
     className:
       "bg-zinc-500/10 text-zinc-600 border-zinc-500/20 hover:bg-zinc-500/15 dark:text-zinc-400 dark:border-zinc-400/15",
@@ -45,14 +45,14 @@ export const columns: ColumnDef<DishItem>[] = [
           (table.getIsSomePageRowsSelected() && "indeterminate")
         }
         onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
-        aria-label="Select all"
+        aria-label="Chọn tất cả"
       />
     ),
     cell: ({ row }) => (
       <Checkbox
         checked={row.getIsSelected()}
         onCheckedChange={(value) => row.toggleSelected(!!value)}
-        aria-label="Select row"
+        aria-label="Chọn dòng"
       />
     ),
     enableSorting: false,
@@ -60,7 +60,7 @@ export const columns: ColumnDef<DishItem>[] = [
   },
   {
     accessorKey: "image",
-    header: "Image",
+    header: "Ảnh",
     cell: ({ row }) => {
       const imageUrl = row.getValue("image") as string;
       const dishName = row.getValue("name") as string;
@@ -69,7 +69,7 @@ export const columns: ColumnDef<DishItem>[] = [
         <div className="h-12 w-12 overflow-hidden rounded-md border border-border/60 bg-muted">
           <div
             role="img"
-            aria-label={`${dishName} image`}
+            aria-label={`Ảnh ${dishName}`}
             className="h-full w-full bg-cover bg-center"
             style={{ backgroundImage: `url(${imageUrl})` }}
           />
@@ -86,7 +86,7 @@ export const columns: ColumnDef<DishItem>[] = [
           variant="ghost"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
-          Dish Name
+          Tên món
           <ArrowUpDown className="ml-2 h-4 w-4" />
         </Button>
       );
@@ -106,7 +106,7 @@ export const columns: ColumnDef<DishItem>[] = [
           variant="ghost"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
-          Price
+          Giá
           <ArrowUpDown className="ml-2 h-4 w-4" />
         </Button>
       );
@@ -125,7 +125,7 @@ export const columns: ColumnDef<DishItem>[] = [
           variant="ghost"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
-          Status
+          Trạng thái
           <ArrowUpDown className="ml-2 h-4 w-4" />
         </Button>
       );
@@ -159,7 +159,7 @@ export const columns: ColumnDef<DishItem>[] = [
   },
   {
     accessorKey: "description",
-    header: "Description",
+    header: "Mô tả",
     cell: ({ row }) => {
       const description = row.getValue("description") as string;
       const preview =

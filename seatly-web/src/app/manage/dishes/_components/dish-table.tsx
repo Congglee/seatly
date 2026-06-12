@@ -48,7 +48,7 @@ export default function DishTable() {
             <div className="my-2 flex w-full items-center justify-between gap-2 overflow-auto px-1 py-2 scroll">
               <div className="flex flex-1 items-center gap-2">
                 <Input
-                  placeholder="Filter dish name"
+                  placeholder="Lọc theo tên món"
                   value={
                     (table.getColumn("name")?.getFilterValue() as string) ?? ""
                   }
@@ -66,7 +66,7 @@ export default function DishTable() {
                     onClick={() => table.resetColumnFilters()}
                     className="h-8 px-2 lg:px-3"
                   >
-                    Reset
+                    Đặt lại
                     <X />
                   </Button>
                 )}
@@ -77,7 +77,7 @@ export default function DishTable() {
                 onClick={onOpenNewDishSheet}
               >
                 <Plus className="size-4" />
-                Add dish
+                Thêm món
               </Button>
             </div>
           );
@@ -86,9 +86,9 @@ export default function DishTable() {
           dishListQuery.isPending ? null : (
             <div className="flex items-center justify-end space-x-2 py-4">
               <div className="flex-1 py-4 text-xs text-muted-foreground">
-                Display{" "}
-                <strong>{table.getPaginationRowModel().rows.length}</strong> out
-                of <strong>{totalItems}</strong> results
+                Hiển thị{" "}
+                <strong>{table.getPaginationRowModel().rows.length}</strong>{" "}
+                trên <strong>{totalItems}</strong> kết quả
               </div>
               <div>
                 <AutoPagination

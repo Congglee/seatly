@@ -32,7 +32,7 @@ export default function TableSkeleton() {
               <Skeleton className="h-4 w-16" />
             </TableHead>
             <TableHead>
-              <span className="sr-only">Actions</span>
+              <span className="sr-only">Thao tác</span>
             </TableHead>
           </TableRow>
         </TableHeader>

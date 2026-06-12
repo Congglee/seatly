@@ -6,11 +6,11 @@ export const getDishStatus = (
 ) => {
   switch (status) {
     case DishStatus.Available:
-      return "Available";
+      return "Có sẵn";
     case DishStatus.Unavailable:
-      return "Unavailable";
+      return "Tạm hết";
     default:
-      return "Hidden";
+      return "Đã ẩn";
   }
 };
 
@@ -19,15 +19,15 @@ export const getOrderStatus = (
 ) => {
   switch (status) {
     case OrderStatus.Delivered:
-      return "Delivered";
+      return "Đã giao";
     case OrderStatus.Paid:
-      return "Paid";
+      return "Đã thanh toán";
     case OrderStatus.Pending:
-      return "Pending";
+      return "Chờ xử lý";
     case OrderStatus.Processing:
-      return "Processing";
+      return "Đang chế biến";
     default:
-      return "Rejected";
+      return "Đã từ chối";
   }
 };
 
@@ -36,11 +36,11 @@ export const getTableStatus = (
 ) => {
   switch (status) {
     case TableStatus.Available:
-      return "Available";
+      return "Còn trống";
     case TableStatus.Reserved:
-      return "Reserved";
+      return "Đang sử dụng";
     default:
-      return "Hidden";
+      return "Đã ẩn";
   }
 };
 

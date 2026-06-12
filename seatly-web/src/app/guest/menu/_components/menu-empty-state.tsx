@@ -11,11 +11,11 @@ export default function MenuEmptyState() {
       </div>
       <div className="space-y-1.5 max-w-[260px]">
         <h3 className="text-base font-semibold text-foreground">
-          No dishes available
+          Chưa có món khả dụng
         </h3>
         <p className="text-sm text-muted-foreground leading-relaxed">
-          The menu is being updated. Please check back in a moment or ask your
-          server for assistance.
+          Thực đơn đang được cập nhật. Vui lòng quay lại sau ít phút hoặc nhờ
+          nhân viên hỗ trợ.
         </p>
       </div>
     </div>

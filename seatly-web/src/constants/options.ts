@@ -23,17 +23,17 @@ export type Option<T = string> = {
 
 export const tableStatusOptions: Option[] = [
   {
-    label: "Available",
+    label: "Còn trống",
     value: TableStatus.Available,
     icon: CircleCheck,
   },
   {
-    label: "Hidden",
+    label: "Đã ẩn",
     value: TableStatus.Hidden,
     icon: CircleX,
   },
   {
-    label: "Reserved",
+    label: "Đang sử dụng",
     value: TableStatus.Reserved,
     icon: CircleDot,
   },
@@ -41,17 +41,17 @@ export const tableStatusOptions: Option[] = [
 
 export const dishStatusOptions: Option[] = [
   {
-    label: "Available",
+    label: "Có sẵn",
     value: DishStatus.Available,
     icon: CircleCheck,
   },
   {
-    label: "Unavailable",
+    label: "Tạm hết",
     value: DishStatus.Unavailable,
     icon: CircleDot,
   },
   {
-    label: "Hidden",
+    label: "Đã ẩn",
     value: DishStatus.Hidden,
     icon: CircleX,
   },
@@ -59,12 +59,12 @@ export const dishStatusOptions: Option[] = [
 
 export const accountRoleOptions: Option[] = [
   {
-    label: "Owner",
+    label: "Chủ quán",
     value: Role.Owner,
     icon: BadgeCheck,
   },
   {
-    label: "Employee",
+    label: "Nhân viên",
     value: Role.Employee,
     icon: Users,
   },
@@ -72,27 +72,27 @@ export const accountRoleOptions: Option[] = [
 
 export const orderStatusOptions: Option[] = [
   {
-    label: "Pending",
+    label: "Chờ xử lý",
     value: OrderStatus.Pending,
     icon: Clock10,
   },
   {
-    label: "Processing",
+    label: "Đang chế biến",
     value: OrderStatus.Processing,
     icon: Loader2,
   },
   {
-    label: "Rejected",
+    label: "Đã từ chối",
     value: OrderStatus.Rejected,
     icon: Ban,
   },
   {
-    label: "Delivered",
+    label: "Đã giao",
     value: OrderStatus.Delivered,
     icon: SendHorizontal,
   },
   {
-    label: "Paid",
+    label: "Đã thanh toán",
     value: OrderStatus.Paid,
     icon: BadgeCheck,
   },
@@ -109,22 +109,22 @@ export interface ThemeOption {
 export const themeOptions: ThemeOption[] = [
   {
     value: "light",
-    label: "Light",
-    description: "Bright and clean for daytime.",
+    label: "Sáng",
+    description: "Giao diện sáng, gọn gàng cho ban ngày.",
     icon: Sun,
     preview: "light",
   },
   {
     value: "dark",
-    label: "Dark",
-    description: "Easy on the eyes in low light.",
+    label: "Tối",
+    description: "Dịu mắt hơn trong môi trường thiếu sáng.",
     icon: MoonStar,
     preview: "dark",
   },
   {
     value: "system",
-    label: "System",
-    description: "Match your device settings.",
+    label: "Theo hệ thống",
+    description: "Tự động theo cài đặt của thiết bị.",
     icon: Monitor,
     preview: "system",
   },

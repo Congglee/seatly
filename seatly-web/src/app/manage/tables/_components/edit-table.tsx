@@ -139,13 +139,13 @@ export default function EditTable() {
     >
       <SheetContent className="space-y-4 w-full sm:max-w-lg overflow-y-auto scroll">
         <SheetHeader>
-          <SheetTitle>Edit Table</SheetTitle>
-          <SheetDescription>Edit the table details.</SheetDescription>
+          <SheetTitle>Chỉnh sửa bàn</SheetTitle>
+          <SheetDescription>Cập nhật thông tin chi tiết của bàn.</SheetDescription>
         </SheetHeader>
         <Form {...form}>
           <form onSubmit={onSubmit} className="space-y-4 pt-4" noValidate>
             <FormItem>
-              <Label htmlFor="number">Table Number</Label>
+              <Label htmlFor="number">Số bàn</Label>
               <Input
                 id="number"
                 type="number"
@@ -158,14 +158,14 @@ export default function EditTable() {
               control={form.control}
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel htmlFor="capacity">Capacity</FormLabel>
+                  <FormLabel htmlFor="capacity">Sức chứa</FormLabel>
                   <FormControl>
                     <Input
                       {...field}
                       id="capacity"
                       type="number"
                       min={1}
-                      placeholder="Enter capacity"
+                      placeholder="Nhập sức chứa"
                     />
                   </FormControl>
                   <FormMessage />
@@ -177,7 +177,7 @@ export default function EditTable() {
               control={form.control}
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel htmlFor="status">Status</FormLabel>
+                  <FormLabel htmlFor="status">Trạng thái</FormLabel>
                   <FormControl>
                     <Combobox
                       value={field.value}
@@ -185,8 +185,8 @@ export default function EditTable() {
                       onChange={(value) => {
                         form.setValue("status", value as TableStatusType);
                       }}
-                      placeholder="Select a status"
-                      emptyText="No status found"
+                      placeholder="Chọn trạng thái"
+                      emptyText="Không tìm thấy trạng thái"
                     />
                   </FormControl>
                   <FormMessage />
@@ -200,10 +200,10 @@ export default function EditTable() {
                 <FormItem className="flex items-center justify-between rounded-md border px-3 py-3 !space-y-0">
                   <div className="space-y-0.5">
                     <FormLabel htmlFor="changeToken" className="leading-none">
-                      Change QR Code
+                      Đổi mã QR
                     </FormLabel>
                     <p className="text-xs text-muted-foreground leading-snug">
-                      Change the QR code for this table
+                      Tạo mã QR mới cho bàn này
                     </p>
                   </div>
                   <FormControl>
@@ -220,7 +220,7 @@ export default function EditTable() {
             <div className="space-y-3">
               <div className="flex items-center gap-2">
                 <QrCode className="h-4 w-4 text-muted-foreground" />
-                <Label className="text-sm font-medium">QR Code</Label>
+                <Label className="text-sm font-medium">Mã QR</Label>
               </div>
               {data && table ? (
                 <div className="rounded-xl border border-border/60 bg-muted/30 p-5 space-y-4">
@@ -234,7 +234,7 @@ export default function EditTable() {
                   <Separator />
                   <div className="space-y-1.5">
                     <span className="text-xs font-medium text-muted-foreground tracking-wider">
-                      Table call URL
+                      URL gọi món của bàn
                     </span>
                     <div className="flex items-center gap-1.5 rounded-lg border border-border/60 bg-background px-3 py-2.5">
                       <code className="flex-1 text-xs break-all font-mono text-foreground/80 leading-relaxed select-all">
@@ -277,7 +277,7 @@ export default function EditTable() {
               isLoading={updateTableMutation.isPending}
               className="!mt-6 w-full"
             >
-              Save changes
+              Lưu thay đổi
             </SubmitButton>
           </form>
         </Form>

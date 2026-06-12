@@ -6,16 +6,24 @@ export const DishStatus = z.enum(DishStatusValues);
 export type DishStatusType = z.TypeOf<typeof DishStatus>;
 
 export const CreateDishBody = z.object({
-  name: z.string().trim().min(1, "Dish name is required").max(256),
+  name: z
+    .string()
+    .trim()
+    .min(1, "Vui lòng nhập tên món")
+    .max(256, "Tên món không được vượt quá 256 ký tự"),
   price: z.coerce
     .number()
-    .positive({ message: "Price must be greater than 0" }),
-  description: z.string().trim().min(1, "Description is required").max(10000),
+    .positive({ message: "Giá món phải lớn hơn 0" }),
+  description: z
+    .string()
+    .trim()
+    .min(1, "Vui lòng nhập mô tả")
+    .max(10000, "Mô tả không được vượt quá 10000 ký tự"),
   image: z
     .string()
     .trim()
-    .min(1, "Image is required")
-    .url({ message: "Image must be a valid URL" }),
+    .min(1, "Vui lòng chọn ảnh món")
+    .url({ message: "Đường dẫn ảnh không hợp lệ" }),
   status: z.enum(DishStatusValues).optional(),
 });
 

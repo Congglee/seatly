@@ -147,8 +147,8 @@ export default function EditDish() {
     >
       <SheetContent className="scroll w-full space-y-4 overflow-y-auto sm:max-w-lg">
         <SheetHeader>
-          <SheetTitle>Edit Dish</SheetTitle>
-          <SheetDescription>Edit dish details in your menu.</SheetDescription>
+          <SheetTitle>Chỉnh sửa món</SheetTitle>
+          <SheetDescription>Cập nhật thông tin món trong thực đơn.</SheetDescription>
         </SheetHeader>
         <Form {...form}>
           <form onSubmit={onSubmit} className="space-y-4 pt-4" noValidate>
@@ -157,9 +157,9 @@ export default function EditDish() {
               control={form.control}
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel htmlFor="name">Dish Name</FormLabel>
+                  <FormLabel htmlFor="name">Tên món</FormLabel>
                   <FormControl>
-                    <Input {...field} id="name" placeholder="Enter dish name" />
+                    <Input {...field} id="name" placeholder="Nhập tên món" />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -170,14 +170,14 @@ export default function EditDish() {
               control={form.control}
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel htmlFor="price">Price (USD)</FormLabel>
+                  <FormLabel htmlFor="price">Giá (VND)</FormLabel>
                   <FormControl>
                     <Input
                       {...field}
                       id="price"
                       type="number"
                       min={1}
-                      placeholder="Enter dish price (USD)"
+                      placeholder="Nhập giá món (VND)"
                     />
                   </FormControl>
                   <FormMessage />
@@ -189,7 +189,7 @@ export default function EditDish() {
               control={form.control}
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Dish Image</FormLabel>
+                  <FormLabel>Ảnh món</FormLabel>
                   <DishImageUpload
                     value={field.value}
                     onChange={field.onChange}
@@ -206,7 +206,7 @@ export default function EditDish() {
               control={form.control}
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel htmlFor="status">Status</FormLabel>
+                  <FormLabel htmlFor="status">Trạng thái</FormLabel>
                   <FormControl>
                     <Combobox
                       value={field.value}
@@ -214,8 +214,8 @@ export default function EditDish() {
                       onChange={(value) => {
                         form.setValue("status", value as DishStatusType);
                       }}
-                      placeholder="Select a status"
-                      emptyText="No status found"
+                      placeholder="Chọn trạng thái"
+                      emptyText="Không tìm thấy trạng thái"
                     />
                   </FormControl>
                   <FormMessage />
@@ -227,12 +227,12 @@ export default function EditDish() {
               control={form.control}
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel htmlFor="description">Description</FormLabel>
+                  <FormLabel htmlFor="description">Mô tả</FormLabel>
                   <FormControl>
                     <Textarea
                       {...field}
                       id="description"
-                      placeholder="Enter dish description"
+                      placeholder="Nhập mô tả món"
                       className="min-h-28"
                     />
                   </FormControl>
@@ -246,7 +246,7 @@ export default function EditDish() {
               }
               className="!mt-6 w-full"
             >
-              Save changes
+              Lưu thay đổi
             </SubmitButton>
           </form>
         </Form>

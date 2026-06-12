@@ -118,8 +118,8 @@ export default function EditOrder() {
     >
       <SheetContent className="scroll w-full space-y-4 overflow-y-auto sm:max-w-lg">
         <SheetHeader>
-          <SheetTitle>Edit Order</SheetTitle>
-          <SheetDescription>Edit order details.</SheetDescription>
+          <SheetTitle>Chỉnh sửa đơn hàng</SheetTitle>
+          <SheetDescription>Cập nhật thông tin đơn hàng.</SheetDescription>
         </SheetHeader>
         <Form {...form}>
           <form onSubmit={onSubmit} className="space-y-4 pt-4" noValidate>
@@ -128,7 +128,7 @@ export default function EditOrder() {
               control={form.control}
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Dish</FormLabel>
+                  <FormLabel>Món ăn</FormLabel>
                   {selectedDish ? (
                     <div className="flex items-start gap-3 rounded-lg border border-border/60 bg-muted/30 p-3">
                       <Image
@@ -157,7 +157,7 @@ export default function EditOrder() {
                       <div className="text-center">
                         <UtensilsCrossed className="mx-auto size-8 text-muted-foreground/50" />
                         <p className="mt-2 text-sm text-muted-foreground">
-                          No dish selected
+                          Chưa chọn món
                         </p>
                       </div>
                     </div>
@@ -182,14 +182,14 @@ export default function EditOrder() {
               control={form.control}
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel htmlFor="quantity">Quantity</FormLabel>
+                  <FormLabel htmlFor="quantity">Số lượng</FormLabel>
                   <FormControl>
                     <Input
                       {...field}
                       id="quantity"
                       inputMode="numeric"
                       pattern="[0-9]*"
-                      placeholder="Enter quantity"
+                      placeholder="Nhập số lượng"
                       value={field.value}
                       onChange={(e) => {
                         const value = e.target.value;
@@ -212,7 +212,7 @@ export default function EditOrder() {
               control={form.control}
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel htmlFor="status">Status</FormLabel>
+                  <FormLabel htmlFor="status">Trạng thái</FormLabel>
                   <FormControl>
                     <Combobox
                       value={field.value}
@@ -220,8 +220,8 @@ export default function EditOrder() {
                       onChange={(value) => {
                         form.setValue("status", value as OrderStatusType);
                       }}
-                      placeholder="Select a status"
-                      emptyText="No status found"
+                      placeholder="Chọn trạng thái"
+                      emptyText="Không tìm thấy trạng thái"
                     />
                   </FormControl>
                   <FormMessage />
@@ -232,7 +232,7 @@ export default function EditOrder() {
               isLoading={updateOrderMutation.isPending}
               className="!mt-6 w-full"
             >
-              Save changes
+              Lưu thay đổi
             </SubmitButton>
           </form>
         </Form>

@@ -17,8 +17,8 @@ interface AccountActionsProps {
 
 export default function AccountActions({ accountId }: AccountActionsProps) {
   const [ConfirmDialog, confirm] = useConfirm(
-    "Are you sure you want to delete this account?",
-    "This action will revoke the account's active sessions.",
+    "Bạn có chắc muốn xóa tài khoản này?",
+    "Hành động này sẽ thu hồi các phiên đăng nhập đang hoạt động của tài khoản.",
     "destructive"
   );
 
@@ -32,7 +32,7 @@ export default function AccountActions({ accountId }: AccountActionsProps) {
 
   const handleEditAccountSheetOpen = () => {
     if (isCurrentAccount) {
-      toast.info("Use My profile to update your own account.");
+      toast.info("Hãy dùng mục Hồ sơ của tôi để cập nhật tài khoản của bạn.");
       return;
     }
 
@@ -42,7 +42,7 @@ export default function AccountActions({ accountId }: AccountActionsProps) {
 
   const handleDeleteAccount = async () => {
     if (isCurrentAccount) {
-      toast.info("You cannot delete your own account here.");
+      toast.info("Bạn không thể xóa tài khoản của chính mình tại đây.");
       return;
     }
 
@@ -69,14 +69,14 @@ export default function AccountActions({ accountId }: AccountActionsProps) {
             className="cursor-pointer p-[10px] font-medium"
           >
             <Edit className="mr-2 size-4 stroke-2" />
-            Edit account
+            Chỉnh sửa tài khoản
           </DropdownMenuItem>
           <DropdownMenuItem
             onClick={handleDeleteAccount}
             className="cursor-pointer p-[10px] font-medium text-destructive focus:text-destructive/80"
           >
             <Trash className="mr-2 size-4 stroke-2" />
-            Delete account
+            Xóa tài khoản
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>

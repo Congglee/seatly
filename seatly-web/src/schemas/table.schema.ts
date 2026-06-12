@@ -8,10 +8,10 @@ export type TableStatusType = z.TypeOf<typeof TableStatus>;
 export const CreateTableBody = z.object({
   number: z.coerce
     .number()
-    .positive({ message: "Table number must be greater than 0" }),
+    .positive({ message: "Số bàn phải lớn hơn 0" }),
   capacity: z.coerce
     .number()
-    .positive({ message: "Capacity must be greater than 0" }),
+    .positive({ message: "Sức chứa phải lớn hơn 0" }),
   status: z.enum(TableStatusValues).optional(),
 });
 
@@ -60,7 +60,7 @@ export const UpdateTableBody = z.object({
   changeToken: z.boolean(),
   capacity: z.coerce
     .number()
-    .positive({ message: "Capacity must be greater than 0" }),
+    .positive({ message: "Sức chứa phải lớn hơn 0" }),
   status: z.enum(TableStatusValues).optional(),
 });
 

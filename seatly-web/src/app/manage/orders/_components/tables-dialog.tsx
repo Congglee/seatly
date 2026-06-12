@@ -25,13 +25,13 @@ type TableItem = TableListResType["data"]["items"][number];
 const columns: ColumnDef<TableItem>[] = [
   {
     accessorKey: "number",
-    header: "Table",
+    header: "Bàn",
     cell: ({ row }) => (
       <div className="space-y-0.5">
-        <p className="font-medium leading-snug">Table {row.original.number}</p>
+        <p className="font-medium leading-snug">Bàn {row.original.number}</p>
         <div className="flex items-center gap-2 text-xs text-muted-foreground">
-          <span>{row.original.capacity} seats</span>
-          {row.original.isOccupied && <span>In use</span>}
+          <span>{row.original.capacity} chỗ</span>
+          {row.original.isOccupied && <span>Đang sử dụng</span>}
         </div>
       </div>
     ),
@@ -43,14 +43,14 @@ const columns: ColumnDef<TableItem>[] = [
   },
   {
     accessorKey: "capacity",
-    header: "Capacity",
+    header: "Sức chứa",
     cell: ({ row }) => (
       <span className="tabular-nums">{row.original.capacity}</span>
     ),
   },
   {
     accessorKey: "status",
-    header: "Status",
+    header: "Trạng thái",
     cell: ({ row }) => {
       const status = row.original.status;
       return <TableStatusBadge status={status} />;
@@ -111,23 +111,23 @@ export default function TablesDialog({ onTableChoose }: TablesDialogProps) {
     <Dialog open={tablesDialogOpen} onOpenChange={handleTablesDialogOpenChange}>
       <DialogTrigger asChild>
         <Button type="button" variant="outline">
-          Choose table
+          Chọn bàn
         </Button>
       </DialogTrigger>
       <DialogContent className="max-h-[90vh] overflow-auto sm:max-w-[700px]">
         <DialogHeader>
-          <DialogTitle>Choose a table</DialogTitle>
+          <DialogTitle>Chọn bàn</DialogTitle>
         </DialogHeader>
         <DataTable
           columns={columns}
           tableData={tables}
           pageSize={PAGE_SIZE}
           loading={tableListQuery.isPending}
-          emptyMessage="No matching tables found."
+          emptyMessage="Không tìm thấy bàn phù hợp."
           onRenderToolbar={(table) => (
             <div className="flex items-center px-1 py-4">
               <Input
-                placeholder="Filter table number"
+                placeholder="Lọc theo số bàn"
                 value={
                   (table.getColumn("number")?.getFilterValue() as string) ?? ""
                 }
@@ -157,9 +157,9 @@ export default function TablesDialog({ onTableChoose }: TablesDialogProps) {
             tableListQuery.isPending ? null : (
               <div className="flex items-center justify-end space-x-2 py-4">
                 <div className="flex-1 py-4 text-xs text-muted-foreground">
-                  Display{" "}
+                  Hiển thị{" "}
                   <strong>{table.getPaginationRowModel().rows.length}</strong>{" "}
-                  out of <strong>{totalItems}</strong> results
+                  trên <strong>{totalItems}</strong> kết quả
                 </div>
                 {totalPages > 1 && (
                   <div>
