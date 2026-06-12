@@ -2,15 +2,18 @@
 
 import Link from "next/link";
 import { Plus } from "lucide-react";
-import { useEffect, useMemo } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { OrderStatus, OrderStatusValue } from "@/constants/type";
 import { cn } from "@/lib/utils";
+import { handleErrorApi } from "@/lib/utils/api-error";
 import { getOrderStatus } from "@/lib/utils/restaurant-status";
 import { useGuestGetOrderListQuery } from "@/queries/use-guest";
+import { useCreateGuestQrPaymentMutation } from "@/queries/use-payment";
 import { useAppStore } from "@/providers/app-provider";
+import type { CreateGuestQrPaymentResType } from "@/schemas/payment.schema";
 import type {
   GetOrdersResType,
   PayGuestOrdersResType,
@@ -20,6 +23,7 @@ import OrderItemCard from "@/app/guest/orders/_components/order-item-card";
 import OrdersEmptyState from "@/app/guest/orders/_components/orders-empty-state";
 import OrdersSkeleton from "@/app/guest/orders/_components/orders-skeleton";
 import OrdersSummaryFooter from "@/app/guest/orders/_components/orders-summary-footer";
+import PaymentQRDialog from "@/app/guest/orders/_components/payment-qr-dialog";
 import { toTimestamp } from "@/lib/utils/date";
 
 const STATUS_GROUPS = {
@@ -42,12 +46,20 @@ const STATUS_GROUPS = {
 
 type StatusGroupKey = keyof typeof STATUS_GROUPS;
 type GuestOrder = GetOrdersResType["data"]["items"][number];
+type GuestQrPayment = CreateGuestQrPaymentResType["data"];
 
 const GROUP_ORDER: StatusGroupKey[] = ["active", "completed", "settled"];
 
 export default function OrdersView() {
+  const [paymentDialogOpen, setPaymentDialogOpen] = useState(false);
+  const [currentPayment, setCurrentPayment] = useState<GuestQrPayment | null>(
+    null
+  );
+  const [isCheckingPaymentStatus, setIsCheckingPaymentStatus] = useState(false);
+
   const guestOrderListQuery = useGuestGetOrderListQuery();
   const { refetch } = guestOrderListQuery;
+  const createGuestQrPaymentMutation = useCreateGuestQrPaymentMutation();
 
   const socket = useAppStore((state) => state.socket);
 
@@ -104,6 +116,36 @@ export default function OrdersView() {
 
   const hasOrders = orders.length > 0;
   const hasFooter = totals.unpaidCount > 0 || totals.paidCount > 0;
+  const isPaymentSettled = Boolean(currentPayment) && totals.unpaidCount === 0;
+
+  const createQrPayment = async () => {
+    if (createGuestQrPaymentMutation.isPending) {
+      return;
+    }
+
+    setPaymentDialogOpen(true);
+
+    try {
+      const result = await createGuestQrPaymentMutation.mutateAsync();
+      setCurrentPayment(result.payload.data);
+    } catch (error) {
+      handleErrorApi({ error });
+    }
+  };
+
+  const checkPaymentStatus = async () => {
+    if (isCheckingPaymentStatus) {
+      return;
+    }
+
+    setIsCheckingPaymentStatus(true);
+
+    try {
+      await refetch();
+    } finally {
+      setIsCheckingPaymentStatus(false);
+    }
+  };
 
   useEffect(() => {
     if (!socket) {
@@ -190,7 +232,7 @@ export default function OrdersView() {
       <div
         className={cn(
           "flex-1 max-w-lg mx-auto w-full px-4 py-3",
-          hasFooter ? "pb-32" : "pb-8"
+          hasFooter ? "pb-44" : "pb-8"
         )}
       >
         {guestOrderListQuery.isPending ? (
@@ -236,8 +278,20 @@ export default function OrdersView() {
           unpaidCount={totals.unpaidCount}
           paidTotal={totals.paidTotal}
           paidCount={totals.paidCount}
+          onOpenPayment={createQrPayment}
+          isPaymentDisabled={createGuestQrPaymentMutation.isPending}
         />
       )}
+      <PaymentQRDialog
+        open={paymentDialogOpen}
+        onOpenChange={setPaymentDialogOpen}
+        payment={currentPayment}
+        isCreating={createGuestQrPaymentMutation.isPending}
+        isPaid={isPaymentSettled}
+        onCreatePayment={createQrPayment}
+        onCheckStatus={checkPaymentStatus}
+        isCheckingStatus={isCheckingPaymentStatus}
+      />
     </>
   );
 }

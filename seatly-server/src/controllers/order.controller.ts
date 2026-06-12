@@ -1,4 +1,5 @@
-import { DishStatus, OrderStatus, TableStatus } from '@/constants/type'
+import { DishStatus, OrderStatus, PaymentMethod, PaymentStatus, TableStatus } from '@/constants/type'
+import { settleGuestOrdersPayment } from '@/controllers/payment-settlement.controller'
 import prisma from '@/database'
 import { CreateOrdersBodyType, UpdateOrderBodyType } from '@/schemas/order.schema'
 
@@ -23,6 +24,16 @@ export const createOrdersController = async (orderHandlerId: string, body: Creat
 
   const [ordersRecord, socketRecord] = await Promise.all([
     prisma.$transaction(async (tx) => {
+      await tx.payment.updateMany({
+        where: {
+          guestId,
+          status: PaymentStatus.Pending
+        },
+        data: {
+          status: PaymentStatus.Expired
+        }
+      })
+
       const ordersRecord = await Promise.all(
         orders.map(async (order) => {
           const dish = await tx.dish.findUniqueOrThrow({
@@ -131,78 +142,13 @@ export const getOrdersController = async ({
 
 // Controller to pay orders based on guestId
 export const payOrdersController = async ({ guestId, orderHandlerId }: { guestId: string; orderHandlerId: string }) => {
-  const orders = await prisma.order.findMany({
-    where: {
-      guestId,
-      status: {
-        in: [OrderStatus.Pending, OrderStatus.Processing, OrderStatus.Delivered]
-      }
-    }
+  const result = await settleGuestOrdersPayment({
+    guestId,
+    method: PaymentMethod.ManualBankTransfer,
+    confirmedByAccountId: orderHandlerId
   })
 
-  if (orders.length === 0) {
-    throw new Error('No orders need to be paid')
-  }
-
-  await prisma.$transaction(async (tx) => {
-    const orderIds = orders.map((order) => order.id)
-    const guest = await tx.guest.findUnique({
-      where: { id: guestId }
-    })
-
-    await tx.order.updateMany({
-      where: {
-        id: { in: orderIds }
-      },
-      data: {
-        status: OrderStatus.Paid,
-        orderHandlerId
-      }
-    })
-
-    await tx.guest.update({
-      where: { id: guestId },
-      data: {
-        sessionStatus: 'Completed',
-        endedAt: new Date(),
-        refreshToken: null,
-        refreshTokenExpiresAt: null,
-        lastActivityAt: new Date()
-      }
-    })
-
-    if (guest?.tableNumber !== null && guest?.tableNumber !== undefined) {
-      await tx.restaurantTable.update({
-        where: { number: guest.tableNumber },
-        data: {
-          isOccupied: false,
-          lastActivityAt: new Date()
-        }
-      })
-    }
-  })
-
-  const [ordersResult, sockerRecord] = await Promise.all([
-    prisma.order.findMany({
-      where: {
-        id: { in: orders.map((order) => order.id) }
-      },
-      include: {
-        dishSnapshot: true,
-        orderHandler: true,
-        guest: true
-      },
-      orderBy: {
-        createdAt: 'desc'
-      }
-    }),
-
-    prisma.socket.findUnique({
-      where: { guestId }
-    })
-  ])
-
-  return { orders: ordersResult, socketId: sockerRecord?.socketId }
+  return { orders: result.orders, socketId: result.socketId }
 }
 
 export const getOrderDetailController = (orderId: string) => {

@@ -1,5 +1,5 @@
 import envConfig from '@/config/environment'
-import { DishStatus, OrderStatus, Role, TableStatus } from '@/constants/type'
+import { DishStatus, OrderStatus, PaymentStatus, Role, TableStatus } from '@/constants/type'
 import prisma from '@/database'
 import { type GuestCreateOrdersBodyType, type GuestLoginBodyType } from '@/schemas/guest.schema'
 import { TokenPayload } from '@/types/jwt.type'
@@ -151,6 +151,16 @@ export const guestCreateOrdersController = async (guestId: string, body: GuestCr
   const result = await prisma.$transaction(async (tx) => {
     const guest = await tx.guest.findUniqueOrThrow({
       where: { id: guestId }
+    })
+
+    await tx.payment.updateMany({
+      where: {
+        guestId,
+        status: PaymentStatus.Pending
+      },
+      data: {
+        status: PaymentStatus.Expired
+      }
     })
 
     if (guest.tableNumber === null) {

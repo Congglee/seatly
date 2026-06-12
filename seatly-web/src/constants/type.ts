@@ -54,3 +54,57 @@ export const OrderStatusValues = [
 ] as const;
 
 export type OrderStatusValue = (typeof OrderStatusValues)[number];
+
+export const PaymentStatus = {
+  Pending: "Pending",
+  Succeeded: "Succeeded",
+  Failed: "Failed",
+  Expired: "Expired",
+  Cancelled: "Cancelled",
+  NeedsReview: "NeedsReview",
+} as const;
+
+export const PaymentStatusValues = [
+  PaymentStatus.Pending,
+  PaymentStatus.Succeeded,
+  PaymentStatus.Failed,
+  PaymentStatus.Expired,
+  PaymentStatus.Cancelled,
+  PaymentStatus.NeedsReview,
+] as const;
+
+export const PaymentMethod = {
+  Cash: "Cash",
+  ManualBankTransfer: "ManualBankTransfer",
+  BankTransferQr: "BankTransferQr",
+} as const;
+
+export const PaymentMethodValues = [
+  PaymentMethod.Cash,
+  PaymentMethod.ManualBankTransfer,
+  PaymentMethod.BankTransferQr,
+] as const;
+
+export const PaymentProvider = {
+  SePay: "SePay",
+} as const;
+
+export const PaymentProviderValues = [PaymentProvider.SePay] as const;
+
+export const PaymentTransactionStatus = {
+  Matched: "Matched",
+  Unmatched: "Unmatched",
+  Duplicate: "Duplicate",
+  AlreadySettled: "AlreadySettled",
+  NeedsReview: "NeedsReview",
+  Ignored: "Ignored",
+} as const;
+
+export const PaymentTransactionStatusValues = [
+  PaymentTransactionStatus.Matched,
+  PaymentTransactionStatus.Unmatched,
+  PaymentTransactionStatus.Duplicate,
+  PaymentTransactionStatus.AlreadySettled,
+  PaymentTransactionStatus.NeedsReview,
+  PaymentTransactionStatus.Ignored,
+] as const;

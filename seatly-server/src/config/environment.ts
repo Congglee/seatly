@@ -53,6 +53,13 @@ export const envConfigSchema = z.object({
 
   CLIENT_URL: z.string(),
 
+  PAYMENT_API_KEY: z.string(),
+  PAYMENT_CODE_PREFIX: z.string().default('STL'),
+  PAYMENT_QR_EXPIRES_MINUTES: z.coerce.number().positive().default(30),
+  SEPAY_BANK_ACCOUNT: z.string(),
+  SEPAY_BANK_CODE: z.string(),
+  SEPAY_EXPECTED_GATEWAY: z.string().optional(),
+
   PRODUCTION: z.enum(['true', 'false']).transform((value) => value === 'true'),
   DOCKER: z.enum(['true', 'false']).transform((value) => value === 'true'),
   PRODUCTION_URL: z.string(),
