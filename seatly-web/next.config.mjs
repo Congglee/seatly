@@ -33,6 +33,11 @@ const nextConfig = {
         hostname: "qr.sepay.vn",
         pathname: "/img",
       },
+      {
+        protocol: "https",
+        hostname: "seatly-prod-server.onrender.com",
+        pathname: "/static/**",
+      },
     ],
   },
 };
